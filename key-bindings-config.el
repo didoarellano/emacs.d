@@ -10,4 +10,8 @@
 (define-key evil-normal-state-map (kbd "SPC c") 'ace-jump-char-mode)
 
 
+;; Overwrite find-file-read-only with ido-recentf-open
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+
+
 (provide 'key-bindings-config)

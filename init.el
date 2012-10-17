@@ -11,6 +11,7 @@
                  package-config
                  evil-config
                  ido-config
+                 recentf-ido-config
                  smex-config
                  ace-jump-mode
                  autopair-config

@@ -24,12 +24,6 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-;; Remember recent files
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 30)
-
-
 (setq backup-directory-alist `(("." . ,user-tmp-directory)))
 (setq auto-save-file-name-transforms `((".*" ,user-tmp-directory t)))
 
