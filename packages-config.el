@@ -24,4 +24,14 @@
     (package-install p)))
 
 
-(provide 'package-config)
+;; Packages that aren't in M/ELPA are added as git submodules.
+
+;; eproject
+;; https://github.com/jrockway/eproject
+(add-to-list 'load-path (concat dotemacs-dir "site-lisp/eproject"))
+(require 'eproject)
+(require 'eproject-extras)
+(setq eproject-completing-read-function 'eproject--ido-completing-read)
+
+
+(provide 'packages-config)

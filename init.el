@@ -8,7 +8,7 @@
 				(concat dotemacs-dir "tmp/")))
 
 (mapc 'require '(
-                 package-config
+                 packages-config
                  evil-config
                  ido-config
                  recentf-ido-config
