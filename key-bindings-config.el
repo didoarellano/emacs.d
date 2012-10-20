@@ -16,6 +16,20 @@ ace-jump-char-mode with <x> as query char."
       (ace-jump-char-mode next-key))))
 
 
+;; Quicker scrolling with C-e & C-y
+(defun quicker-evil-scroll-line-down ()
+  (interactive)
+  (evil-scroll-line-down 5))
+(defun quicker-evil-scroll-line-up ()
+  (interactive)
+  (evil-scroll-line-up 5))
+
+(define-key evil-normal-state-map (kbd "C-e") 'quicker-evil-scroll-line-down)
+(define-key evil-visual-state-map (kbd "C-e") 'quicker-evil-scroll-line-down)
+(define-key evil-normal-state-map (kbd "C-y") 'quicker-evil-scroll-line-up)
+(define-key evil-visual-state-map (kbd "C-y") 'quicker-evil-scroll-line-up)
+
+
 ;; Overwrite find-file-read-only with ido-recentf-open
 (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
 
