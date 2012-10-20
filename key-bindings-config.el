@@ -4,10 +4,16 @@
 
 
 ;; Evil mapppings for ace-jump-mode
-(define-key evil-normal-state-map (kbd "SPC j") 'ace-jump-line-mode)
-(define-key evil-normal-state-map (kbd "SPC k") 'ace-jump-line-mode)
-(define-key evil-normal-state-map (kbd "SPC w") 'ace-jump-word-mode)
-(define-key evil-normal-state-map (kbd "SPC c") 'ace-jump-char-mode)
+(define-key evil-normal-state-map (kbd "SPC") 'do-ace-jump-char-or-line)
+(define-key evil-normal-state-map (kbd "C-SPC") 'ace-jump-word-mode)
+
+(defun do-ace-jump-char-or-line (arg)
+  "SPC SPC executes ace-jump-line-mode, SPC <x> executes
+ace-jump-char-mode with <x> as query char."
+  (interactive "p")
+  (let ((next-key (read-event)))
+    (if (= next-key ?\s) (ace-jump-line-mode)
+      (ace-jump-char-mode next-key))))
 
 
 ;; Overwrite find-file-read-only with ido-recentf-open
