@@ -30,6 +30,11 @@ ace-jump-char-mode with <x> as query char."
 (define-key evil-visual-state-map (kbd "C-y") 'quicker-evil-scroll-line-up)
 
 
+;; Quicker access to M-x.
+(define-key evil-normal-state-map (kbd ";") 'smex)
+(define-key evil-visual-state-map (kbd ";") 'smex)
+
+
 ;; Overwrite find-file-read-only with ido-recentf-open
 (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
 
