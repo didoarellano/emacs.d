@@ -14,4 +14,16 @@
 (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
 
 
+;; Use C-x C-f for eproject-find-file if we're in a project & ido-find-file
+;; when we're not
+(global-set-key (kbd "C-x C-f")
+                '(lambda ()
+                   (interactive)
+                   (if eproject-root (eproject-find-file)
+                     (ido-find-file))))
+
+;; Just in case we want regular ido-find-file in a project
+(global-set-key (kbd "C-c C-x C-f") 'ido-find-file)
+
+
 (provide 'key-bindings-config)
