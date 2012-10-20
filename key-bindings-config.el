@@ -3,6 +3,12 @@
 (setq mac-option-modifier 'super)
 
 
+;; Buffer navigation switcheroo.
+;; Makes C-x C-b consistent with C-x C-f/C-r mappings.
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x b") 'list-buffers)
+
+
 ;; Evil mapppings for ace-jump-mode
 (define-key evil-normal-state-map (kbd "SPC") 'do-ace-jump-char-or-line)
 (define-key evil-normal-state-map (kbd "C-SPC") 'ace-jump-word-mode)
