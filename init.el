@@ -10,9 +10,7 @@
 (mapc 'require '(
                  packages-config
                  evil-config
-                 ido-config
-                 recentf-ido-config
-                 smex-config
+                 minibuffer-config
                  ace-jump-mode
                  autopair-config
                  key-bindings-config
