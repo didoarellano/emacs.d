@@ -1,9 +1,7 @@
 (require 'tango-2-theme)
 (load-theme 'tango-2 t)
 
-;; (set-face-attribute 'default nil :font "Menlo-11")
-; (setq default-frame-alist '((font . "Menlo-11")))
-(set-frame-font "Menlo-11")
+(set-face-attribute 'default nil :font "Menlo-11")
 (setq-default line-spacing 0.25)
 
 ;; Cursor, cursorline and mouse settings
