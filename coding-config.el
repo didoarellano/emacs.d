@@ -22,8 +22,7 @@
 ;; Wrap on word boundaries when toggling truncation
 (setq-default word-wrap t)
 
-;; Highlight evil trailing whitespace & remove on write
-(setq-default show-trailing-whitespace t)
+;; Delete trailing whitespace on write
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
