@@ -14,7 +14,7 @@
 (setq-default tab-width 4)
 
 ;; Wrap lines at 80 chars not 70
-(setq fill-column 80)
+(setq-default fill-column 80)
 
 ;; Don't wrap by default. Toggle with M-x toggle-truncate-lines
 (setq-default truncate-lines t)
