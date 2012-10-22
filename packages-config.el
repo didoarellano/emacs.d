@@ -14,6 +14,7 @@
                         ace-jump-mode
                         autopair
                         smex
+                        zencoding-mode
 
                         js2-mode
 
