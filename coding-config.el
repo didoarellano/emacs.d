@@ -37,7 +37,8 @@
 (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
 (add-hook 'js2-mode-hook (lambda () (require 'js2-mode-config)))
 
-
+;; HTML
+(add-hook 'sgml-mode-hook (lambda () (require 'html-mode-config)))
 
 
 (provide 'coding-config)
