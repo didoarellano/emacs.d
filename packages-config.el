@@ -15,6 +15,7 @@
                         autopair
                         smex
                         zencoding-mode
+                        yasnippet
 
                         js2-mode
 
