@@ -24,8 +24,8 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-(setq backup-directory-alist `(("." . ,user-tmp-directory)))
-(setq auto-save-file-name-transforms `((".*" ,user-tmp-directory t)))
+(setq backup-directory-alist `(("." . ,dido-tmp-directory)))
+(setq auto-save-file-name-transforms `((".*" ,dido-tmp-directory t)))
 
 ; Make backups even when using version control
 (setq vc-make-backup-files t)

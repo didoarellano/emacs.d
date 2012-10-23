@@ -38,7 +38,7 @@
 (setq smex-key-advice-ignore-menu-bar t)
 
 ;; Don't poop in my home directory
-(setq smex-save-file (concat user-tmp-directory "smex-items"))
+(setq smex-save-file (concat dido-tmp-directory "smex-items"))
 
 ;; Smexify my M-x
 (global-set-key (kbd "M-x") 'smex)

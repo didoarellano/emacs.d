@@ -6,7 +6,7 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(defvar user-packages '(
+(defvar dido-packages '(
                         evil
                         surround
                         tango-2-theme
@@ -20,7 +20,7 @@
 
                         ))
 
-(dolist (p user-packages)
+(dolist (p dido-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 

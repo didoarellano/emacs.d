@@ -4,7 +4,7 @@
 
 ;; Try and keep emacs from pooping all over my home directory with
 ;; backups, save-files, ido, smex, etc
-(defvar user-tmp-directory (expand-file-name
+(defvar dido-tmp-directory (expand-file-name
 				(concat dotemacs-dir "tmp/")))
 
 (mapc 'require '(
