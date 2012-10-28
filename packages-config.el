@@ -18,6 +18,7 @@
                         yasnippet
 
                         js2-mode
+                        markdown-mode
 
                         ))
 

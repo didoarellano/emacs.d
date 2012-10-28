@@ -41,4 +41,10 @@
 (add-hook 'sgml-mode-hook (lambda () (require 'html-mode-config)))
 
 
+;; Markdown
+(autoload 'markdown-mode "markdown-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+
 (provide 'coding-config)
