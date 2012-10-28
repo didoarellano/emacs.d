@@ -13,6 +13,7 @@
                  minibuffer-config
                  ace-jump-mode
                  autopair-config
+                 yasnippet-config
                  key-bindings-config
                  gui-config
                  coding-config
