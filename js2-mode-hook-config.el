@@ -13,4 +13,4 @@
 ;; workgroups prefix.
 (define-key js2-mode-map (kbd "C-a") nil)
 
-(provide 'js2-mode-config)
+(provide 'js2-mode-hook-config)

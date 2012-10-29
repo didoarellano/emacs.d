@@ -7,4 +7,4 @@
 (define-key zencoding-mode-keymap (kbd "<M-return>") 'zencoding-expand-line)
 
 
-(provide 'html-mode-config)
+(provide 'html-mode-hook-config)

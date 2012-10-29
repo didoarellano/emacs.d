@@ -35,10 +35,10 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
 (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
-(add-hook 'js2-mode-hook (lambda () (require 'js2-mode-config)))
+(add-hook 'js2-mode-hook (lambda () (require 'js2-mode-hook-config)))
 
 ;; HTML
-(add-hook 'sgml-mode-hook (lambda () (require 'html-mode-config)))
+(add-hook 'sgml-mode-hook (lambda () (require 'html-mode-hook-config)))
 
 ;; CSS
 (setq css-indent-offset 2)
