@@ -10,7 +10,6 @@
 (mapc 'require '(
                  packages-config
                  minibuffer-config
-                 ace-jump-mode
                  key-bindings-config
                  gui-config
                  coding-config
