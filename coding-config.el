@@ -26,9 +26,9 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-;; =============
-;; Mode mappings
-;; =============
+;; ==============================
+;; Mode mappings & quick settings
+;; ==============================
 
 ;; JavaScript
 (autoload 'js2-mode "js2-mode" nil t)
@@ -40,6 +40,8 @@
 ;; HTML
 (add-hook 'sgml-mode-hook (lambda () (require 'html-mode-config)))
 
+;; CSS
+(setq css-indent-offset 2)
 
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode" nil t)
