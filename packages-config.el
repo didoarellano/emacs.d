@@ -7,19 +7,30 @@
   (package-refresh-contents))
 
 (defvar dido-packages '(
+
+                        ;; Evil vimulation. Emacs' missing editor
                         evil
                         surround
-                        tango-2-theme
-                        smooth-scrolling
-                        ace-jump-mode
-                        autopair
-                        smex
-                        zencoding-mode
+
+                        ;; Coding helpers
                         yasnippet
+                        zencoding-mode
+                        autopair
+
+                        ;; Buffer/window/project management
                         workgroups
 
+                        ;; Other utils
+                        smooth-scrolling
+                        smex
+                        ace-jump-mode
+
+                        ;; Language modes
                         js2-mode
                         markdown-mode
+
+                        ;; Color themes
+                        tango-2-theme
 
                         ))
 
@@ -27,6 +38,7 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+;; If [package-name]-config.el exists, we require [package-name]-config.
 (dolist (p dido-packages)
   (let ((config-name (concat (symbol-name p) "-config")))
     (if (file-exists-p (concat dotemacs-dir config-name ".el"))
