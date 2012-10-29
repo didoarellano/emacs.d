@@ -16,6 +16,7 @@
                         smex
                         zencoding-mode
                         yasnippet
+                        workgroups
 
                         js2-mode
                         markdown-mode
