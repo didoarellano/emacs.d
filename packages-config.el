@@ -27,6 +27,11 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+(dolist (p dido-packages)
+  (let ((config-name (concat (symbol-name p) "-config")))
+    (if (file-exists-p (concat dotemacs-dir config-name ".el"))
+       (require (intern config-name)))))
+
 
 ;; Packages that aren't in M/ELPA are added as git submodules.
 

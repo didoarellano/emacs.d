@@ -9,12 +9,8 @@
 
 (mapc 'require '(
                  packages-config
-                 evil-config
                  minibuffer-config
                  ace-jump-mode
-                 autopair-config
-                 yasnippet-config
-                 workgroups-config
                  key-bindings-config
                  gui-config
                  coding-config
