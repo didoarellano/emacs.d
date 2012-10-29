@@ -1,3 +1,0 @@
-[submodule "site-lisp/eproject"]
-	path = site-lisp/eproject
-	url = https://github.com/jrockway/eproject.git

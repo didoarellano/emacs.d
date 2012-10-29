@@ -19,6 +19,7 @@
 
                         ;; Buffer/window/project management
                         workgroups
+                        eproject
 
                         ;; Other utils
                         smooth-scrolling
@@ -43,16 +44,6 @@
   (let ((config-name (concat (symbol-name p) "-config")))
     (if (file-exists-p (concat dotemacs-dir config-name ".el"))
        (require (intern config-name)))))
-
-
-;; Packages that aren't in M/ELPA are added as git submodules.
-
-;; eproject
-;; https://github.com/jrockway/eproject
-(add-to-list 'load-path (concat dotemacs-dir "site-lisp/eproject"))
-(require 'eproject)
-(require 'eproject-extras)
-(setq eproject-completing-read-function 'eproject--ido-completing-read)
 
 
 (provide 'packages-config)
