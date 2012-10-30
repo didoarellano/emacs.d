@@ -60,9 +60,8 @@
 ;; ======================
 
 ;; HTML mode
-(add-hook 'sgml-mode-hook 'dido-html-mode-map)
-(defun dido-html-mode-map ()
-  (define-key html-mode-map (kbd "<return>") 'dido-html-expand-newline-if-between-tags))
+(evil-define-key 'insert html-mode-map
+  (kbd "<return>") 'dido-html-expand-newline-if-between-tags)
 
 
 (provide 'key-bindings-config)
