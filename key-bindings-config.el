@@ -52,16 +52,25 @@
 (define-key evil-normal-state-map (kbd "<return>") 'dido-insert-newline-below)
 (define-key evil-normal-state-map (kbd "<S-return>") 'dido-insert-newline-above)
 
-(define-key evil-insert-state-map (kbd "C-;") 'dido-insert-semicolon-at-eol)
-
 
 ;; ======================
 ;; Mode Specific Mappings
 ;; ======================
 
+;; JS modes
+(evil-define-key 'insert js2-mode-map
+  (kbd "C-;") 'dido-insert-semicolon-at-eol)
+
+(evil-define-key 'insert js-mode-map
+  (kbd "C-;") 'dido-insert-semicolon-at-eol)
+
 ;; HTML mode
 (evil-define-key 'insert html-mode-map
   (kbd "<return>") 'dido-html-expand-newline-if-between-tags)
+
+;; CSS mode
+(evil-define-key 'insert css-mode-map
+  (kbd "C-;") 'dido-insert-semicolon-at-eol)
 
 
 (provide 'key-bindings-config)
