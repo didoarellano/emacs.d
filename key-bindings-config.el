@@ -36,21 +36,18 @@
 ;; Evil Mappings
 ;; =============
 
+;; NOTE: normal and visual states inherit from motion state.
+
 ;; Evil mapppings for ace-jump-mode
-(define-key evil-normal-state-map (kbd "SPC") 'dido-do-ace-jump-char-or-line)
 (define-key evil-motion-state-map (kbd "SPC") 'dido-do-ace-jump-char-or-line)
-(define-key evil-normal-state-map (kbd "C-SPC") 'ace-jump-word-mode)
 (define-key evil-motion-state-map (kbd "C-SPC") 'ace-jump-word-mode)
 
 ;; Quicker scrolling with C-e & C-y
-(define-key evil-normal-state-map (kbd "C-e") 'dido-evil-scroll-line-down)
-(define-key evil-visual-state-map (kbd "C-e") 'dido-evil-scroll-line-down)
-(define-key evil-normal-state-map (kbd "C-y") 'dido-evil-scroll-line-up)
-(define-key evil-visual-state-map (kbd "C-y") 'dido-evil-scroll-line-up)
+(define-key evil-motion-state-map (kbd "C-e") 'dido-evil-scroll-line-down)
+(define-key evil-motion-state-map (kbd "C-y") 'dido-evil-scroll-line-up)
 
 ;; Quicker access to smexy M-x.
-(define-key evil-normal-state-map (kbd ";") 'smex)
-(define-key evil-visual-state-map (kbd ";") 'smex)
+(define-key evil-motion-state-map (kbd ";") 'smex)
 
 (define-key evil-normal-state-map (kbd "<return>") 'dido-insert-newline-below)
 (define-key evil-normal-state-map (kbd "<S-return>") 'dido-insert-newline-above)
