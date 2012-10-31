@@ -25,6 +25,7 @@
                         smooth-scrolling
                         smex
                         ace-jump-mode
+                        diminish
 
                         ;; Language modes
                         js2-mode
