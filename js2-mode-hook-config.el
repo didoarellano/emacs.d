@@ -1,4 +1,4 @@
-(setq mode-name "JS2")
+(setq mode-name "js2")
 
 (setq-default js2-indent-on-enter-key t)
 (setq-default js2-enter-indents-newline t)

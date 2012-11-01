@@ -1,3 +1,5 @@
+(setq mode-name "html")
+
 ;; Zencoding mode
 (require 'zencoding-mode)
 (zencoding-mode)
