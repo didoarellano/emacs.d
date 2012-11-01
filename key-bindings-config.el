@@ -68,6 +68,9 @@
 (evil-define-key 'insert html-mode-map
   (kbd "<return>") 'dido-html-expand-newline-if-between-tags)
 
+(evil-define-key 'motion html-mode-map
+  "%" 'dido-html-evil-skip-to-matching-tag)
+
 ;; CSS mode
 (evil-define-key 'insert css-mode-map
   (kbd "C-;") 'dido-insert-semicolon-at-eol)
