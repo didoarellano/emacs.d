@@ -1,11 +1,3 @@
-(defun dido-do-ace-jump-char-or-line (arg)
-  "[prefix] SPC executes `ace-jump-line-mode', [prefix] <x> executes `ace-jump-char-mode'
-with <x> as query char."
-  (interactive "p")
-  (let ((next-key (read-event)))
-    (if (= next-key ?\s) (ace-jump-line-mode)
-      (ace-jump-char-mode next-key))))
-
 (defun dido-insert-newline-below ()
   "Insert newline below and mantain position of point."
   (interactive)

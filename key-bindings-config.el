@@ -38,10 +38,6 @@
 
 ;; NOTE: normal and visual states inherit from motion state.
 
-;; Evil mapppings for ace-jump-mode
-(define-key evil-motion-state-map (kbd "SPC") 'dido-do-ace-jump-char-or-line)
-(define-key evil-motion-state-map (kbd "C-SPC") 'ace-jump-word-mode)
-
 ;; Quicker scrolling with C-e & C-y
 (define-key evil-motion-state-map (kbd "C-e") 'dido-evil-scroll-line-down)
 (define-key evil-motion-state-map (kbd "C-y") 'dido-evil-scroll-line-up)
