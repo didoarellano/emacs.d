@@ -22,10 +22,12 @@
                         eproject
 
                         ;; Other utils
+                        exec-path-from-shell
                         smooth-scrolling
                         smex
                         ace-jump-mode
                         diminish
+                        magit
 
                         ;; Language modes
                         js2-mode
