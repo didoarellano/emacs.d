@@ -1,5 +1,8 @@
 (require 'ace-jump-mode)
 
+;; Make ace-jump case sensitive
+(setq ace-jump-mode-case-fold nil)
+
 (define-key evil-motion-state-map (kbd "SPC") 'dido-do-ace-jump-char-or-line)
 (define-key evil-motion-state-map (kbd "C-SPC") 'ace-jump-word-mode)
 
