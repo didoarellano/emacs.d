@@ -67,7 +67,7 @@ to `evil-ret' if not."
     ;; Jump to beginning of tag under point so that our naive regexes work.
     (sgml-beginning-of-tag)
 
-    (cond ((looking-at "<[A-Za-z]+")
+    (cond ((looking-at "<[A-Za-z0-9]+")
            ;; We're on an opening tag.
            (sgml-skip-tag-forward 1)
            (if (not (looking-at ">"))
@@ -76,7 +76,7 @@ to `evil-ret' if not."
                ;; to what is presumably the closing tag's ">".
                (backward-char 1)))
 
-          ((looking-at "<\/[A-Za-z]+>")
+          ((looking-at "<\/[A-Za-z0-9]+>")
            ;; We're on a closing tag.
            ;; Move point between "<" and "/" because if it's before "<"
            ;; `sgml-skip-tag-backward' goes to the wrong opening tag.
