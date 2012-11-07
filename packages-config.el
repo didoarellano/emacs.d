@@ -49,4 +49,16 @@
        (require (intern config-name)))))
 
 
+;; Some packages will be added as git submodules because they're not on M/ELPA
+;; or other reasons.
+
+;; Powerline
+;; https://github.com/milkypostman/powerline
+;; Powerline is in MELPA but we get an error[1] when it is installed and compiled
+;; through package.el. We should file an issue on github.
+;; [1]: Symbol's function definition is void: gensym
+;; Powerline configuration is in modeline-config.el
+(add-to-list 'load-path (concat dotemacs-dir "site-lisp/powerline"))
+
+
 (provide 'packages-config)
