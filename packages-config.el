@@ -26,7 +26,6 @@
                         smooth-scrolling
                         smex
                         ace-jump-mode
-                        diminish
                         magit
 
                         ;; Language modes

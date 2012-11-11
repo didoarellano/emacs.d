@@ -34,21 +34,5 @@
 (set-face-attribute 'mode-line nil :height 0.9)
 (set-face-attribute 'mode-line-inactive nil :height 0.9)
 
-;; Clean up with diminish
-(require 'diminish)
-
-;; Hide minor modes
-(eval-after-load "autopair"
-  '(diminish 'autopair-mode))
-(eval-after-load "eproject"
-  '(diminish 'eproject-mode))
-(eval-after-load "undo-tree"
-  '(diminish 'undo-tree-mode))
-(eval-after-load "workgroups"
-  '(diminish 'workgroups-mode))
-(eval-after-load "yasnippet"
-  '(diminish 'yas-minor-mode))
-(eval-after-load "zencoding-mode"
-  '(diminish 'zencoding-mode))
 
 (provide 'gui-config)
