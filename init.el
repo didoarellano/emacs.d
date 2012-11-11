@@ -16,4 +16,5 @@
                  coding-config
                  misc-config
                  dido-immortal-scratchbuff
+                 dido-text-scale
                  ))
