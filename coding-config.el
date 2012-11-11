@@ -49,4 +49,7 @@
 (add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
 
+;; Emacs Lisp
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq mode-name "el")))
+
 (provide 'coding-config)
