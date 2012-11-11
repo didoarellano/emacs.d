@@ -21,10 +21,6 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
-; Show buffer boundaries/scrollability in right fringe
-(setq-default indicate-buffer-boundaries (quote right))
-
-
 ;; Modeline
 (require 'modeline-config)
 
