@@ -18,6 +18,18 @@
 ;; No error dings
 (setq ring-bell-function 'ignore visible-bell nil)
 
+;; Initial frame size and position.
+(setq initial-frame-alist (append
+                           '((top . 0)
+                             (left . 0)
+                             (width . 99))
+                           initial-frame-alist))
+(add-to-list 'initial-frame-alist
+             ;; Height of display minus OS chrome (menu bar and app title bar on
+             ;; OSX) divided by height of a char.
+             (cons 'height (/ (- (x-display-pixel-height) 45)
+                              (frame-char-height))))
+
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
