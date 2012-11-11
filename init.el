@@ -15,4 +15,5 @@
                  gui-config
                  coding-config
                  misc-config
+                 dido-immortal-scratchbuff
                  ))
