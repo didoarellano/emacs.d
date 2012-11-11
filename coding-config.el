@@ -41,7 +41,7 @@
 (add-hook 'sgml-mode-hook (lambda () (require 'html-mode-hook-config)))
 
 ;; CSS
-(setq css-indent-offset 2)
+(add-hook 'css-mode-hook (lambda () (require 'css-mode-hook-config)))
 
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode" nil t)
