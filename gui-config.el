@@ -26,13 +26,7 @@
 
 
 ;; Modeline
-
-;; Show column number in modeline
-(setq column-number-mode t)
-
-;; Smaller modeline
-(set-face-attribute 'mode-line nil :height 0.9)
-(set-face-attribute 'mode-line-inactive nil :height 0.9)
+(require 'modeline-config)
 
 
 (provide 'gui-config)
