@@ -1,5 +1,3 @@
-(require 'dido-defuns)
-
 ;; Make command key meta
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
@@ -47,22 +45,6 @@
 
 (define-key evil-normal-state-map (kbd "<return>") 'dido-insert-newline-below)
 (define-key evil-normal-state-map (kbd "<S-return>") 'dido-insert-newline-above)
-
-
-;; ======================
-;; Mode Specific Mappings
-;; ======================
-
-;; JS modes
-(evil-define-key 'insert js2-mode-map
-  (kbd "C-;") 'dido-insert-semicolon-at-eol)
-
-(evil-define-key 'insert js-mode-map
-  (kbd "C-;") 'dido-insert-semicolon-at-eol)
-
-;; CSS mode
-(evil-define-key 'insert css-mode-map
-  (kbd "C-;") 'dido-insert-semicolon-at-eol)
 
 
 (provide 'key-bindings-config)

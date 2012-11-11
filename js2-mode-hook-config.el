@@ -13,4 +13,8 @@
 ;; workgroups prefix.
 (define-key js2-mode-map (kbd "C-a") nil)
 
+(define-key evil-insert-state-local-map
+  (kbd "C-;") 'dido-insert-semicolon-at-eol)
+
+
 (provide 'js2-mode-hook-config)

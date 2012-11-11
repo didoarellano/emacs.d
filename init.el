@@ -5,9 +5,10 @@
 ;; Try and keep emacs from pooping all over my home directory with
 ;; backups, save-files, ido, smex, etc
 (defvar dido-tmp-directory (expand-file-name
-				(concat dotemacs-dir "tmp/")))
+                            (concat dotemacs-dir "tmp/")))
 
 (mapc 'require '(
+                 dido-defuns
                  packages-config
                  minibuffer-config
                  key-bindings-config
