@@ -32,5 +32,10 @@
 ; Make backups even when using version control
 (setq vc-make-backup-files t)
 
+;; OSX
+;; Don't make new frames when opening files from other apps (Finder,
+;; Quicksilver, etc).
+(setq ns-pop-up-frames nil)
+
 
 (provide 'misc-config)
