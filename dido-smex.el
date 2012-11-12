@@ -13,4 +13,4 @@
 (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 
-(provide 'smex-config)
+(provide 'dido-smex)

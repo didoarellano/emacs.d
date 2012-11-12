@@ -41,4 +41,4 @@
 (define-key evil-normal-state-map (kbd "<S-return>") 'dido-insert-newline-above)
 
 
-(provide 'key-bindings-config)
+(provide 'dido-key-bindings)

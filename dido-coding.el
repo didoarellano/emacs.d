@@ -37,13 +37,13 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
 (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
-(add-hook 'js2-mode-hook (lambda () (require 'js2-mode-hook-config)))
+(add-hook 'js2-mode-hook (lambda () (require 'dido-js2-mode-hook)))
 
 ;; HTML
-(add-hook 'sgml-mode-hook (lambda () (require 'html-mode-hook-config)))
+(add-hook 'sgml-mode-hook (lambda () (require 'dido-html-mode-hook)))
 
 ;; CSS
-(add-hook 'css-mode-hook (lambda () (require 'css-mode-hook-config)))
+(add-hook 'css-mode-hook (lambda () (require 'dido-css-mode-hook)))
 
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode" nil t)
@@ -54,4 +54,5 @@
 ;; Emacs Lisp
 (add-hook 'emacs-lisp-mode-hook (lambda () (setq mode-name "el")))
 
-(provide 'coding-config)
+
+(provide 'dido-coding)

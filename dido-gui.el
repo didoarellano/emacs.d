@@ -40,7 +40,7 @@
                   "%b"))))
 
 ;; Modeline
-(require 'modeline-config)
+(require 'dido-modeline)
 
 
-(provide 'gui-config)
+(provide 'dido-gui)

@@ -9,4 +9,5 @@
 
 (workgroups-mode 1)
 
-(provide 'workgroups-config)
+
+(provide 'dido-workgroups)

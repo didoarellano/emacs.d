@@ -5,4 +5,5 @@
 
 (yas-global-mode 1)
 
-(provide 'yasnippet-config)
+
+(provide 'dido-yasnippet)

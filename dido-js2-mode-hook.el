@@ -17,4 +17,4 @@
   (kbd "C-;") 'dido-insert-semicolon-at-eol)
 
 
-(provide 'js2-mode-hook-config)
+(provide 'dido-js2-mode-hook)

@@ -20,4 +20,5 @@
   ;; since we killed it, don't let caller do that.
   nil)
 
+
 (provide 'dido-immortal-scratchbuff)

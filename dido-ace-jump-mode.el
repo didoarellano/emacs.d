@@ -53,4 +53,4 @@ with <x> as query char."
     (evil-goto-mark ?+)))
 
 
-(provide 'ace-jump-mode-config)
+(provide 'dido-ace-jump-mode)

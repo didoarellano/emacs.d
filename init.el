@@ -9,12 +9,12 @@
 
 (mapc 'require '(
                  dido-defuns
-                 packages-config
-                 minibuffer-config
-                 key-bindings-config
-                 gui-config
-                 coding-config
-                 misc-config
+                 dido-packages
+                 dido-minibuffer
+                 dido-key-bindings
+                 dido-gui
+                 dido-coding
+                 dido-misc
                  dido-immortal-scratchbuff
                  dido-text-scale
                  ))

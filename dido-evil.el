@@ -20,4 +20,4 @@
 (global-surround-mode 1)
 
 
-(provide 'evil-config)
+(provide 'dido-evil)

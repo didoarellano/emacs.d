@@ -90,4 +90,4 @@
                     (powerline-render rhs))))))
 
 
-(provide 'modeline-config)
+(provide 'dido-modeline)

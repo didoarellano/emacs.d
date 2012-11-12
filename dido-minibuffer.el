@@ -32,4 +32,4 @@
                           nil t))))
 
 
-(provide 'minibuffer-config)
+(provide 'dido-minibuffer)

@@ -10,4 +10,4 @@
 (global-set-key (kbd "C-x b") 'eproject-ibuffer)
 
 
-(provide 'eproject-config)
+(provide 'dido-eproject)

@@ -41,9 +41,9 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
-;; If [package-name]-config.el exists, we require [package-name]-config.
+;; If dido-[package-name].el exists, we require dido-[package-name].
 (dolist (p dido-packages)
-  (let ((config-name (concat (symbol-name p) "-config")))
+  (let ((config-name (concat "dido-" (symbol-name p))))
     (if (file-exists-p (concat dotemacs-dir config-name ".el"))
        (require (intern config-name)))))
 
@@ -60,4 +60,4 @@
 (add-to-list 'load-path (concat dotemacs-dir "site-lisp/powerline"))
 
 
-(provide 'packages-config)
+(provide 'dido-packages)

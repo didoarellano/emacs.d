@@ -2,4 +2,4 @@
   (exec-path-from-shell-initialize))
 
 
-(provide 'exec-path-from-shell-config)
+(provide 'dido-exec-path-from-shell)

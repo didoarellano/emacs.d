@@ -4,4 +4,5 @@
 (setq autopair-blink nil)
 (setq autopair-pair-criteria 'always)
 
-(provide 'autopair-config)
+
+(provide 'dido-autopair)

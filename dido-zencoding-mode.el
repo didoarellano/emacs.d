@@ -8,4 +8,4 @@
             (define-key zencoding-mode-keymap (kbd "<M-return>") 'zencoding-expand-line)))
 
 
-(provide 'zencoding-mode-config)
+(provide 'dido-zencoding-mode)

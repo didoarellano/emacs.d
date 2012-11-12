@@ -38,4 +38,4 @@
 (setq ns-pop-up-frames nil)
 
 
-(provide 'misc-config)
+(provide 'dido-misc)
