@@ -59,4 +59,4 @@ to `evil-ret' if not."
     (if visual-line (evil-visual-line))))
 
 
-(provide 'dido-html-mode-hook)
+(provide 'dido-html)

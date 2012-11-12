@@ -44,7 +44,7 @@
 ;; If dido-[package-name].el exists, we require dido-[package-name].
 (dolist (p dido-packages)
   (let ((config-name (concat "dido-" (symbol-name p))))
-    (if (file-exists-p (concat dotemacs-dir config-name ".el"))
+    (if (file-exists-p (concat package-config-dir config-name ".el"))
        (require (intern config-name)))))
 
 

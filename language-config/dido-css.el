@@ -5,4 +5,4 @@
   (kbd "C-;") 'dido-insert-semicolon-at-eol)
 
 
-(provide 'dido-css-mode-hook)
+(provide 'dido-css)
