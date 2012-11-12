@@ -7,6 +7,8 @@
 
 (setq initial-scratch-message nil)
 
+(setq auto-save-default nil)
+
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
