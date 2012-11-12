@@ -33,6 +33,12 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
+;; Frame title bar
+(setq frame-title-format
+  '(" " (:eval (if (buffer-file-name)
+                (abbreviate-file-name (buffer-file-name))
+                  "%b"))))
+
 ;; Modeline
 (require 'modeline-config)
 
