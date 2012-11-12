@@ -18,10 +18,6 @@
 ;; "y" and "n" instead of "yes" and "no"
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; Scrolling
-(require 'smooth-scrolling)
-(setq smooth-scroll-margin 5)
-
 ;; Uniquify buffer with parts of directory name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
