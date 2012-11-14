@@ -16,7 +16,7 @@
                  dido-defuns
                  dido-packages
                  dido-minibuffer
-                 dido-key-bindings
+                 dido-general-keys-and-aliases
                  dido-gui
                  dido-coding
                  dido-misc

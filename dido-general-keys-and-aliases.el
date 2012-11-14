@@ -48,4 +48,4 @@
 (defalias 'rename 'rename-this-buffer-and-file)
 
 
-(provide 'dido-key-bindings)
+(provide 'dido-general-keys-and-aliases)
