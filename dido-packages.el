@@ -39,13 +39,12 @@
 
 (dolist (p dido-packages)
   (when (not (package-installed-p p))
-    (package-install p)))
+    (package-install p))
 
-;; If dido-[package-name].el exists, we require dido-[package-name].
-(dolist (p dido-packages)
+  ;; If dido-[package-name].el exists, we require dido-[package-name].
   (let ((config-name (concat "dido-" (symbol-name p))))
     (if (file-exists-p (concat package-config-dir config-name ".el"))
-       (require (intern config-name)))))
+        (require (intern config-name)))))
 
 
 ;; Some packages will be added as git submodules because they're not on M/ELPA
