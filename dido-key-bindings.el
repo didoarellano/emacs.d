@@ -41,4 +41,11 @@
 (define-key evil-normal-state-map (kbd "<S-return>") 'dido-insert-newline-above)
 
 
+;; =======
+;; Aliases
+;; =======
+
+(defalias 'rename 'rename-this-buffer-and-file)
+
+
 (provide 'dido-key-bindings)
