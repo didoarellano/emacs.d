@@ -19,7 +19,6 @@
 
                         ;; Buffer/window/project management
                         workgroups
-                        eproject
 
                         ;; Other utils
                         exec-path-from-shell
@@ -57,6 +56,14 @@
 ;; [1]: Symbol's function definition is void: gensym
 ;; Powerline configuration is in modeline-config.el
 (add-to-list 'load-path (concat dotemacs-dir "site-lisp/powerline"))
+
+;; eproject
+;; https://github.com/didoarellano/eproject
+;; My fork where git submodules are not treated as separate projects
+;; and .dot-files are not blanket-ignored.
+(add-to-list 'load-path (concat dotemacs-dir "site-lisp/eproject"))
+;; (add-to-list 'load-path "~/code/eproject") ; For development
+(require 'dido-eproject)
 
 
 (provide 'dido-packages)
