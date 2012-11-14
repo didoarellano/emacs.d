@@ -2,7 +2,7 @@
 
 (setq wg-switch-on-load nil)
 (wg-load "~/Dropbox/emacs/workgroups")
-(setq wg-prefix-key (kbd "C-a"))
+(setq wg-prefix-key (kbd "M-w"))
 (setq wg-morph-on nil)
 (setq wg-mode-line-left-brace "")
 (setq wg-mode-line-right-brace "")
