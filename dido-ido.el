@@ -18,17 +18,17 @@
 (add-hook 'ido-minibuffer-setup-hook
           (lambda () (set (make-local-variable 'truncate-lines) nil) ))
 (setq ido-decorations
-      (quote ("\n-> "
+      (quote ("\n ▶ "
               ""
               "\n   "
               "\n   ..."
-              "["
-              "]"
-              " [No match]"
-              " [Matched]"
-              " [Not readable]"
-              " [Too big]"
-              " [Confirm]")))
+              "  ▶ "
+              ""
+              "  ✗ No match"
+              "  ✓ Matched"
+              "  ✗ Not readable"
+              "  ✗ Too big"
+              "  ↵ Confirm")))
 
 
 ;; Use ido for recentf
