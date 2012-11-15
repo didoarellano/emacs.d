@@ -1,5 +1,8 @@
 (setq mode-name "js2")
 
+(require 'js2-imenu-extras)
+(js2-imenu-extras-setup)
+
 (setq-default js2-indent-on-enter-key t)
 (setq-default js2-enter-indents-newline t)
 (setq-default js2-allow-keywords-as-property-names nil)
