@@ -1,30 +1,38 @@
 (require 'ido)
 (ido-mode t)
+
 (add-to-list 'ido-ignore-files "\\.DS_Store")
-
-;; AKA "fuzzy matching"
 (setq ido-enable-flex-matching t)
-
-;; Display ido results vertically, rather than horizontally
-;; from http://emacswiki.org/emacs/InteractivelyDoThings#toc20
-(setq ido-decorations (quote ("\n-> " "" "\n   " "\n   ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
-(defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
-(add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
-
-;; Makes C-x C-b consistent with C-x C-f/C-r mappings.
-(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-
 
 ;; Recentf mode
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 30)
 
-;; Use ido for recentf
-;; from http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/#comment-397
-
+(global-set-key (kbd "C-x C-i") 'ido-imenu)
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x C-r") 'ido-recentf-open) ; was find-file-read-only
 
+;; Display ido results vertically, rather than horizontally
+;; from http://emacswiki.org/emacs/InteractivelyDoThings#toc20
+(add-hook 'ido-minibuffer-setup-hook
+          (lambda () (set (make-local-variable 'truncate-lines) nil) ))
+(setq ido-decorations
+      (quote ("\n-> "
+              ""
+              "\n   "
+              "\n   ..."
+              "["
+              "]"
+              " [No match]"
+              " [Matched]"
+              " [Not readable]"
+              " [Too big]"
+              " [Confirm]")))
+
+
+;; Use ido for recentf
+;; from http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/#comment-397
 (defun ido-recentf-open ()
   "Use ido to select a recently opened file from the `recentf-list'"
   (interactive)
@@ -36,12 +44,9 @@
                                   recentf-list)
                           nil t))))
 
-
 ;; Use ido for imenu
 ;; from https://gist.github.com/2360578
 (require 'imenu)
-(global-set-key (kbd "C-x C-i") 'ido-imenu)
-
 (defun ido-imenu ()
   "Update the imenu index and then use ido to select a symbol to navigate to.
 Symbols matching the text at point are put first in the completion list."
