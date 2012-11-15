@@ -15,7 +15,7 @@
 (mapc 'require '(
                  dido-defuns
                  dido-packages
-                 dido-minibuffer
+                 dido-ido
                  dido-general-keys-and-aliases
                  dido-gui
                  dido-coding

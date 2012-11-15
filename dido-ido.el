@@ -1,4 +1,3 @@
-;; Ido mode
 (require 'ido)
 (ido-mode t)
 (add-to-list 'ido-ignore-files "\\.DS_Store")
@@ -89,4 +88,4 @@ Symbols matching the text at point are put first in the completion list."
       (goto-char position))))
 
 
-(provide 'dido-minibuffer)
+(provide 'dido-ido)
