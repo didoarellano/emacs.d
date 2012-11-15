@@ -12,6 +12,9 @@
 (defun ido-disable-line-trucation () (set (make-local-variable 'truncate-lines) nil))
 (add-hook 'ido-minibuffer-setup-hook 'ido-disable-line-trucation)
 
+;; Makes C-x C-b consistent with C-x C-f/C-r mappings.
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+
 
 ;; Recentf mode
 (require 'recentf)
@@ -20,6 +23,9 @@
 
 ;; Use ido for recentf
 ;; from http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/#comment-397
+
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open) ; was find-file-read-only
+
 (defun ido-recentf-open ()
   "Use ido to select a recently opened file from the `recentf-list'"
   (interactive)

@@ -7,6 +7,9 @@
 ;; we're not
 (global-set-key (kbd "C-x C-f") 'dido-do-find-file-eproject-or-ido)
 
+;; Just in case we want regular ido-find-file in a project
+(global-set-key (kbd "C-c C-x C-f") 'ido-find-file)
+
 (global-set-key (kbd "C-x b") 'eproject-ibuffer)
 
 
