@@ -39,6 +39,7 @@
 
 ;; Use ido for imenu
 ;; from https://gist.github.com/2360578
+(require 'imenu)
 (global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 (defun ido-imenu ()
