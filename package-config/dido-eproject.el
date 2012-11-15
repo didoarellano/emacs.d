@@ -3,14 +3,11 @@
 
 (setq eproject-completing-read-function 'eproject--ido-completing-read)
 
-;; Use C-x C-f for eproject-find-file if we're in a project & ido-find-file when
-;; we're not
-(global-set-key (kbd "C-x C-f") 'dido-do-find-file-eproject-or-ido)
+(define-key eproject-mode-map (kbd "C-c C-f") nil)
+(define-key eproject-mode-map (kbd "C-c C-b") nil)
 
-;; Just in case we want regular ido-find-file in a project
-(global-set-key (kbd "C-c C-x C-f") 'ido-find-file)
-
-(global-set-key (kbd "C-x b") 'eproject-ibuffer)
+(global-set-key (kbd "C-c f") 'dido-do-find-file-eproject-or-ido)
+(global-set-key (kbd "C-c B") 'eproject-ibuffer)
 
 
 (provide 'dido-eproject)

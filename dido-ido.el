@@ -9,9 +9,9 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 30)
 
-(global-set-key (kbd "C-x C-i") 'ido-imenu)
-(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-(global-set-key (kbd "C-x C-r") 'ido-recentf-open) ; was find-file-read-only
+(global-set-key (kbd "C-c b") 'ido-switch-buffer)
+(global-set-key (kbd "C-c r") 'ido-recentf-open)
+(global-set-key (kbd "C-c i") 'ido-imenu)
 
 ;; Display ido results vertically, rather than horizontally
 ;; from http://emacswiki.org/emacs/InteractivelyDoThings#toc20

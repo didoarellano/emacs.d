@@ -7,12 +7,12 @@
 ;; Global Mappings
 ;; ===============
 
-(global-set-key (kbd "C-x C-n") 'make-frame-command)
-(define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word)
+(global-set-key (kbd "C-c n") 'make-frame-command)
+(define-key minibuffer-local-map
+  (kbd "C-w") 'backward-kill-word) ; was kill-region
 
 ;; More "useful" line-commenting shortcut
-;; Originally bound to (comment-dwim)
-(global-set-key (kbd "M-;") 'dido-comment-dwim-line)
+(global-set-key (kbd "M-;") 'dido-comment-dwim-line) ; was comment-dwim
 
 
 ;; =============

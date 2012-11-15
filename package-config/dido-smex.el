@@ -10,7 +10,7 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; This is the old M-x
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+(global-set-key (kbd "C-c M-x") 'execute-extended-command)
 
 
 (provide 'dido-smex)
