@@ -4,3 +4,6 @@
 [submodule "site-lisp/eproject"]
 	path = site-lisp/eproject
 	url = https://github.com/didoarellano/eproject.git
+[submodule "site-lisp/linum-relative"]
+	path = site-lisp/linum-relative
+	url = https://github.com/coldnew/linum-relative.git

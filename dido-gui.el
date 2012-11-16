@@ -11,9 +11,23 @@
 
 ;; Line numbers
 (global-linum-mode 1)
-(setq linum-format " %2d")
 (set-face-attribute 'linum nil :height 0.8)
 (set-face-attribute 'linum nil :slant 'italic)
+
+;; Relative line numbers
+(require 'linum-relative)
+(setq linum-relative-current-symbol "▶")
+(setq linum-format 'linum-relative)
+(custom-set-faces
+ '(linum-relative-current-face ((t :inherit linum :foreground "#ffffff"))))
+
+(defun dido-toggle-linum-format ()
+  (if (eq linum-format 'linum-relative)
+      (setq linum-format " %2d")
+    (setq linum-format 'linum-relative)))
+
+(add-hook 'evil-insert-state-entry-hook 'dido-toggle-linum-format)
+(add-hook 'evil-insert-state-exit-hook  'dido-toggle-linum-format)
 
 ;; No error dings
 (setq ring-bell-function 'ignore visible-bell nil)

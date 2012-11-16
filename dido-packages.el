@@ -67,5 +67,9 @@
 ;; (add-to-list 'load-path "~/code/eproject") ; For development
 (require 'dido-eproject)
 
+;; linum-relative
+;; https://github.com/coldnew/linum-relative
+(add-to-list 'load-path (concat dotemacs-dir "site-lisp/linum-relative"))
+;; Configuration is in dido-gui.el
 
 (provide 'dido-packages)
