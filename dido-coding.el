@@ -45,6 +45,9 @@
 ;; CSS
 (require 'dido-css)
 
+;; Org
+(require 'dido-org)
+
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
