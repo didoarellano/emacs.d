@@ -31,6 +31,7 @@
 (define-key evil-normal-state-map (kbd "<return>") 'dido-insert-newline-below)
 (define-key evil-normal-state-map (kbd "<S-return>") 'dido-insert-newline-above)
 
+(define-key evil-visual-state-map "~" 'toggle-letter-case)
 
 ;; =======
 ;; Aliases
