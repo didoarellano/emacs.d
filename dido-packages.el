@@ -34,6 +34,8 @@
                         ;; Color themes
                         tango-2-theme
 
+                        org-bullets
+
                         ))
 
 (dolist (p dido-packages)
