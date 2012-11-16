@@ -1,14 +1,13 @@
-(setq mode-name "html")
+(evil-define-key 'insert html-mode-map (kbd "<return>")
+  'dido-html-expand-newline-if-between-tags)
 
-;; Use define-key instead of evil-define-key because, with the latter, our "%"
-;; binding doesn't take effect in normal state until we execute it in visual
-;; state. We do the same for the "RET" binding for consistency.
+(evil-define-key 'motion html-mode-map (kbd "%")
+  'dido-html-evil-skip-to-matching-tag)
 
-(define-key evil-insert-state-local-map
-  (kbd "<return>") 'dido-html-expand-newline-if-between-tags)
-
-(define-key evil-motion-state-local-map
-  (kbd "%") 'dido-html-evil-skip-to-matching-tag)
+(add-hook 'html-mode-hook
+          (lambda ()
+            (setq mode-name "html")
+            ))
 
 
 (defun dido-html-expand-newline-if-between-tags ()
