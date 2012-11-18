@@ -1,3 +1,9 @@
+(setq org-capture-templates
+      '(("d" "Dump file" entry (file "~/Dropbox/org/dump.org")
+         "* %^{Heading} %T\n\n%i%?")))
+
+(global-set-key (kbd "C-c SPC") 'org-capture)
+
 (evil-define-key 'normal org-mode-map (kbd "<M-return>")
   (lambda ()
     (interactive)
@@ -19,5 +25,6 @@
             (setq mode-name "org")
             (org-bullets-mode 1)
             ))
+
 
 (provide 'dido-org)
