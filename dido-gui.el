@@ -26,8 +26,8 @@
       (setq linum-format " %2d")
     (setq linum-format 'linum-relative)))
 
-(add-hook 'evil-insert-state-entry-hook 'dido-toggle-linum-format)
-(add-hook 'evil-insert-state-exit-hook  'dido-toggle-linum-format)
+;; (add-hook 'evil-insert-state-entry-hook 'dido-toggle-linum-format)
+;; (add-hook 'evil-insert-state-exit-hook  'dido-toggle-linum-format)
 
 ;; No error dings
 (setq ring-bell-function 'ignore visible-bell nil)
