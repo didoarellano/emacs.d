@@ -24,6 +24,11 @@
           (lambda ()
             (setq mode-name "org")
             (org-bullets-mode 1)
+
+            ;; Make my C-c SPC binding for org-capture work.
+            ;; was org-table-blank-field
+            (define-key org-mode-map (kbd "C-c SPC") nil)
+
             ))
 
 
