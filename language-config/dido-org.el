@@ -7,16 +7,29 @@
 (evil-define-key 'normal org-mode-map (kbd "<M-return>")
   (lambda ()
     (interactive)
-    (end-of-line)
+
+    ;; Use `org-end-of-line' in `evil-emacs-state' instead of
+    ;; `evil-end-of-line'/regular `end-of-line' because the latter two will
+    ;; insert the heading above the org property drawer.
+    (evil-emacs-state)
+    (org-end-of-line)
+
     (org-meta-return)
     (evil-insert-state)))
 
 (evil-define-key 'normal org-mode-map (kbd "<M-S-return>")
   (lambda ()
     (interactive)
-    (end-of-line)
+
+    ;; Use `org-end-of-line' in `evil-emacs-state' instead of
+    ;; `evil-end-of-line'/regular `end-of-line' because the latter two will
+    ;; insert the heading above the org property drawer.
+    (evil-emacs-state)
+    (org-end-of-line)
+
     (call-interactively 'org-insert-todo-heading)
     (evil-insert-state)))
+
 
 (require 'org-bullets)
 
