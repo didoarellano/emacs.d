@@ -7,28 +7,12 @@
 (evil-define-key 'normal org-mode-map (kbd "<M-return>")
   (lambda ()
     (interactive)
-
-    ;; Use `org-end-of-line' in `evil-emacs-state' instead of
-    ;; `evil-end-of-line'/regular `end-of-line' because the latter two will
-    ;; insert the heading above the org property drawer.
-    (evil-emacs-state)
-    (org-end-of-line)
-
-    (org-meta-return)
-    (evil-insert-state)))
+    (dido-insert-org-heading-from-normal-state 'org-meta-return)))
 
 (evil-define-key 'normal org-mode-map (kbd "<M-S-return>")
   (lambda ()
     (interactive)
-
-    ;; Use `org-end-of-line' in `evil-emacs-state' instead of
-    ;; `evil-end-of-line'/regular `end-of-line' because the latter two will
-    ;; insert the heading above the org property drawer.
-    (evil-emacs-state)
-    (org-end-of-line)
-
-    (call-interactively 'org-insert-todo-heading)
-    (evil-insert-state)))
+    (dido-insert-org-heading-from-normal-state 'org-insert-todo-heading)))
 
 
 (require 'org-bullets)
@@ -43,6 +27,17 @@
             (define-key org-mode-map (kbd "C-c SPC") nil)
 
             ))
+
+
+(defun dido-insert-org-heading-from-normal-state (org-insert-fn)
+  ;; Use `org-end-of-line' in `evil-emacs-state' instead of
+  ;; `evil-end-of-line'/regular `end-of-line' because the latter two will
+  ;; insert the heading above the org property drawer.
+  (evil-emacs-state)
+  (org-end-of-line)
+
+  (call-interactively org-insert-fn)
+  (evil-insert-state))
 
 
 (provide 'dido-org)
