@@ -2,6 +2,7 @@
 (require 'evil)
 
 (evil-set-initial-state 'package-menu-mode 'motion)
+(evil-set-initial-state 'org-agenda-mode 'motion)
 
 ;; Cursor is black without this
 (setq evil-default-cursor t)
