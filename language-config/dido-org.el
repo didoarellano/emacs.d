@@ -71,6 +71,11 @@
             (setq mode-name "org")
             (org-bullets-mode 1)
 
+            ;; Relative line numbers are useless with all the folds. Regular
+            ;; line numbers is still useful but how do we toggle it on a
+            ;; per-buffer/per-mode basis? Turn off for now.
+            (linum-mode -1)
+
             ;; Make my C-c SPC binding for org-capture work.
             ;; was org-table-blank-field
             (define-key org-mode-map (kbd "C-c SPC") nil)
