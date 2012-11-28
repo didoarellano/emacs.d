@@ -36,9 +36,19 @@
 (setq org-treat-insert-todo-heading-as-state-change t)
 (setq org-log-into-drawer t)
 
-;; Quick access to in-progress TODOs
+;; Habits
+(require 'org)
+(add-to-list 'org-modules 'org-habit)
+
+(setq org-tag-persistent-alist
+      '(("recurring")
+        ("daily")))
+
 (setq org-agenda-custom-commands
-      '(("d" todo "DOIT")))
+      '(("d" "Today's scheduled and chosen tasks"
+         ((org-agenda-list 1)
+          (todo "DOIT")))
+        ("x" todo "DONE")))
 
 
 (global-set-key (kbd "C-c a") 'org-agenda)
