@@ -43,6 +43,7 @@
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c SPC") 'org-capture)
+(global-set-key (kbd "C-c o") 'dido-open-org-agenda-files)
 
 (evil-define-key 'motion org-agenda-mode-map (kbd "t") 'org-agenda-todo)
 (evil-define-key 'motion org-agenda-mode-map (kbd "x")
@@ -86,6 +87,13 @@
 
   (call-interactively org-insert-fn)
   (evil-insert-state))
+
+(defun dido-open-org-agenda-files (file)
+  (interactive (list (ido-completing-read
+                      "Agenda files: "
+                      (mapcar 'file-name-nondirectory (org-agenda-files))
+                      nil t)))
+  (find-file (concat (car org-agenda-files) "/" file)))
 
 
 (provide 'dido-org)
