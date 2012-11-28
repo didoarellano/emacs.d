@@ -1,6 +1,9 @@
 (setq org-directory "~/Dropbox/org")
 (setq org-agenda-files '("~/Dropbox/org/agenda"))
 
+(setq org-mobile-directory "~/Dropbox/org-mobile")
+(setq org-mobile-inbox-for-pull (concat org-directory "/dump.org"))
+
 (setq org-agenda-restore-windows-after-quit t)
 
 ;; Capturing
