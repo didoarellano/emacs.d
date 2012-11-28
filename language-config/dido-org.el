@@ -55,6 +55,7 @@
 (global-set-key (kbd "s-SPC") 'org-capture)
 (global-set-key (kbd "C-s-SPC") (kbd "C-c a d"))
 (global-set-key (kbd "C-c o") 'dido-open-org-agenda-files)
+(defalias 'o 'dido-open-org-agenda-files)
 
 (evil-define-key 'motion org-agenda-mode-map (kbd "t") 'org-agenda-todo)
 (evil-define-key 'motion org-agenda-mode-map (kbd "x")

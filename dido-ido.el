@@ -13,6 +13,9 @@
 (global-set-key (kbd "C-c r") 'ido-recentf-open)
 (global-set-key (kbd "C-c i") 'ido-imenu)
 
+(defalias 'b 'ido-switch-buffer)
+(defalias 'r 'ido-recentf-open)
+
 ;; Display ido results vertically, rather than horizontally
 ;; from http://emacswiki.org/emacs/InteractivelyDoThings#toc20
 (add-hook 'ido-minibuffer-setup-hook

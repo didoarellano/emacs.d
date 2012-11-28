@@ -9,5 +9,7 @@
 (global-set-key (kbd "C-c f") 'dido-do-find-file-eproject-or-ido)
 (global-set-key (kbd "C-c B") 'eproject-ibuffer)
 
+(defalias 'f 'dido-do-find-file-eproject-or-ido)
+
 
 (provide 'dido-eproject)
