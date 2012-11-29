@@ -30,7 +30,8 @@
       '((sequence "TODO(t!)"
                   "DOIT(d!)"
                   "|"
-                  "DONE(x!)")))
+                  "DONE(x!)"
+                  "CANCELED(c@)")))
 
 ;; Log state changes (including when todo is created) into :LOGBOOK: drawer
 (setq org-treat-insert-todo-heading-as-state-change t)
@@ -62,6 +63,10 @@
   (lambda ()
     (interactive)
     (org-agenda-todo "DONE")))
+(evil-define-key 'motion org-agenda-mode-map (kbd "c")
+  (lambda ()
+    (interactive)
+    (org-agenda-todo "CANCELED")))
 (evil-define-key 'motion org-agenda-mode-map (kbd "+") 'org-agenda-priority-up)
 (evil-define-key 'motion org-agenda-mode-map (kbd "-") 'org-agenda-priority-down)
 (evil-define-key 'motion org-agenda-mode-map (kbd "0") 'digit-argument)
