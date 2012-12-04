@@ -40,6 +40,9 @@
 ;; Habits
 (require 'org)
 (add-to-list 'org-modules 'org-habit)
+(setq org-habit-graph-column 60)
+(setq org-habit-preceding-days 6)
+(setq org-habit-following-days 0)
 
 (setq org-tag-persistent-alist
       '(("recurring")
