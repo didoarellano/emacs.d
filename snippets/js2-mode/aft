@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: afterEach
+# --
+afterEach(${1:function($2) {$0}});

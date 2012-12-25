@@ -5,5 +5,11 @@
 
 (yas-global-mode 1)
 
+(defun snippet--js-function-punctuation ()
+  (if (save-excursion
+        (search-backward "function")
+        (looking-back "= "))
+      ";" ""))
+
 
 (provide 'dido-yasnippet)
