@@ -46,7 +46,7 @@
 ;; HTML
 (require 'dido-html)
 
-;; CSS
+;; CSS/SCSS
 (require 'dido-css)
 
 ;; Org

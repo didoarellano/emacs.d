@@ -6,5 +6,10 @@
             (setq css-indent-offset 2)
             ))
 
+(add-hook 'scss-mode-hook
+          (lambda ()
+            (setq mode-name "scss")
+            (setq scss-compile-at-save nil)
+            ))
 
 (provide 'dido-css)
