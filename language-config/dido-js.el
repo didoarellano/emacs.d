@@ -1,4 +1,5 @@
 (evil-define-key 'insert js2-mode-map (kbd "C-;") 'dido-insert-semicolon-at-eol)
+(evil-define-key 'insert js-mode-map  (kbd "C-;") 'dido-insert-semicolon-at-eol)
 
 (add-hook 'js2-mode-hook
           (lambda ()
@@ -18,5 +19,9 @@
 
             ))
 
+(add-hook 'js-mode-hook
+          (lambda ()
+            (setq mode-name "js")
+            ))
 
-(provide 'dido-js2)
+(provide 'dido-js)
