@@ -30,6 +30,7 @@
                         ;; Language modes
                         js2-mode
                         markdown-mode
+                        jade-mode
 
                         ;; Color themes
                         tango-2-theme
