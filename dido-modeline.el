@@ -1,11 +1,11 @@
 ;; Smaller modeline
-(set-face-attribute 'mode-line nil :height 0.94)
-(set-face-attribute 'mode-line-inactive nil :height 0.94)
+(set-face-attribute 'mode-line nil :height 0.9 :box nil)
+(set-face-attribute 'mode-line-inactive nil :height 0.9 :box nil)
 
 (require 'powerline)
 
 (defface powerline-normal
-  '((t (:background "#121212" :foreground "cccccc"))) "")
+  '((t (:background "#121212" :foreground "#cccccc"))) "")
 (defface powerline-bright-active
   '((t (:background "#ffffff" :foreground "#111111"))) "")
 (defface powerline-light-active
@@ -70,18 +70,18 @@
                               (powerline-arrow-left 'powerline-normal light)
 
                               (powerline-evil-state evil 'r)
-                              (powerline-arrow-left light dark)
+                              (powerline-arrow-left light darker)
 
-                              (powerline-raw "%4l" dark 'r)
-                              (powerline-raw ":" dark)
-                              (powerline-raw "%3c" dark 'r)
+                              (powerline-raw "%4l" darker 'r)
+                              (powerline-raw ":" darker)
+                              (powerline-raw "%3c" darker 'r)
 
-                              (powerline-arrow-left dark darker)
-                              (powerline-raw " " darker)
+                              (powerline-arrow-left darker dark)
+                              (powerline-raw " " dark)
 
-                              (powerline-raw "%6p" darker 'r)
+                              (powerline-raw "%6p" dark 'r)
 
-                              (powerline-hud 'powerline-light-active 'powerline-dark-active)
+                              (powerline-hud 'powerline-bright-active 'powerline-darker-active)
 
                               )))
                    (concat
