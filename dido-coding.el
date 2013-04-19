@@ -15,9 +15,8 @@
 (setq tab-stop-list '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80
                         84 88 92 96 100 104 108 112 116 120))
 
-;; Show tabs.
-(global-whitespace-mode)
-(setq whitespace-style '(face tabs tab-mark))
+;; Show spaces and tabs when whitespace-mode is toggled
+(setq whitespace-style '(face spaces tabs space-mark tab-mark))
 
 ;; Wrap lines at 80 chars not 70
 (setq-default fill-column 80)
