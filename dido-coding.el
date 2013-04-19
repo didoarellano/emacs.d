@@ -45,6 +45,9 @@
 ;; HTML
 (require 'dido-html)
 
+;; Web-mode
+(require 'dido-web-mode)
+
 ;; Jade
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
