@@ -32,6 +32,7 @@
                         markdown-mode
                         jade-mode
                         php-mode
+                        web-mode
 
                         ;; Color themes
                         tango-2-theme
