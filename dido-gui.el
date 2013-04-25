@@ -1,7 +1,7 @@
 (require 'tango-2-theme)
 (load-theme 'tango-2 t)
 
-(set-face-attribute 'default nil :font "Menlo-11")
+;; (set-face-attribute 'default nil :font "Inconsolata" :height 100)
 (setq-default line-spacing 0.25)
 
 ;; Cursor, cursorline and mouse settings
@@ -11,12 +11,12 @@
 
 ;; Line numbers
 (global-linum-mode 1)
-(set-face-attribute 'linum nil :height 0.8)
+(set-face-attribute 'linum nil :height 0.9)
 (set-face-attribute 'linum nil :slant 'italic)
 
 ;; Relative line numbers
 (require 'linum-relative)
-(setq linum-relative-current-symbol "▶")
+(setq linum-relative-current-symbol "»")
 (setq linum-format 'linum-relative)
 (custom-set-faces
  '(linum-relative-current-face ((t :inherit linum :foreground "#ffffff"))))
@@ -44,6 +44,7 @@
 ;;              (cons 'height (/ (- (x-display-pixel-height) 45)
 ;;                               (frame-char-height))))
 
+(menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 
