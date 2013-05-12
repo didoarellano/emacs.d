@@ -10,6 +10,7 @@
           (lambda ()
             (setq mode-name "scss")
             (setq scss-compile-at-save nil)
+            (flycheck-mode)
             ))
 
 (provide 'dido-css)

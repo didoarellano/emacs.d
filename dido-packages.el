@@ -16,6 +16,7 @@
                         yasnippet
                         zencoding-mode
                         autopair
+                        flycheck
 
                         ;; Buffer/window/project management
                         workgroups

@@ -22,6 +22,7 @@
 (add-hook 'js-mode-hook
           (lambda ()
             (setq mode-name "js")
+            (flycheck-mode)
             ))
 
 (provide 'dido-js)
