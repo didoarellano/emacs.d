@@ -1,11 +1,10 @@
 ;;; zencoding-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (zencoding-preview zencoding-expand-yas zencoding-mode
-;;;;;;  zencoding-expand-line) "zencoding-mode" "zencoding-mode.el"
-;;;;;;  (20612 2619))
+;;;### (autoloads nil "zencoding-mode" "zencoding-mode.el" (21081
+;;;;;;  6638 810562 90000))
 ;;; Generated autoloads from zencoding-mode.el
 
 (autoload 'zencoding-expand-line "zencoding-mode" "\
@@ -56,15 +55,9 @@ accept it or skip it.
 
 ;;;***
 
-;;;### (autoloads nil nil ("zencoding-mode-pkg.el") (20612 2619 630395))
-
-;;;***
-
-(provide 'zencoding-mode-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; zencoding-mode-autoloads.el ends here

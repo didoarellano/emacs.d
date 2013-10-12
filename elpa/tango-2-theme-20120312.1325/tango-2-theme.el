@@ -1,6 +1,7 @@
 ;;; tango-2-theme.el --- Tango 2 color theme for GNU Emacs 24
 ;; Author: Nick Parker
-;; Version: 1.0.0
+;; Version: 20120312.1325
+;; X-Original-Version: 1.0.0
 ;; 
 ;; Ported theme to Emacs 24 color theme Nick Parker <nickp@developernotes.com>
 ;; original from Will Farrington <wcfarrington@gmail.com>

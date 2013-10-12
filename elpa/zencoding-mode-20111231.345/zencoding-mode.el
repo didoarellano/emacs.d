@@ -2,7 +2,8 @@
 
 ;; Copyright (C) 2009, Chris Done
 
-;; Version: 0.5.1
+;; Version: 20111231.345
+;; X-Original-Version: 0.5.1
 ;; Author: Chris Done <chrisdone@gmail.com>
 ;; URL: https://github.com/rooney/zencoding
 ;; Last-Updated: 2011-12-31 Sat

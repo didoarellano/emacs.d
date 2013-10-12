@@ -5,7 +5,8 @@
 ;; File:     workgroups.el
 ;; Author:   tlh <thunkout@gmail.com>
 ;; Created:  2010-07-22
-;; Version:  0.2.0
+;; Version: 20110724.1825
+;; X-Original-Version:  0.2.0
 ;; Keywords: session management window-configuration persistence
 
 ;; This program is free software; you can redistribute it and/or

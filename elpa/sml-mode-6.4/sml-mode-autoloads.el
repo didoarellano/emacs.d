@@ -1,10 +1,10 @@
 ;;; sml-mode-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (sml-yacc-mode sml-lex-mode sml-cm-mode sml-mode
-;;;;;;  sml-run) "sml-mode" "sml-mode.el" (21062 35271 658573 992000))
+;;;### (autoloads nil "sml-mode" "sml-mode.el" (21081 7679 379721
+;;;;;;  987000))
 ;;; Generated autoloads from sml-mode.el
 
 (defalias 'run-sml 'sml-run)
@@ -55,16 +55,9 @@ Major Mode for editing ML-Yacc files.
 
 ;;;***
 
-;;;### (autoloads nil nil ("sml-mode-pkg.el") (21062 35271 681294
-;;;;;;  898000))
-
-;;;***
-
-(provide 'sml-mode-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; sml-mode-autoloads.el ends here

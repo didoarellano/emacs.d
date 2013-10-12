@@ -1,18 +1,16 @@
 ;;; git-gutter-fringe-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil nil ("git-gutter-fringe-pkg.el" "git-gutter-fringe.el")
-;;;;;;  (20882 26079 457032 615000))
+;;;### (autoloads nil nil ("git-gutter-fringe.el") (21081 6669 609885
+;;;;;;  728000))
 
 ;;;***
 
-(provide 'git-gutter-fringe-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; git-gutter-fringe-autoloads.el ends here

@@ -1,4 +1,5 @@
 ;;; sws-mode.el --- (S)ignificant (W)hite(S)pace mode
+;; Version: 20120730.2122
 ;;;
 ;;; URL: https://github.com/brianc/jade-mode
 ;;; Author: Brian M. Carlson and other contributors
