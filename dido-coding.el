@@ -45,6 +45,9 @@
 ;; HTML
 (require 'dido-html)
 
+;; Handlebars
+(add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+
 ;; Web-mode
 (require 'dido-web-mode)
 
