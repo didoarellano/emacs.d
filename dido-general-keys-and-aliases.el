@@ -39,6 +39,7 @@
 ;; =======
 
 (defalias 'rename 'rename-this-buffer-and-file)
+(defalias 'wrap 'toggle-truncate-lines)
 
 
 (provide 'dido-general-keys-and-aliases)
