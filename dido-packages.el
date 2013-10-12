@@ -35,6 +35,7 @@
                         jade-mode
                         php-mode
                         web-mode
+                        sml-mode
 
                         ;; Color themes
                         tango-2-theme
