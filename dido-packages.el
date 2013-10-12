@@ -27,6 +27,7 @@
                         smex
                         ace-jump-mode
                         magit
+                        git-gutter-fringe
 
                         ;; Language modes
                         js2-mode
