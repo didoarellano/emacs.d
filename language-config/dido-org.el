@@ -6,6 +6,9 @@
 
 (setq org-agenda-restore-windows-after-quit t)
 
+;; Syntax highlighted src blocks
+(setq org-src-fontify-natively t)
+
 ;; Capturing
 (setq org-capture-templates
       '(("g" "General" entry (file "dump.org")
