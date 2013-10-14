@@ -2,7 +2,11 @@
 (ido-mode t)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
-(setq ido-enable-flex-matching t)
+
+;; flx-ido
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-use-faces nil)
 
 ;; Recentf mode
 (require 'recentf)

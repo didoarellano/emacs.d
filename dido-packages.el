@@ -20,6 +20,8 @@
 
                         ;; Buffer/window/project management
                         workgroups
+                        projectile
+                        flx-ido
 
                         ;; Other utils
                         exec-path-from-shell
