@@ -39,12 +39,11 @@ comment current line."
   (interactive)
   (evil-scroll-line-up 5))
 
-(defun dido-do-find-file-eproject-or-ido ()
-  "If in a project that eproject recognizes (naive check for non-nil-ness of
-`eproject-root'), do `eproject-find-file' otherwise fall back to
+(defun dido-do-find-file-projectile-or-ido ()
+  "If in a projectile project do `projectile-find-file'otherwise fall back to
 `ido-find-file'."
   (interactive)
-  (if eproject-root (eproject-find-file)
+  (if (projectile-project-p) (projectile-find-file)
     (ido-find-file)))
 
 
