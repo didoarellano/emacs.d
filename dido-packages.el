@@ -11,6 +11,7 @@
                         ;; Evil vimulation. Emacs' missing editor
                         evil
                         surround
+                        evil-numbers
 
                         ;; Coding helpers
                         yasnippet
