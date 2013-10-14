@@ -1,9 +1,6 @@
 [submodule "site-lisp/powerline"]
 	path = site-lisp/powerline
 	url = https://github.com/milkypostman/powerline.git
-[submodule "site-lisp/eproject"]
-	path = site-lisp/eproject
-	url = https://github.com/didoarellano/eproject.git
 [submodule "site-lisp/linum-relative"]
 	path = site-lisp/linum-relative
 	url = https://github.com/coldnew/linum-relative.git

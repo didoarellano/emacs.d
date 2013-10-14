@@ -67,14 +67,6 @@
 ;; Powerline configuration is in modeline-config.el
 (add-to-list 'load-path (concat dotemacs-dir "site-lisp/powerline"))
 
-;; eproject
-;; https://github.com/didoarellano/eproject
-;; My fork where git submodules are not treated as separate projects
-;; and .dot-files are not blanket-ignored.
-(add-to-list 'load-path (concat dotemacs-dir "site-lisp/eproject"))
-;; (add-to-list 'load-path "~/code/eproject") ; For development
-(require 'dido-eproject)
-
 ;; linum-relative
 ;; https://github.com/coldnew/linum-relative
 (add-to-list 'load-path (concat dotemacs-dir "site-lisp/linum-relative"))
