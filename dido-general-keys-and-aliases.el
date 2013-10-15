@@ -10,6 +10,7 @@
 (global-set-key (kbd "C-c n") 'make-frame-command)
 (define-key minibuffer-local-map
   (kbd "C-w") 'backward-kill-word) ; was kill-region
+(global-set-key (kbd "C-s") 'save-buffer) ; was isearch-forward
 
 ;; More "useful" line-commenting shortcut
 (global-set-key (kbd "M-;") 'dido-comment-dwim-line) ; was comment-dwim
