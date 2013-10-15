@@ -7,6 +7,8 @@
       (expand-file-name "projectile-bookmarks.eld" dido-tmp-directory))
 
 (global-set-key (kbd "C-c f") 'dido-do-find-file-projectile-or-ido)
+(define-key evil-normal-state-map
+  (kbd "C-f") 'dido-do-find-file-projectile-or-ido) ; was evil-scroll-page-down & forward-char
 
 
 (provide 'dido-projectile)
