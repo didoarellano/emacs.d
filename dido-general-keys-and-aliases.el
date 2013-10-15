@@ -27,7 +27,7 @@
 
 ;; Quicker access to smexy M-x.
 (define-key evil-motion-state-map (kbd ";") 'smex)
-(define-key evil-normal-state-map (kbd ":") 'evil-ex)
+(define-key evil-motion-state-map (kbd ":") 'evil-ex)
 (define-key evil-normal-state-map (kbd "!") 'shell-command)
 
 (define-key evil-normal-state-map (kbd "<return>") 'dido-insert-newline-below)
