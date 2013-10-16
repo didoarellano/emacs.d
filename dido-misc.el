@@ -34,5 +34,7 @@
 ;; Quicksilver, etc).
 (setq ns-pop-up-frames nil)
 
+;; Point emacs to the firefox executable
+(add-to-list 'exec-path "~/lib/firefox")
 
 (provide 'dido-misc)
