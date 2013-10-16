@@ -45,6 +45,8 @@
 
                         org-bullets
 
+                        ;; You use Emacs for what??
+                        jabber
                         ))
 
 (dolist (p dido-packages)
