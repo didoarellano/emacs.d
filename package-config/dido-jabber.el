@@ -31,7 +31,8 @@
 (defun dido-jabber-settings()
   (setq
    jabber-chat-time-format "%a %l:%M %p"
-   jabber-chat-local-prompt-format "%n • %t\n"
+   jabber-chat-local-prompt-format "\n%n • %t\n"
+   jabber-chat-foreign-prompt-format "\n%n • %t\n"
    jabber-history-enabled t
    jabber-backlog-number 20
    jabber-backlog-days 7)
