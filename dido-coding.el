@@ -18,6 +18,8 @@
 ;; Show spaces and tabs when whitespace-mode is toggled
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
 
+(setq-default require-final-newline t)
+
 ;; Wrap lines at 80 chars not 70
 (setq-default fill-column 80)
 
