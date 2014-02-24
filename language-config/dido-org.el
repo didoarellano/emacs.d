@@ -32,6 +32,7 @@
 (setq org-todo-keywords
       '((sequence "TODO(t!)"
                   "DOIT(d!)"
+                  "INPROGRESS(p!)"
                   "|"
                   "DONE(x!)"
                   "CANCELED(c@)")))
@@ -54,6 +55,7 @@
 (setq org-agenda-custom-commands
       '(("d" "Today's scheduled and chosen tasks"
          ((org-agenda-list 1)
+          (todo "INPROGRESS")
           (todo "DOIT")))
         ("x" todo "DONE")))
 
