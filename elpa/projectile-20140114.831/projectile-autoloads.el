@@ -3,12 +3,33 @@
 ;;; Code:
 (add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads nil "projectile" "projectile.el" (21082 13098 455663
-;;;;;;  664000))
+;;;### (autoloads nil "projectile" "projectile.el" (21220 58811 167359
+;;;;;;  212000))
 ;;; Generated autoloads from projectile.el
+
+(autoload 'projectile-commander "projectile" "\
+Execute a Projectile command with a single letter.
+The user is prompted for a single character indicating the action to invoke.
+The `?' character describes then
+available actions.
+
+See `def-projectile-commander-method' for defining new methods.
+
+\(fn)" t nil)
+
+(defconst projectile-mode-line-lighter " Projectile" "\
+The default lighter for `projectile-mode'.")
 
 (autoload 'projectile-mode "projectile" "\
 Minor mode to assist project management and navigation.
+
+When called interactively, toggle `projectile-mode'.  With prefix
+ARG, enable `projectile-mode' if ARG is positive, otherwise disable
+it.
+
+When called from Lisp, enable `projectile-mode' if ARG is omitted,
+nil or positive.  If ARG is `toggle', toggle `projectile-mode'.
+Otherwise behave as if called interactively.
 
 \\{projectile-mode-map}
 
