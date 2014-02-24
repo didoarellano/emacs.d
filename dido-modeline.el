@@ -35,10 +35,16 @@
 (defpowerline powerline-evil-state
   (concat " " (format-mode-line 'evil-mode-line-tag)))
 
+;; Fix for modeline always being "active"
+;; https://github.com/milkypostman/powerline/issues/37
+(add-hook 'post-command-hook (lambda ()
+                               (when (not (minibuffer-selected-window))
+                                 (setq powerline-selected-window (selected-window)))))
+
 (setq-default mode-line-format
               '("%e"
                 (:eval
-                 (let* ((active (eq (frame-selected-window) (selected-window)))
+                 (let* ((active (eq powerline-selected-window (selected-window)))
                         (bright (if active 'powerline-bright-active 'powerline-inactive))
                         (light (if active 'powerline-light-active 'powerline-inactive))
                         (dark (if active 'powerline-dark-active 'powerline-inactive))
@@ -51,32 +57,29 @@
 
                               (powerline-buffer-id bright 'l)
                               (powerline-raw " " bright)
-                              (powerline-arrow-right bright light)
+                              (powerline-arrow-left bright light)
 
                               (powerline-vcs light)
-                              (powerline-arrow-right light dark)
+                              (powerline-arrow-left light dark)
 
-                              (powerline-workgroup dark 'l)
-                              (powerline-arrow-right dark darker)
-
-                              (powerline-major-mode darker 'l)
-                              (powerline-raw " " darker)
-                              (powerline-arrow-right darker 'powerline-normal)
+                              (powerline-major-mode dark 'l)
+                              (powerline-raw " " dark)
+                              (powerline-arrow-left dark 'powerline-normal)
 
                               ))
 
                         (rhs (list
 
-                              (powerline-arrow-left 'powerline-normal light)
+                              (powerline-arrow-right 'powerline-normal light)
 
                               (powerline-evil-state evil 'r)
-                              (powerline-arrow-left light darker)
+                              (powerline-arrow-right light darker)
 
                               (powerline-raw "%4l" darker 'r)
                               (powerline-raw ":" darker)
                               (powerline-raw "%3c" darker 'r)
 
-                              (powerline-arrow-left darker dark)
+                              (powerline-arrow-right darker dark)
                               (powerline-raw " " dark)
 
                               (powerline-raw "%6p" dark 'r)
