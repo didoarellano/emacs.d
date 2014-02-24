@@ -7,7 +7,11 @@
   (dido-jabber-settings)
 
   (jabber-connect-all)
-  (call-interactively 'jabber-display-roster))
+
+  ;; Open jabber roster and close other windows
+  (call-interactively 'jabber-display-roster)
+  (switch-to-buffer-other-window "*-jabber-roster-*")
+  (delete-other-windows))
 
 (defun dido-jabber-accounts()
   (require 'dido-passwords "dido-passwords.gpg")
