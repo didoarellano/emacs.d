@@ -34,6 +34,7 @@
 
                         ;; Language modes
                         js2-mode
+                        scss-mode
                         markdown-mode
                         jade-mode
                         php-mode
