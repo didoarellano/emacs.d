@@ -65,6 +65,7 @@
 (global-set-key (kbd "C-s-SPC") (kbd "C-c a d"))
 (global-set-key (kbd "C-c o") 'dido-open-org-agenda-files)
 (defalias 'o 'dido-open-org-agenda-files)
+(defalias 'archive 'dido-archive-done-tasks)
 
 (evil-define-key 'motion org-agenda-mode-map (kbd "t") 'org-agenda-todo)
 (evil-define-key 'motion org-agenda-mode-map (kbd "x")
@@ -124,6 +125,13 @@
                       (mapcar 'file-name-nondirectory (org-agenda-files))
                       nil t)))
   (find-file (concat (car org-agenda-files) "/" file)))
+
+(defun dido-archive-done-tasks ()
+  "Archive DONE and CANCELED tasks"
+  ;; TODO Find out if there's a way to restore scroll position.
+  (interactive)
+  (org-map-entries 'org-archive-subtree "/DONE" 'tree)
+  (org-map-entries 'org-archive-subtree "/CANCELED" 'tree))
 
 
 (provide 'dido-org)
