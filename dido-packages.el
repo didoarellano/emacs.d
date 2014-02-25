@@ -40,6 +40,7 @@
                         php-mode
                         web-mode
                         sml-mode
+                        vimrc-mode
 
                         ;; Color themes
                         tango-2-theme
