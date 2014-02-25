@@ -20,7 +20,6 @@
                         flycheck
 
                         ;; Buffer/window/project management
-                        workgroups
                         projectile
                         flx-ido
 
