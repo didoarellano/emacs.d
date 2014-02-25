@@ -37,9 +37,10 @@
 
 ;; Fix for modeline always being "active"
 ;; https://github.com/milkypostman/powerline/issues/37
-(add-hook 'post-command-hook (lambda ()
-                               (when (not (minibuffer-selected-window))
-                                 (setq powerline-selected-window (selected-window)))))
+(defun powerline-active-window-fix ()
+  (when (not (minibuffer-selected-window))
+    (setq powerline-selected-window (selected-window))))
+(add-hook 'post-command-hook 'powerline-active-window-fix)
 
 (setq-default mode-line-format
               '("%e"
