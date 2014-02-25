@@ -3,6 +3,7 @@
 
 (evil-set-initial-state 'package-menu-mode 'motion)
 (evil-set-initial-state 'org-agenda-mode 'motion)
+(evil-set-initial-state 'grep-mode 'motion)
 
 ;; Cursor is black without this
 (setq evil-default-cursor t)
@@ -14,6 +15,9 @@
       evil-emacs-state-tag "E"
       evil-replace-state-tag "R"
       evil-operator-state-tag "O")
+
+;; Don't echo state (-- INSERT --) in the echo area
+(setq evil-echo-state nil)
 
 (evil-mode 1)
 

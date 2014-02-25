@@ -36,6 +36,9 @@
 
 (define-key evil-visual-state-map "~" 'toggle-letter-case)
 
+(define-key evil-insert-state-map (kbd "C-y") 'yank) ; was evil-copy-from-above
+
+
 ;; =======
 ;; Aliases
 ;; =======
