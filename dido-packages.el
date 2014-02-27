@@ -76,4 +76,10 @@
 (add-to-list 'load-path (concat dotemacs-dir "site-lisp/linum-relative"))
 ;; Configuration is in dido-gui.el
 
+;; workgroups2
+;; https://github.com/pashinin/workgroups2
+(add-to-list 'load-path (concat dotemacs-dir "site-lisp/workgroups2/src"))
+(require 'dido-workgroups)
+
+
 (provide 'dido-packages)

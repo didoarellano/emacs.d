@@ -1,13 +1,12 @@
-(require 'workgroups)
+(require 'workgroups2)
 
-(setq wg-switch-on-load nil)
-(wg-load "~/Dropbox/emacs/workgroups")
-(setq wg-prefix-key (kbd "M-w"))
-(setq wg-morph-on nil)
-(setq wg-mode-line-left-brace "")
-(setq wg-mode-line-right-brace "")
+(setq wg-default-session-file "~/Dropbox/emacs/workgroups")
 
-(workgroups-mode 1)
+
+(defun activate-workgroups-mode()
+  (workgroups-mode 1))
+
+(add-hook 'after-init-hook 'activate-workgroups-mode)
 
 
 (provide 'dido-workgroups)
