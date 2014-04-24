@@ -2,6 +2,7 @@
 
 (defvar dido-snippets-dir (concat dotemacs-dir "snippets"))
 (setq yas-snippet-dirs dido-snippets-dir)
+(setq yas-triggers-in-field t)
 
 (yas-global-mode 1)
 
