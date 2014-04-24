@@ -22,4 +22,5 @@
                  dido-misc
                  dido-immortal-scratchbuff
                  dido-text-scale
+                 dido-in-class-overrides
                  ))
