@@ -15,7 +15,7 @@
 
                         ;; Coding helpers
                         yasnippet
-                        zencoding-mode
+                        emmet-mode
                         autopair
                         flycheck
 
