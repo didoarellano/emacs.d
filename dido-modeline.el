@@ -45,7 +45,7 @@
 (defpowerline powerline-workgroup
   (let ((str "∩ " ))
     (ignore-errors
-      (setq str (concat str (wg-name (wg-current-workgroup)) " ")))
+      (setq str (concat str (wg-workgroup-name (wg-current-workgroup t)) " ")))
     str))
 
 (defpowerline powerline-evil-state
@@ -82,9 +82,12 @@
                               (powerline-vcs light)
                               (powerline-arrow-left light dark)
 
-                              (powerline-major-mode dark 'l)
-                              (powerline-raw " " dark)
-                              (powerline-arrow-left dark 'powerline-normal)
+                              (powerline-workgroup dark 'l)
+                              (powerline-arrow-left dark darker)
+
+                              (powerline-major-mode darker 'l)
+                              (powerline-raw " " darker)
+                              (powerline-arrow-left darker 'powerline-normal)
 
                               ))
 
