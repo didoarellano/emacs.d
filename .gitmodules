@@ -4,3 +4,6 @@
 [submodule "site-lisp/linum-relative"]
 	path = site-lisp/linum-relative
 	url = https://github.com/coldnew/linum-relative.git
+[submodule "site-lisp/workgroups2"]
+	path = site-lisp/workgroups2
+	url = https://github.com/pashinin/workgroups2
