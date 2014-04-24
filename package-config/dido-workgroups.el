@@ -1,6 +1,8 @@
 (require 'workgroups2)
 
 (setq wg-default-session-file "~/Dropbox/emacs/workgroups")
+(setq wg-load-last-workgroup nil)
+(setq wg-open-this-wg "blank")
 
 (setq wg-prefix-key (kbd "C-c w"))
 (global-set-key (kbd "C-c b") 'wg-switch-to-buffer)
