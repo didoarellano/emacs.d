@@ -24,6 +24,7 @@
  '(linum-relative-current-face ((t :inherit linum :foreground "#ffffff"))))
 
 (defun dido-toggle-linum-format ()
+  (interactive)
   (if (eq linum-format 'linum-relative)
       (setq linum-format " %2d")
     (setq linum-format 'linum-relative)))
