@@ -15,7 +15,7 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 30)
 
-(global-set-key (kbd "C-c b") 'ido-switch-buffer)
+(global-set-key (kbd "C-c B") 'ido-switch-buffer)
 (global-set-key (kbd "C-c r") 'ido-recentf-open)
 (global-set-key (kbd "C-c i") 'ido-imenu)
 

@@ -2,6 +2,11 @@
 
 (setq wg-default-session-file "~/Dropbox/emacs/workgroups")
 
+(setq wg-prefix-key (kbd "C-c w"))
+(global-set-key (kbd "C-c b") 'wg-switch-to-buffer)
+
+(define-key wg-prefixed-map (kbd "s") 'wg-save-session)
+
 ;; (defadvice wg-save-session (around dont-save-help-buffers-advice activate)
 ;;   (kill-help-buffers) ad-do-it)
 
