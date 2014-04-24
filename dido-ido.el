@@ -1,5 +1,7 @@
 (require 'ido)
 (ido-mode t)
+(ido-everywhere)
+(ido-ubiquitous-mode)
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
