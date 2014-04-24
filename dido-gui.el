@@ -1,7 +1,9 @@
 (require 'tango-2-theme)
 (load-theme 'tango-2 t)
 
-;; (set-face-attribute 'default nil :font "Inconsolata" :height 100)
+;; http://lists.gnu.org/archive/html/help-gnu-emacs/2013-06/msg00347.html
+(setq initial-frame-alist '((font . "Inconsolata-dz-8")))
+(setq default-frame-alist '((font . "Inconsolata-dz-8")))
 (setq-default line-spacing 0.25)
 
 ;; Cursor, cursorline and mouse settings
