@@ -1,6 +1,6 @@
 (require 'workgroups2)
 
-(setq wg-default-session-file "~/Dropbox/emacs/workgroups")
+(setq wg-session-file "~/Dropbox/emacs/workgroups")
 (setq wg-load-last-workgroup nil)
 (setq wg-open-this-wg "blank")
 
@@ -23,4 +23,4 @@
 (add-hook 'after-init-hook 'activate-workgroups-mode)
 
 
-(provide 'dido-workgroups)
+(provide 'dido-workgroups2)
