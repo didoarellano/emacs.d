@@ -37,4 +37,15 @@
 ;; Point emacs to the firefox executable
 (add-to-list 'exec-path "~/lib/firefox-aurora")
 
+
+(defun d/configure-floating-org-frame ()
+  "Change the selected frame's title to org-agenda-files (and switch to the
+workgroup). `emacsclient` doesn't have a --title flag, which we need for i3 to
+float the frame."
+  (interactive)
+  (modify-frame-parameters (selected-frame)
+                           (list (cons 'name "org-agenda-files")))
+  (wg-switch-to-workgroup "org-agenda-files"))
+
+
 (provide 'dido-misc)

@@ -133,5 +133,4 @@
   (org-map-entries 'org-archive-subtree "/DONE" 'tree)
   (org-map-entries 'org-archive-subtree "/CANCELED" 'tree))
 
-
 (provide 'dido-org)

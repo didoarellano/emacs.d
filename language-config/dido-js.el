@@ -19,9 +19,21 @@
 
             ))
 
-(add-hook 'js-mode-hook
-          (lambda ()
-            (setq mode-name "js")
-            ))
+(defun d/js-mode-hook ()
+  (setq mode-name "js")
+  (flycheck-mode))
+(add-hook 'js-mode-hook 'd/js-mode-hook)
+
+(defun d/json-mode-hook ()
+  (setq mode-name "json")
+  (flycheck-mode)
+  (setq tab-width 2)
+  (setq-local js-indent-level 2))
+
+(add-hook 'json-mode-hook 'd/json-mode-hook)
+(setq json-reformat:indent-width 2)
 
 (provide 'dido-js)
+
+;; (remove-hook 'js-mode-hook 'd/js-mode-hook)
+;; (remove-hook 'js-mode-hook (first js-mode-hook))

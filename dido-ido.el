@@ -5,6 +5,9 @@
 
 (add-to-list 'ido-ignore-files "\\.DS_Store")
 
+;; Was raise-frame. Do as I say.
+(setq ido-default-file-method 'selected-window)
+
 ;; flx-ido
 (require 'flx-ido)
 (flx-ido-mode 1)

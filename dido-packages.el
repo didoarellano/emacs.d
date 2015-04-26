@@ -33,6 +33,7 @@
 
                         ;; Language modes
                         js2-mode
+                        json-mode
                         scss-mode
                         markdown-mode
                         jade-mode
