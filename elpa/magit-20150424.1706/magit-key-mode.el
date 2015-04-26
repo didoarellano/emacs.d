@@ -1,6 +1,6 @@
 ;;; magit-key-mode.el --- interactively tune git invocation
 
-;; Copyright (C) 2010-2013  The Magit Project Developers.
+;; Copyright (C) 2010-2015  The Magit Project Developers
 ;;
 ;; For a full list of contributors, see the AUTHORS.md file
 ;; at the top-level directory of this distribution and at
@@ -69,7 +69,7 @@
   :group 'magit-faces)
 
 ;;; Keygroups
-
+;;;###autoload
 (defvar magit-key-mode-groups
   '((dispatch
      (actions
@@ -87,6 +87,7 @@
       ("P" "Pushing"         magit-key-mode-popup-pushing)
       ("o" "Submoduling"     magit-key-mode-popup-submodule)
       ("r" "Rewriting"       magit-key-mode-popup-rewriting)
+      ("R" "Rebasing"        magit-rebase-step)
       ("s" "Show Status"     magit-status)
       ("S" "Stage all"       magit-stage-all)
       ("t" "Tagging"         magit-key-mode-popup-tagging)
@@ -98,7 +99,7 @@
       ("y" "Cherry"          magit-cherry)
       ("z" "Stashing"        magit-key-mode-popup-stashing)
       ("!" "Running"         magit-key-mode-popup-running)
-      ("$" "Show Process"    magit-display-process)))
+      ("$" "Show Process"    magit-process)))
 
     (logging
      (man-page "git-log")
@@ -112,6 +113,7 @@
       ("rh" "Reflog" magit-reflog))
      (switches
       ("-m" "Only merge commits" "--merges")
+      ("-s" "No merge commits" "--no-merges")
       ("-do" "Date Order" "--date-order")
       ("-f" "First parent" "--first-parent")
       ("-i" "Case insensitive patterns" "-i")
@@ -128,16 +130,18 @@
       ("=a" "Author" "--author=" read-from-minibuffer)
       ("=g" "Grep messages" "--grep=" read-from-minibuffer)
       ("=G" "Grep patches" "-G" read-from-minibuffer)
+      ("=L" "Trace evolution of line range [long log only]"
+       "-L" magit-read-file-trace)
       ("=s" "Pickaxe search" "-S" read-from-minibuffer)
       ("=b" "Branches" "--branches=" read-from-minibuffer)
       ("=R" "Remotes" "--remotes=" read-from-minibuffer)))
 
     (running
      (actions
-      ("!" "Command from root" magit-shell-command)
-      (":" "Git command" magit-git-command)
-      ("g" "git gui" magit-run-git-gui)
-      ("k" "gitk" magit-run-gitk)))
+      ("!" "Git Subcommand (from root)" magit-git-command-topdir)
+      (":" "Git Subcommand (from pwd)" magit-git-command)
+      ("g" "Git Gui" magit-run-git-gui)
+      ("k" "Gitk" magit-run-gitk)))
 
     (fetching
      (man-page "git-fetch")
@@ -206,8 +210,12 @@
     (stashing
      (man-page "git-stash")
      (actions
+      ("v" "View" magit-diff-stash)
       ("z" "Save" magit-stash)
-      ("s" "Snapshot" magit-stash-snapshot))
+      ("s" "Snapshot" magit-stash-snapshot)
+      ("a" "Apply" magit-stash-apply)
+      ("p" "Pop" magit-stash-pop)
+      ("k" "Drop" magit-stash-drop))
      (switches
       ("-k" "Keep index" "--keep-index")
       ("-u" "Include untracked files" "--include-untracked")
@@ -216,16 +224,22 @@
     (committing
      (man-page "git-commit")
      (actions
-      ("c" "Commit" magit-commit))
+      ("c" "Commit" magit-commit)
+      ("a" "Amend"  magit-commit-amend)
+      ("e" "Extend" magit-commit-extend)
+      ("r" "Reword" magit-commit-reword)
+      ("f" "Fixup"  magit-commit-fixup)
+      ("s" "Squash" magit-commit-squash))
      (switches
-      ("-r" "Replace the tip of current branch" "--amend")
-      ("-R" "Claim authorship and reset author date" "--reset-author")
       ("-a" "Stage all modified and deleted files" "--all")
       ("-e" "Allow empty commit" "--allow-empty")
       ("-v" "Show diff of changes to be committed" "--verbose")
       ("-n" "Bypass git hooks" "--no-verify")
       ("-s" "Add Signed-off-by line" "--signoff")
-      ("-S" "Sign using gpg" "--gpg-sign")))
+      ("-R" "Claim authorship and reset author date" "--reset-author"))
+     (arguments
+      ("=A" "Override the author" "--author=" read-from-minibuffer)
+      ("=S" "Sign using gpg" "--gpg-sign=" magit-read-gpg-secret-key)))
 
     (merging
      (man-page "git-merge")
@@ -245,8 +259,26 @@
       ("s" "Stop" magit-rewrite-stop)
       ("a" "Abort" magit-rewrite-abort)
       ("f" "Finish" magit-rewrite-finish)
+      ("d" "Diff pending" magit-rewrite-diff-pending)
       ("*" "Set unused" magit-rewrite-set-unused)
       ("." "Set used" magit-rewrite-set-used)))
+
+    (apply-mailbox
+     (man-page "git-am")
+     (actions
+      ("J" "Apply Mailbox" magit-apply-mailbox))
+     (switches
+      ("-s" "add a Signed-off-by line to the commit message" "--signoff")
+      ("-3" "allow fall back on 3way merging if needed" "--3way")
+      ("-k" "pass -k flag to git-mailinfo" "--keep")
+      ("-c" "strip everything before a scissors line" "--scissors")
+      ("-p" "pass it through git-apply" "-p")
+      ("-r" "override error message when patch failure occurs" "--resolvemsg")
+      ("-d" "lie about committer date" "--committer-date-is-author-date")
+      ("-D" "use current timestamp for author date" "--ignore-date")
+      ("-b" "pass -b flag to git-mailinfo" "--keep-non-patch"))
+     (arguments
+      ("=p" "format the patch(es) are in" "--patch-format=" read-from-minibuffer)))
 
     (submodule
      (man-page "git-submodule")
@@ -262,11 +294,9 @@
       ("b" "Bad" magit-bisect-bad)
       ("g" "Good" magit-bisect-good)
       ("k" "Skip" magit-bisect-skip)
-      ("l" "Log" magit-bisect-log)
       ("r" "Reset" magit-bisect-reset)
       ("s" "Start" magit-bisect-start)
-      ("u" "Run" magit-bisect-run)
-      ("v" "Visualize" magit-bisect-visualize)))
+      ("u" "Run" magit-bisect-run)))
 
     (diff-options
      (actions
@@ -274,7 +304,7 @@
       ("d" "Set default" magit-set-default-diff-options)
       ("c" "Save default" magit-save-default-diff-options)
       ("r" "Reset to default" magit-reset-diff-options)
-      ("h" "Toggle Hunk Refinement" magit-toggle-diff-refine-hunk))
+      ("h" "Toggle Hunk Refinement" magit-diff-toggle-refine-hunk))
      (switches
       ("-m" "Show smallest possible diff" "--minimal")
       ("-p" "Use patience diff algorithm" "--patience")
@@ -308,7 +338,7 @@ same name."
   (when (assoc group magit-key-mode-groups)
     (magit-key-mode-delete-group group))
   (setq magit-key-mode-groups
-        (cons (list group (list 'actions) (list 'switches))
+        (cons (list group (list 'actions) (list 'switches) (list 'arguments))
               magit-key-mode-groups)))
 
 (defun magit-key-mode-key-defined-p (for-group key)
@@ -477,7 +507,8 @@ Do not customize this (used in the `magit-key-mode' implementation).")
     (set-window-configuration magit-pre-key-mode-window-conf)
     (kill-buffer magit-key-mode-last-buffer)
     (when func
-      (call-interactively func))))
+      (setq this-command func)
+      (call-interactively this-command))))
 
 (defun magit-key-mode-add-argument (for-group arg-name input-func)
   (let ((input (funcall input-func (concat arg-name ": "))))
@@ -520,6 +551,7 @@ the key combination highlighted before the description."
     (other-window 1)
     (switch-to-buffer buf)
     (kill-all-local-variables)
+    (set (make-local-variable 'scroll-margin) 0)
     (set (make-local-variable
           'magit-key-mode-current-options)
          original-opts)
@@ -694,5 +726,10 @@ Return the point before the actions part, if any, nil otherwise."
         (magit-key-mode-generate (car g)))
       magit-key-mode-groups)
 
+;;;###autoload (mapc (lambda (g) (eval `(autoload ',(intern (concat "magit-key-mode-popup-" (symbol-name (car g)))) "magit-key-mode" ,(concat "Key menu for " (symbol-name (car g))) t))) magit-key-mode-groups)
+
 (provide 'magit-key-mode)
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 ;;; magit-key-mode.el ends here
