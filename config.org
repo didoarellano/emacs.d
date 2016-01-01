@@ -1,0 +1,5 @@
+#+TITLE: Dido's Emacs Configuration
+
+#+BEGIN_SRC emacs-lisp
+(message "HELLO 2016")
+#+END_SRC
