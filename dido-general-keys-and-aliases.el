@@ -17,17 +17,19 @@
 (global-set-key (kbd "M-;") 'dido-comment-dwim-line) ; was comment-dwim
 (global-set-key (kbd "C-x C-h") 'mark-whole-buffer)
 
-(defun d/make-frame-switch-to-workgroup ()
-  "Create new frame and set its workgroup to the parent frame's active workgroup."
+(defun d/make-new-project-frame ()
+  "Create new frame, set workgroup to the parent frame's active workgroup, then open projectile-find-file."
   (interactive)
-  (setq d/current-workgroup (wg-current-workgroup))
-  (let (new-frame (make-frame))
+  (let (new-frame (make-frame)
+                  (current-workgroup (wg-current-workgroup))
+                  (current-buffer (current-buffer)))
     (switch-to-buffer-other-frame new-frame)
-    ;; TODO: Set buffer to parent's buffer not last saved workgroups2 buffer
-    (wg-set-current-workgroup d/current-workgroup)))
+    (wg-set-current-workgroup current-workgroup)
+    (switch-to-buffer current-buffer)
+    (projectile-find-file)))
 
-(global-set-key (kbd "C-S-n") 'd/make-frame-switch-to-workgroup)
-(global-set-key (kbd "M-n") 'd/make-frame-switch-to-workgroup)
+(global-set-key (kbd "C-S-n") 'd/make-new-project-frame)
+(global-set-key (kbd "M-n") 'd/make-new-project-frame)
 
 ;; =============
 ;; Evil Mappings
