@@ -647,6 +647,16 @@ From http://emacswiki.org/emacs/InteractivelyDoThings#toc20
     )
   (add-hook 'ido-minibuffer-setup-hook '--ido-keybindings )
 #+END_SRC
+
+*** Fuzzy matching with flx ido
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flx-ido
+    :ensure t
+    :init
+    (flx-ido-mode 1)
+    (setq ido-use-faces nil))
+#+END_SRC
 * Text encoding
 
 Why do we need all of this again?
