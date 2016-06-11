@@ -1,2 +1,10 @@
 /config.el
 /elpa/
+/games/
+/auto-save-list/
+/projectile-bookmarks.eld
+/projectile.cache
+/smex-items
+/tmp/
+/.mc-lists.el
+/workgroups/
