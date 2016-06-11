@@ -185,6 +185,22 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
 #+END_SRC
 
 ** evil-matchit
+*** Fix % not jumping to proper pair in visual state
+
+#+BEGIN_SRC emacs-lisp
+  (defun evilmi-customize-keybinding ()
+    (evil-define-key 'visual evil-matchit-mode-map "%" '--evilmi-fix-jump-items-in-visual-mode))
+
+  (defun --evilmi-fix-jump-items-in-visual-mode ()
+    (interactive)
+    (let ((visual-type (evil-visual-type)))
+      (evil-exit-visual-state)
+      (evil-set-marker ?\&)
+      (evilmi-jump-items)
+      (evil-visual-make-selection (evil-get-marker ?\&) (point) visual-type)))
+#+END_SRC
+
+*** Install
 
 #+BEGIN_SRC emacs-lisp
   (use-package evil-matchit
