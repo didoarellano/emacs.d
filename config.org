@@ -347,7 +347,7 @@ Use the light theme.
 ** Powerline modeline
 *** Helpers
 
-Map evil states to colors.
+**** Map evil states to colors.
 
 #+BEGIN_SRC emacs-lisp
   (defun --powerline-get-evil-state-color (state is-active-window)
@@ -359,6 +359,25 @@ Map evil states to colors.
        ((member state reds) '--powerline-face-red)
        ((member state greens) '--powerline-face-green)
        (t '--powerline-face-inactive))))
+#+END_SRC
+
+**** Git branch name
+
+Keep track of the project's current git branch name by shelling out. Other ways (~vc-mode~) of getting the branch name only work when the file is already being tracked by git.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar --git-branch-name "")
+  (defun --get-git-branch-name (&optional frame)
+    (interactive)
+    (let ((branch "")
+          (shell-output (substring (shell-command-to-string "git rev-parse --abbrev-ref HEAD &") 0 -1)))
+      (when (not (string-match "fatal:" shell-output))
+        (setq branch shell-output))
+      (setq-local --git-branch-name branch)))
+
+  ;; TODO Add magit branch-related hooks
+  (add-hook 'focus-in-hook '--get-git-branch-name)
+  (add-hook 'after-make-frame-functions '--get-git-branch-name)
 #+END_SRC
 
 *** Components
@@ -381,23 +400,6 @@ Map evil states to colors.
       (list
        (powerline-raw string this-face)
        (powerline-arrow-left this-face next-face))))
-#+END_SRC
-
-Keep track of the project's current git branch name by shelling out. Other ways (~vc-mode~) of getting the branch name only work when the file is already being tracked by git.
-
-#+BEGIN_SRC emacs-lisp
-  (defvar --git-branch-name "")
-  (defun --get-git-branch-name (&optional frame)
-    (interactive)
-    (let ((branch "")
-          (shell-output (substring (shell-command-to-string "git rev-parse --abbrev-ref HEAD &") 0 -1)))
-      (when (not (string-match "fatal:" shell-output))
-        (setq branch shell-output))
-      (setq-local --git-branch-name branch)))
-
-  ;; TODO Add magit branch-related hooks
-  (add-hook 'focus-in-hook '--get-git-branch-name)
-  (add-hook 'after-make-frame-functions '--get-git-branch-name)
 #+END_SRC
 
 **** Evil state
