@@ -24,6 +24,28 @@ Make sure [[https://github.com/jwiegley/use-package][use-package]] is installed.
   (eval-when-compile
     (require 'use-package))
 #+END_SRC
+
+* Evil
+** evil-mode
+*** Install goto-chg dependency
+
+Install evil's ~goto-chg~ dependency from melpa "bleeding-edge" as the right version (1.6) is not in stable.
+
 #+BEGIN_SRC emacs-lisp
-(message "HELLO 2016")
+  (use-package goto-chg
+    :ensure t
+    :pin melpa)
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+
+*** Install
+
+Finally install and configure ~evil-mode~.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :config
+    (evil-mode 1))
+#+END_SRC
 #+END_SRC
