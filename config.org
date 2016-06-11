@@ -429,25 +429,28 @@ Define custom powerline faces for our light theme.
 #+BEGIN_SRC emacs-lisp
   (defface --powerline-face-normal
     '((t (:inherit --background :foreground "#eeeeee"))) "")
-    (defface --powerline-face-lightest
-      '((t (:background "#eeeeee" :foreground "#444444"))) "")
+  (defface --powerline-face-lightest
+    '((t (:background "#eeeeee" :foreground "#444444"))) "")
   (defface --powerline-face-light
     '((t (:background "#cccccc" :foreground "#444444"))) "")
   (defface --powerline-face-dark
     '((t (:background "#888888" :inherit --powerline-face-normal))) "")
   (defface --powerline-face-darkest
     '((t (:background "#444444" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-inactive
+    '((t (:slant italic :background "#eeeeee" :foreground "#444444"))) "")
 #+END_SRC
 
 *** Initialize
 
 #+BEGIN_SRC emacs-lisp
   (defun --configure-powerline ()
-    (let* ((none '--powerline-face-normal)
-           (lightest '--powerline-face-lightest)
-           (light '--powerline-face-light)
-           (dark '--powerline-face-dark)
-           (darkest '--powerline-face-darkest)
+    (let* ((active (eq powerline-selected-window (selected-window)))
+           (none '--powerline-face-normal)
+           (lightest (if active '--powerline-face-lightest '--powerline-face-inactive))
+           (light (if active '--powerline-face-light '--powerline-face-inactive))
+           (dark (if active '--powerline-face-dark '--powerline-face-inactive))
+           (darkest (if active '--powerline-face-darkest '--powerline-face-inactive))
            (lhs (append
                  (--powerline-buffer-id darkest dark)
                  (--powerline-git-branch dark none)))
