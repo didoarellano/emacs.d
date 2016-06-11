@@ -276,3 +276,26 @@ Set font, font size, and lineheight.
   (add-to-list 'default-frame-alist '(font . "Source Code Pro for Powerline-10") t)
   (setq-default line-spacing 0.15)
 #+END_SRC
+
+** Cursor
+*** Stop blinking
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode 0)
+#+END_SRC
+
+*** Invert cursor color
+
+Set the cursor's color to the foreground color of thing at point. From https://www.reddit.com/r/emacs/comments/4c5g4i/help_how_do_i_change_the_cursor_to_have_the_same/
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eyedropper
+    :ensure t
+    :config
+    (setq --cursor-invert-active t)
+    (defun --invert-cursor-color ()
+      (interactive)
+      (if --cursor-invert-active
+          (set-cursor-color (eyedrop-foreground-at-point))))
+    (add-hook 'post-command-hook '--invert-cursor-color))
+#+END_SRC
