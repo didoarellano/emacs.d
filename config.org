@@ -395,3 +395,8 @@ Set the cursor's color to the foreground color of thing at point. From https://w
   (setq show-paren-delay 0.0)
 #+END_SRC
 
+** Show uncompleted key chords in echo area right away
+
+#+BEGIN_SRC emacs-lisp
+  (setq echo-keystrokes 0.1)
+#+END_SRC
