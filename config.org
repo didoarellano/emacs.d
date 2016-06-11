@@ -491,13 +491,27 @@ Define custom powerline faces for our light theme.
                  (--powerline-scroll-position darkest lightest))))
       (concat
        (powerline-render lhs)
-       (powerline-fill 'powerline-normal (powerline-width rhs))
+       ;; Divide by modeline shrink factor then add 2 for powerline-hud width.
+       (powerline-fill 'powerline-normal (+ 2 (* (powerline-width rhs) 0.72)))
        (powerline-render rhs))))
 
   (use-package powerline
     :ensure t
     :init (setq-default mode-line-format '("%e" (:eval (--configure-powerline)))))
 #+END_SRC
+
+** Shrink modeline
+
+Smaller ~mode-line-inactive~ face sometime doesn't stick when new frames are created so force it with a hook.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --ensure-small-modeline (&optional frame)
+    (set-face-attribute 'mode-line          nil :height 72 :box nil :weight 'semi-bold)
+    (set-face-attribute 'mode-line-inactive nil :height 72 :box nil :weight 'semi-bold))
+  (--ensure-small-modeline)
+  (add-hook 'after-make-frame-functions '--ensure-small-modeline)
+#+END_SRC
+
 ** Set the frame title
 
 If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
