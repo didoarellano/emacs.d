@@ -64,6 +64,23 @@ Removes ~evil~ state noise in the echo area and the angle brackets from state ta
           evil-replace-state-tag  "R"
           evil-operator-state-tag "O"))
 #+END_SRC
+
+*** Key bindings
+**** ~C-e~ and ~C-y~ scrolling in bigger increments
+
+#+BEGIN_SRC emacs-lisp
+  (defun --evil-scroll-line-down ()
+    (interactive)
+    (evil-scroll-line-down 5))
+
+  (defun --evil-scroll-line-up ()
+    (interactive)
+    (evil-scroll-line-up 5))
+
+  (defun --bind-keys-bigger-scroll-increments ()
+    (define-key evil-motion-state-map (kbd "C-e") '--evil-scroll-line-down)
+    (define-key evil-motion-state-map (kbd "C-y") '--evil-scroll-line-up))
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
 
 *** Install
@@ -75,6 +92,7 @@ Finally install and configure ~evil-mode~.
     :ensure t
     :init
     (--minimal-evil-states)
+    (--bind-keys-bigger-scroll-increments)
     :config
     (evil-mode 1))
 #+END_SRC
