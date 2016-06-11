@@ -355,6 +355,34 @@ Use the light theme.
      (powerline-raw " " this-face)
      (powerline-arrow-left this-face next-face)))
 #+END_SRC
+
+**** Git branch name
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-git-branch (this-face next-face)
+    (let* ((b --git-branch-name)
+           (string (if (string-equal b "") "" (concat " ± " b " "))))
+      (list
+       (powerline-raw string this-face)
+       (powerline-arrow-left this-face next-face))))
+#+END_SRC
+
+Keep track of the project's current git branch name by shelling out. Other ways (~vc-mode~) of getting the branch name only work when the file is already being tracked by git.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar --git-branch-name "")
+  (defun --get-git-branch-name (&optional frame)
+    (interactive)
+    (let ((branch "")
+          (shell-output (substring (shell-command-to-string "git rev-parse --abbrev-ref HEAD &") 0 -1)))
+      (when (not (string-match "fatal:" shell-output))
+        (setq branch shell-output))
+      (setq-local --git-branch-name branch)))
+
+  ;; TODO Add magit branch-related hooks
+  (add-hook 'focus-in-hook '--get-git-branch-name)
+  (add-hook 'after-make-frame-functions '--get-git-branch-name)
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
     :ensure t
