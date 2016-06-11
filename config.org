@@ -81,4 +81,14 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
     :ensure t
     :init (global-evil-matchit-mode 1))
 #+END_SRC
+
+** evil-numbers
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-numbers
+    :ensure t
+    :init
+    (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt) ; was evil-previous-line-first-non-blank
+    (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt) ; was evil-next-line-first-non-blank
+    )
 #+END_SRC
