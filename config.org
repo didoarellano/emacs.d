@@ -512,6 +512,13 @@ Smaller ~mode-line-inactive~ face sometime doesn't stick when new frames are cre
   (add-hook 'after-make-frame-functions '--ensure-small-modeline)
 #+END_SRC
 
+** Uniquify buffer with parts of directory name
+
+#+BEGIN_SRC emacs-lisp
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
 ** Set the frame title
 
 If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
