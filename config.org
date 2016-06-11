@@ -633,3 +633,48 @@ Spaces biatch!
 #+BEGIN_SRC emacs-lisp
   (setq-default require-final-newline t)
 #+END_SRC
+
+* Word wrap
+** Don't wrap by default
+
+Toggle with ~M-x~ ~toggle-truncate-lines~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default truncate-lines t)
+#+END_SRC
+
+** Wrap at 80 characters
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
+** Wrap on word boundaries
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default word-wrap t)
+#+END_SRC
+
+** Visual fill column
+
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-fill-column
+    :ensure t
+    :config
+    (setq-default visual-fill-column-width 120)
+    (setq-default fringes-outside-margins nil))
+#+END_SRC
+
+** Toggle visual word wrap with ~<leader>~ ~bw~
+
+#+BEGIN_SRC emacs-lisp
+  (defun --wrap ()
+    (interactive)
+    (if (null visual-line-mode)
+        (progn
+          (visual-line-mode)
+          (visual-fill-column-mode))
+      (visual-line-mode 0)
+      (visual-fill-column-mode 0)))
+  (evil-leader/set-key "bw" '--wrap)
+#+END_SRC
