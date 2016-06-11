@@ -421,6 +421,23 @@ Keep track of the project's current git branch name by shelling out. Other ways 
     (list
      (powerline-hud this-face next-face 2)))
 #+END_SRC
+
+*** Faces
+
+Define custom powerline faces for our light theme.
+
+#+BEGIN_SRC emacs-lisp
+  (defface --powerline-face-normal
+    '((t (:inherit --background :foreground "#eeeeee"))) "")
+    (defface --powerline-face-lightest
+      '((t (:background "#eeeeee" :foreground "#444444"))) "")
+  (defface --powerline-face-light
+    '((t (:background "#cccccc" :foreground "#444444"))) "")
+  (defface --powerline-face-dark
+    '((t (:background "#888888" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-darkest
+    '((t (:background "#444444" :inherit --powerline-face-normal))) "")
+#+END_SRC
   (use-package powerline
     :ensure t
     :init (powerline-default-theme))
