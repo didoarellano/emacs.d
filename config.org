@@ -689,6 +689,52 @@ Smexify! Old ~M-x~ is rebound to ~C-c M-x~.
     (global-set-key (kbd "C-c M-x") 'execute-extended-command))
 #+END_SRC
 
+* Project management
+** Projectile
+*** Fallback to ido if not in a project
+
+#+BEGIN_SRC emacs-lisp
+  (defun --projectile-or-ido-find-file ()
+    "If in a projectile project do `projectile-find-file' otherwise fall back to
+  `ido-find-file'."
+    (interactive)
+    (if (projectile-project-p) (projectile-find-file)
+      (ido-find-file)))
+
+  (defun --projectile-or-ido-switch-buffer ()
+    "If in a projectile project do `projectile-switch-to-buffer' otherwise fall back to
+  `ido-switch-buffer'."
+    (interactive)
+    (if (projectile-project-p) (projectile-switch-to-buffer)
+      (ido-switch-buffer)))
+#+END_SRC
+
+*** Set up
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :init
+    (projectile-global-mode)
+    (add-to-list 'projectile-globally-ignored-directories "elpa")
+    (add-to-list 'projectile-globally-ignored-directories "auto-save-list")
+    (add-to-list 'projectile-globally-ignored-directories "venv")
+    (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (setq projectile-switch-project-action 'projectile-dired)
+    (setq projectile-known-projects-file (concat user-emacs-directory "projectile-bookmarks.eld"))
+
+    (evil-leader/set-key "ps" 'projectile-switch-project)
+    (evil-leader/set-key "pf" 'projectile-find-file)
+    (evil-leader/set-key "pb" 'projectile-switch-to-buffer)
+    (evil-leader/set-key "pg" 'projectile-ag)
+    (evil-leader/set-key "pd" 'projectile-dired)
+
+    (evil-leader/set-key "ff" '--projectile-or-ido-find-file)
+    (evil-leader/set-key "bb" '--projectile-or-ido-switch-buffer))
+#+END_SRC
+
+*** ✪ TODO Assign short names to projectile projects
+Maybe using .dir-locals.el per project? This should be enough to fully replace workgroups2. https://github.com/bbatsov/projectile#storing-project-settings
 * Text encoding
 
 Why do we need all of this again?
