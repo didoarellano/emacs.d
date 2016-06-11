@@ -48,6 +48,22 @@ Install evil's ~goto-chg~ dependency from melpa "bleeding-edge" as the right ver
     :ensure t
     :pin melpa)
 #+END_SRC
+
+*** Minimize evil state noise
+
+Removes ~evil~ state noise in the echo area and the angle brackets from state tags in the modeline, i.e "~<N>~".
+
+#+BEGIN_SRC emacs-lisp
+  (defun --minimal-evil-states()
+    (setq evil-echo-state nil)
+    (setq evil-normal-state-tag   "N"
+          evil-insert-state-tag   "I"
+          evil-visual-state-tag   "V"
+          evil-motion-state-tag   "M"
+          evil-emacs-state-tag    "E"
+          evil-replace-state-tag  "R"
+          evil-operator-state-tag "O"))
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
 
 *** Install
@@ -57,6 +73,8 @@ Finally install and configure ~evil-mode~.
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
+    :init
+    (--minimal-evil-states)
     :config
     (evil-mode 1))
 #+END_SRC
