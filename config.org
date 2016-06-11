@@ -248,11 +248,30 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
 
 * Gui
 ** Remove all the chrome
+
 #+BEGIN_SRC emacs-lisp
   (menu-bar-mode 0)
   (tool-bar-mode 0)
   (scroll-bar-mode 0)
   (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil) t)
+#+END_SRC
+
+** Fringes
+
+Remove the right fringe and its ~$~ symbol when the line is truncated. Change the left fringe's left-curly-arrow to an ellipsis-ish
+
+#+BEGIN_SRC emacs-lisp
+  (fringe-mode `(8 . 0))
+  (set-display-table-slot standard-display-table 0 ?\ )
+  (define-fringe-bitmap 'left-curly-arrow
+    [#b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b10010010])
 #+END_SRC
 
 ** Set the frame title
