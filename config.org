@@ -254,3 +254,15 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
   (scroll-bar-mode 0)
   (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil) t)
 #+END_SRC
+
+** Set the frame title
+
+If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
+
+#+BEGIN_SRC emacs-lisp
+  (setq frame-title-format
+        '(" " (:eval
+               (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+#+END_SRC
