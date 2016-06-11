@@ -400,3 +400,9 @@ Set the cursor's color to the foreground color of thing at point. From https://w
 #+BEGIN_SRC emacs-lisp
   (setq echo-keystrokes 0.1)
 #+END_SRC
+
+** Deactivate bell
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore visible-bell nil)
+#+END_SRC
