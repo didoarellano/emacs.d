@@ -439,6 +439,8 @@ Define custom powerline faces for our light theme.
     '((t (:background "#444444" :inherit --powerline-face-normal))) "")
   (defface --powerline-face-inactive
     '((t (:slant italic :background "#eeeeee" :foreground "#444444"))) "")
+  (defface --powerline-face-red
+    '((t (:background "#a52a2a" :inherit --powerline-face-normal))) "")
 #+END_SRC
 
 *** Initialize
@@ -451,8 +453,12 @@ Define custom powerline faces for our light theme.
            (light (if active '--powerline-face-light '--powerline-face-inactive))
            (dark (if active '--powerline-face-dark '--powerline-face-inactive))
            (darkest (if active '--powerline-face-darkest '--powerline-face-inactive))
+           (buffer-color (if (and (buffer-file-name)
+                                  (file-exists-p (buffer-file-name))
+                                  (buffer-modified-p))
+                             '--powerline-face-red darkest))
            (lhs (append
-                 (--powerline-buffer-id darkest dark)
+                 (--powerline-buffer-id buffer-color dark)
                  (--powerline-git-branch dark none)))
            (rhs (append
                  (--powerline-evil-state light dark)
