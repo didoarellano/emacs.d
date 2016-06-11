@@ -26,6 +26,18 @@ Make sure [[https://github.com/jwiegley/use-package][use-package]] is installed.
 #+END_SRC
 
 * Evil
+** evil-leader
+
+~evil-leader~ needs to load before ~evil~ itself so that it works on ~*scratch*~ and ~*Messages*~ buffers. See the [[https://github.com/cofi/evil-leader#usage][usage section on the evil-leader README]] and [[https://github.com/cofi/evil-leader/issues/10#issuecomment-19165722][@cofi's comment]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-leader
+    :ensure t
+    :init
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "<SPC>"))
+#+END_SRC
+
 ** evil-mode
 *** Install goto-chg dependency
 
