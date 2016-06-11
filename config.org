@@ -403,6 +403,16 @@ Keep track of the project's current git branch name by shelling out. Other ways 
      (powerline-raw " " this-face)
      (powerline-arrow-right this-face next-face)))
 #+END_SRC
+
+**** Cursor's line and column coordinates
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-cursor-position (this-face next-face)
+    (list
+     (powerline-raw " %l" this-face 'r)
+     (powerline-raw "•" this-face)
+     (powerline-raw " %c" this-face 'r)))
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
     :ensure t
