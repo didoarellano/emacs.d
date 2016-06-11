@@ -604,3 +604,32 @@ Why do we need all of this again?
   (set-selection-coding-system 'utf-8)
   (prefer-coding-system 'utf-8)
 #+END_SRC
+
+* Whitespace handling
+** Tabs vs Spaces
+
+Spaces biatch!
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+  (setq tab-stop-list (number-sequence 4 120 4))
+#+END_SRC
+
+** whitespace-mode
+
+#+BEGIN_SRC emacs-lisp
+  (setq whitespace-style '(face spaces tabs space-mark tab-mark))
+#+END_SRC
+
+** Delete trailing whitespace on write
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+** Add newline at EOF
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default require-final-newline t)
+#+END_SRC
