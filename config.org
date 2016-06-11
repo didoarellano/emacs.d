@@ -388,3 +388,10 @@ Set the cursor's color to the foreground color of thing at point. From https://w
           (set-cursor-color (eyedrop-foreground-at-point))))
     (add-hook 'post-command-hook '--invert-cursor-color))
 #+END_SRC
+** Highlight matching pairs
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+  (setq show-paren-delay 0.0)
+#+END_SRC
+
