@@ -73,4 +73,12 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
     (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
     (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
 #+END_SRC
+
+** evil-matchit
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-matchit
+    :ensure t
+    :init (global-evil-matchit-mode 1))
+#+END_SRC
 #+END_SRC
