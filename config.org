@@ -665,6 +665,30 @@ From http://emacswiki.org/emacs/InteractivelyDoThings#toc20
     :ensure t
     :init (ido-ubiquitous-mode t))
 #+END_SRC
+
+** Better ~M-x~
+
+Smexify! Old ~M-x~ is rebound to ~C-c M-x~.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init
+    (smex-initialize)
+    (setq smex-key-advice-ignore-menu-bar t)
+
+    ;; Don't poop in the home directory
+    (setq smex-save-file (concat --tmp-directory "smex-items"))
+
+    ;; Smexify my M-x
+    (global-set-key (kbd "M-x") 'smex)
+    (define-key evil-motion-state-map (kbd ";") 'smex)
+    (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+    ;; This is the old M-x
+    (global-set-key (kbd "C-c M-x") 'execute-extended-command))
+#+END_SRC
+
 * Text encoding
 
 Why do we need all of this again?
