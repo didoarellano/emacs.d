@@ -138,7 +138,21 @@ From http://lists.gnu.org/archive/html/help-gnu-emacs/2008-10/msg00677.html
   (defun --bind-keys-toggle-letter-case ()
     (define-key evil-visual-state-map "~" '--toggle-letter-case))
 #+END_SRC
+
+**** Readline bindings in *Insert* state
+
+Apart from ~C-h~, everything is default in non-Evil Emacs.
+
 #+BEGIN_SRC emacs-lisp
+  (defun --insert-state-readline-keys ()
+    (define-key evil-insert-state-map (kbd "C-a") 'move-beginning-of-line) ; was evil-paste-last-insertion
+    (define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line) ; was evil-copy-from-below
+    (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char) ; was help character
+    (define-key evil-insert-state-map (kbd "C-d") 'delete-forward-char) ; was evil-shift-left-line
+    (define-key evil-insert-state-map (kbd "C-k") 'kill-line) ; was evil-insert-digraph
+    (define-key evil-insert-state-map (kbd "C-y") 'yank) ; was evil-copy-from-above
+    )
+#+END_SRC
 
 *** Install
 
@@ -152,6 +166,7 @@ Finally install and configure ~evil-mode~.
     (--bind-keys-bigger-scroll-increments)
     (--bind-keys-insert-newlines)
     (--bind-keys-toggle-letter-case)
+    (--insert-state-readline-keys)
     :config
     (evil-mode 1))
 #+END_SRC
