@@ -245,3 +245,12 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
   (evil-set-initial-state 'package-menu-mode 'motion)
   (evil-set-initial-state 'Custom-mode 'motion)
 #+END_SRC
+
+* Gui
+** Remove all the chrome
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+  (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil) t)
+#+END_SRC
