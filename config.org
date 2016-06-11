@@ -218,3 +218,10 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
     (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt) ; was evil-next-line-first-non-blank
     )
 #+END_SRC
+
+** Modes and initial states
+
+#+BEGIN_SRC emacs-lisp
+  (evil-set-initial-state 'package-menu-mode 'motion)
+  (evil-set-initial-state 'Custom-mode 'motion)
+#+END_SRC
