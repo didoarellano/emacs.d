@@ -406,3 +406,14 @@ Set the cursor's color to the foreground color of thing at point. From https://w
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore visible-bell nil)
 #+END_SRC
+
+** Startup and scratch messages
+
+Get rid of the "For information about GNU Emacs and the GNU system, type C-h C-a." echo area message by redefining ~display-startup-echo-area-message~, which is more reliable and portable than ~(setq inhibit-startup-echo-area-message "YOUR-USER-NAME")~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t)
+  (defun display-startup-echo-area-message ()
+    (message ""))
+  (setq initial-scratch-message nil)
+#+END_SRC
