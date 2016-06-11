@@ -246,7 +246,7 @@ Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory t
   (evil-set-initial-state 'Custom-mode 'motion)
 #+END_SRC
 
-* Gui
+* GUI
 ** Remove all the chrome
 
 #+BEGIN_SRC emacs-lisp
@@ -289,6 +289,24 @@ De-emphasize the line numbers.
   (set-face-attribute 'linum nil :height 72 :slant 'italic :weight 'semi-light)
 #+END_SRC
 
+** Themes
+*** Install themes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tango-2-theme
+    :ensure t
+    :defer t
+    :pin melpa)
+
+  (use-package ujelly-theme
+    :ensure t
+    :defer t)
+
+  (use-package leuven-theme
+    :ensure t
+    :defer t
+    :pin melpa)
+#+END_SRC
 ** Set the frame title
 
 If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
