@@ -345,6 +345,22 @@ Use the light theme.
 #+END_SRC
 
 ** Powerline modeline
+*** Helpers
+
+Map evil states to colors.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-get-evil-state-color (state is-active-window)
+    (let ((reds `("I" "E" "R"))
+          (greens `("V" "O"))
+          (blues `("N" "M")))
+      (cond
+       ((and is-active-window (member state blues)) '--powerline-face-blue)
+       ((member state reds) '--powerline-face-red)
+       ((member state greens) '--powerline-face-green)
+       (t '--powerline-face-inactive))))
+#+END_SRC
+
 *** Components
 **** Buffer name
 
@@ -441,6 +457,10 @@ Define custom powerline faces for our light theme.
     '((t (:slant italic :background "#eeeeee" :foreground "#444444"))) "")
   (defface --powerline-face-red
     '((t (:background "#a52a2a" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-green
+    '((t (:background "#4e9a06" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-blue
+    '((t (:background "#0084c8" :inherit --powerline-face-normal))) "")
 #+END_SRC
 
 *** Initialize
@@ -457,11 +477,13 @@ Define custom powerline faces for our light theme.
                                   (file-exists-p (buffer-file-name))
                                   (buffer-modified-p))
                              '--powerline-face-red darkest))
+           (state-color (--powerline-get-evil-state-color evil-mode-line-tag active))
+
            (lhs (append
                  (--powerline-buffer-id buffer-color dark)
                  (--powerline-git-branch dark none)))
            (rhs (append
-                 (--powerline-evil-state light dark)
+                 (--powerline-evil-state state-color dark)
                  (--powerline-major-mode dark lightest)
                  (--powerline-cursor-position lightest darkest)
                  (--powerline-scroll-position darkest lightest))))
