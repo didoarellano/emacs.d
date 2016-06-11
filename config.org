@@ -1,5 +1,29 @@
 #+TITLE: Dido's Emacs Configuration
 
+* Package management
+
+Initialize ~package.el~ and use the melpa repositories.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives
+               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
+#+END_SRC
+
+Make sure [[https://github.com/jwiegley/use-package][use-package]] is installed.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile
+    (require 'use-package))
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
 (message "HELLO 2016")
 #+END_SRC
