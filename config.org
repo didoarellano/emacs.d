@@ -604,6 +604,49 @@ Get rid of the "For information about GNU Emacs and the GNU system, type C-h C-a
   (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
   (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word) ; was `kill-region'
 #+END_SRC
+
+** Ido
+*** Set up
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ido)
+  (ido-mode t)
+  (ido-everywhere)
+  (setq ido-default-file-method 'selected-window)
+  (setq ido-auto-merge-work-directories-length -1)
+  (setq ido-decorations
+        (quote ("\n ▶ "
+                ""
+                "\n   "
+                "\n   ..."
+                "  ▶ "
+                ""
+                "  ✗ No match"
+                "  ✓ Matched"
+                "  ✗ Not readable"
+                "  ✗ Too big"
+                "  ↵ Confirm")))
+#+END_SRC
+
+*** Vertical ido
+
+From http://emacswiki.org/emacs/InteractivelyDoThings#toc20
+
+#+BEGIN_SRC emacs-lisp
+  (defun --ido-show-results-vertically ()
+    (set (make-local-variable 'truncate-lines) nil))
+  (add-hook 'ido-minibuffer-setup-hook '--ido-show-results-vertically)
+#+END_SRC
+
+*** Keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (defun --ido-keybindings ()
+    (define-key ido-completion-map (kbd "C-n") 'ido-next-match) ; was next-line
+    (define-key ido-completion-map (kbd "C-p") 'ido-prev-match) ; was ido-toggle-prefix
+    )
+  (add-hook 'ido-minibuffer-setup-hook '--ido-keybindings )
+#+END_SRC
 * Text encoding
 
 Why do we need all of this again?
