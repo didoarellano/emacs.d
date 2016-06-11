@@ -758,6 +758,36 @@ Maybe using .dir-locals.el per project? This should be enough to fully replace w
     (evil-leader/set-key "w C-s" 'wg-save-session)
     (evil-leader/set-key "wo" 'wg-open-session))
 #+END_SRC
+
+** Leaving the tiling to the tiling window manager
+
+Each buffer gets its own frame. Make sure each frame opens with the same buffer and the same workgroup or project.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --make-new-workgroup-frame ()
+    "Create new frame, set workgroup to the parent frame's active workgroup, then
+  open `--projectile-or-ido-find-file'."
+    (interactive)
+    (let (new-frame (make-frame)
+                    (current-workgroup (wg-current-workgroup))
+                    (current-buffer (current-buffer)))
+      (switch-to-buffer-other-frame new-frame)
+      (wg-set-current-workgroup current-workgroup)
+      (switch-to-buffer current-buffer)
+      (--projectile-or-ido-find-file)))
+
+  (defun --make-new-project-frame ()
+    (interactive)
+    (let (new-frame (make-frame)
+                    (current-buffer (current-buffer)))
+      (switch-to-buffer-other-frame new-frame)
+      (switch-to-buffer current-buffer)
+      ;; fix powerline active window
+      (sleep-for 0.000001)))
+
+  (global-set-key (kbd "C-S-n") '--make-new-project-frame)
+#+END_SRC
+
 * Text encoding
 
 Why do we need all of this again?
