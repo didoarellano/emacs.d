@@ -413,7 +413,14 @@ Keep track of the project's current git branch name by shelling out. Other ways 
      (powerline-raw "•" this-face)
      (powerline-raw " %c" this-face 'r)))
 #+END_SRC
+
+**** Scroll position (HUD)
+
 #+BEGIN_SRC emacs-lisp
+  (defun --powerline-scroll-position (this-face next-face)
+    (list
+     (powerline-hud this-face next-face 2)))
+#+END_SRC
   (use-package powerline
     :ensure t
     :init (powerline-default-theme))
