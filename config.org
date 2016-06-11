@@ -657,6 +657,14 @@ From http://emacswiki.org/emacs/InteractivelyDoThings#toc20
     (flx-ido-mode 1)
     (setq ido-use-faces nil))
 #+END_SRC
+
+*** Ubiquitous ido
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-ubiquitous
+    :ensure t
+    :init (ido-ubiquitous-mode t))
+#+END_SRC
 * Text encoding
 
 Why do we need all of this again?
