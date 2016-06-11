@@ -81,6 +81,26 @@ Removes ~evil~ state noise in the echo area and the angle brackets from state ta
     (define-key evil-motion-state-map (kbd "C-e") '--evil-scroll-line-down)
     (define-key evil-motion-state-map (kbd "C-y") '--evil-scroll-line-up))
 #+END_SRC
+
+**** Insert newlines above and below current line in *Normal* state
+
+#+BEGIN_SRC emacs-lisp
+  (defun --insert-newline-below ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (newline)))
+
+  (defun --insert-newline-above ()
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (newline)))
+
+  (defun --bind-keys-insert-newlines ()
+    (define-key evil-normal-state-map (kbd "<return>") '--insert-newline-below)
+    (define-key evil-normal-state-map (kbd "<S-return>") '--insert-newline-above))
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
 
 *** Install
@@ -93,6 +113,7 @@ Finally install and configure ~evil-mode~.
     :init
     (--minimal-evil-states)
     (--bind-keys-bigger-scroll-increments)
+    (--bind-keys-insert-newlines)
     :config
     (evil-mode 1))
 #+END_SRC
