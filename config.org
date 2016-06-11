@@ -25,6 +25,26 @@ Make sure [[https://github.com/jwiegley/use-package][use-package]] is installed.
     (require 'use-package))
 #+END_SRC
 
+* Backup and temp files
+
+Try to keep emacs from pooping all over my home directory with backups, save-files, ido, smex, etc.
+
+Set the temp directory.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar --tmp-directory (expand-file-name (concat user-emacs-directory "tmp/")))
+  (setq backup-directory-alist `(("." . ,--tmp-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,--tmp-directory t)))
+#+END_SRC
+
+Make backup files (even with version control); Don't create lock and autosave files.
+
+#+BEGIN_SRC emacs-lisp
+  (setq vc-make-backup-files t)
+  (setq create-lockfiles nil)
+  (setq auto-save-default nil)
+#+END_SRC
+
 * Evil
 ** evil-leader
 
