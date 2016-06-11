@@ -344,6 +344,13 @@ Use the light theme.
   (--light-theme)
 #+END_SRC
 
+** Powerline modeline
+#+BEGIN_SRC emacs-lisp
+  (use-package powerline
+    :ensure t
+    :init (powerline-default-theme))
+    ;; :init (setq-default mode-line-format '("%e" (:eval (--configure-powerline)))))
+#+END_SRC
 ** Set the frame title
 
 If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
