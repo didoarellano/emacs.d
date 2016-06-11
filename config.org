@@ -593,6 +593,17 @@ Get rid of the "For information about GNU Emacs and the GNU system, type C-h C-a
   (setq initial-scratch-message nil)
 #+END_SRC
 
+* Minibuffer
+** Keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word) ; was `kill-region'
+#+END_SRC
 * Text encoding
 
 Why do we need all of this again?
