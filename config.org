@@ -266,3 +266,13 @@ If buffer is visiting a file display its full path (_~/path/to/file_) , otherwis
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 #+END_SRC
+
+** Fonts
+
+Set font, font size, and lineheight.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'initial-frame-alist '(font . "Source Code Pro for Powerline-10") t)
+  (add-to-list 'default-frame-alist '(font . "Source Code Pro for Powerline-10") t)
+  (setq-default line-spacing 0.15)
+#+END_SRC
