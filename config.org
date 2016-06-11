@@ -383,6 +383,16 @@ Keep track of the project's current git branch name by shelling out. Other ways 
   (add-hook 'focus-in-hook '--get-git-branch-name)
   (add-hook 'after-make-frame-functions '--get-git-branch-name)
 #+END_SRC
+
+**** Evil state
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-evil-state (this-face next-face)
+    (list
+     (powerline-arrow-right '--powerline-face-normal this-face)
+     (powerline-raw (concat " " (format-mode-line 'evil-mode-line-tag) " ") this-face)
+     (powerline-arrow-right this-face next-face)))
+#+END_SRC
 #+BEGIN_SRC emacs-lisp
   (use-package powerline
     :ensure t
