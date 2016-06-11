@@ -60,4 +60,17 @@ Finally install and configure ~evil-mode~.
     :config
     (evil-mode 1))
 #+END_SRC
+
+** evil-surround
+
+Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory to ever change. Relevant: [[https://github.com/timcharper/evil-surround/pull/48][evil-surround]] and [[https://github.com/tpope/vim-surround/commit/6f0984a][vim-surround]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-surround
+    :ensure t
+    :init
+    (global-evil-surround-mode 1)
+    (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
+    (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
+#+END_SRC
 #+END_SRC
