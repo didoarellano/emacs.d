@@ -438,10 +438,32 @@ Define custom powerline faces for our light theme.
   (defface --powerline-face-darkest
     '((t (:background "#444444" :inherit --powerline-face-normal))) "")
 #+END_SRC
+
+*** Initialize
+
+#+BEGIN_SRC emacs-lisp
+  (defun --configure-powerline ()
+    (let* ((none '--powerline-face-normal)
+           (lightest '--powerline-face-lightest)
+           (light '--powerline-face-light)
+           (dark '--powerline-face-dark)
+           (darkest '--powerline-face-darkest)
+           (lhs (append
+                 (--powerline-buffer-id darkest dark)
+                 (--powerline-git-branch dark none)))
+           (rhs (append
+                 (--powerline-evil-state light dark)
+                 (--powerline-major-mode dark lightest)
+                 (--powerline-cursor-position lightest darkest)
+                 (--powerline-scroll-position darkest lightest))))
+      (concat
+       (powerline-render lhs)
+       (powerline-fill 'powerline-normal (powerline-width rhs))
+       (powerline-render rhs))))
+
   (use-package powerline
     :ensure t
-    :init (powerline-default-theme))
-    ;; :init (setq-default mode-line-format '("%e" (:eval (--configure-powerline)))))
+    :init (setq-default mode-line-format '("%e" (:eval (--configure-powerline)))))
 #+END_SRC
 ** Set the frame title
 
