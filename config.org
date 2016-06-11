@@ -274,6 +274,21 @@ Remove the right fringe and its ~$~ symbol when the line is truncated. Change th
      #b10010010])
 #+END_SRC
 
+** Line numbers
+
+Turn on ~linum-mode~ globally.
+
+#+BEGIN_SRC emacs-lisp
+  (global-linum-mode 1)
+  (setq linum-format " %3d")
+#+END_SRC
+
+De-emphasize the line numbers.
+
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'linum nil :height 72 :slant 'italic :weight 'semi-light)
+#+END_SRC
+
 ** Set the frame title
 
 If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
