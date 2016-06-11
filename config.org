@@ -735,6 +735,29 @@ Smexify! Old ~M-x~ is rebound to ~C-c M-x~.
 
 *** ✪ TODO Assign short names to projectile projects
 Maybe using .dir-locals.el per project? This should be enough to fully replace workgroups2. https://github.com/bbatsov/projectile#storing-project-settings
+
+** Workgroups
+
+#+BEGIN_SRC emacs-lisp
+  (use-package workgroups2
+    :ensure t
+    :disabled t
+    :init
+    (setq wg-use-default-session-file nil)
+    (setq wg-session-file (concat user-emacs-directory "workgroups"))
+    (setq wg-load-last-workgroup nil)
+    (setq wg-open-this-wg "blank")
+    (setq wg-mess-with-buffer-list t)
+    (setq wg-emacs-exit-save-behavior nil)
+    (workgroups-mode 1)
+
+    (evil-leader/set-key "ws" 'wg-switch-to-workgroup)
+    (evil-leader/set-key "wc" 'wg-create-workgroup)
+    (evil-leader/set-key "wb" 'wg-switch-to-buffer)
+    (evil-leader/set-key "wR" 'wg-rename-workgroup)
+    (evil-leader/set-key "w C-s" 'wg-save-session)
+    (evil-leader/set-key "wo" 'wg-open-session))
+#+END_SRC
 * Text encoding
 
 Why do we need all of this again?
