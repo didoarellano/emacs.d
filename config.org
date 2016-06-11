@@ -307,6 +307,43 @@ De-emphasize the line numbers.
     :defer t
     :pin melpa)
 #+END_SRC
+
+*** Configure and activate theme
+
+Tweak the built-in adwaita light theme.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --light-theme ()
+    (load-theme 'adwaita t)
+    (custom-set-faces
+     '(default ((t (:background "#ffffff"))))
+     '(fringe  ((t (:background "#ffffff"  :foreground "#888a85"))))
+     '(highlight  ((t (:foreground nil :background "#eeeeee"))))
+     '(cursor  ((t (:foreground nil :background "#474747"))))
+     '(secondary-selection ((t (:background "#fffacd")))))
+    (defface --background
+      '((t (:background "#ffffff"))) ""))
+#+END_SRC
+
+Tweak the the tango-2 dark theme.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --dark-theme ()
+    (interactive)
+    (load-theme 'tango-2 t)
+    (custom-set-faces
+     '(default ((t (:background "#000000"))))
+     '(fringe  ((t (:background "#000000")))))
+    (defface --background
+      '((t (:background "#000000"))) ""))
+#+END_SRC
+
+Use the light theme.
+
+#+BEGIN_SRC emacs-lisp
+  (--light-theme)
+#+END_SRC
+
 ** Set the frame title
 
 If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
