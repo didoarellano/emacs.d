@@ -1,1 +1,1069 @@
-config.org
+#+TITLE: Dido's Emacs Configuration
+
+* Meta
+** Disabling a code block
+#+BEGIN_SRC emacs-lisp :tangle no
+  (message "KABOOM")
+#+END_SRC
+** Disabling a whole tree
+:PROPERTIES:
+:header-args: :tangle no
+:END:
+#+BEGIN_SRC emacs-lisp
+  (message "KAPOW")
+#+END_SRC
+* Package management
+
+Initialize ~package.el~ and use the melpa repositories.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives
+               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+  (package-initialize)
+#+END_SRC
+
+Make sure [[https://github.com/jwiegley/use-package][use-package]] is installed.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (eval-when-compile
+    (require 'use-package))
+#+END_SRC
+
+* Backup and temp files
+
+Try to keep emacs from pooping all over my home directory with backups, save-files, ido, smex, etc.
+
+Set the temp directory.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar --tmp-directory (expand-file-name (concat user-emacs-directory "tmp/")))
+  (setq backup-directory-alist `(("." . ,--tmp-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,--tmp-directory t)))
+#+END_SRC
+
+Make backup files (even with version control); Don't create lock and autosave files.
+
+#+BEGIN_SRC emacs-lisp
+  (setq vc-make-backup-files t)
+  (setq create-lockfiles nil)
+  (setq auto-save-default nil)
+#+END_SRC
+
+* Evil
+** evil-leader
+
+~evil-leader~ needs to load before ~evil~ itself so that it works on ~*scratch*~ and ~*Messages*~ buffers. See the [[https://github.com/cofi/evil-leader#usage][usage section on the evil-leader README]] and [[https://github.com/cofi/evil-leader/issues/10#issuecomment-19165722][@cofi's comment]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-leader
+    :ensure t
+    :init
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "<SPC>"))
+#+END_SRC
+
+** evil-mode
+*** Install goto-chg dependency
+
+Install evil's ~goto-chg~ dependency from melpa "bleeding-edge" as the right version (1.6) is not in stable.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package goto-chg
+    :ensure t
+    :pin melpa)
+#+END_SRC
+
+*** Minimize evil state noise
+
+Removes ~evil~ state noise in the echo area and the angle brackets from state tags in the modeline, i.e "~<N>~".
+
+#+BEGIN_SRC emacs-lisp
+  (defun --minimal-evil-states()
+    (setq evil-echo-state nil)
+    (setq evil-normal-state-tag   "N"
+          evil-insert-state-tag   "I"
+          evil-visual-state-tag   "V"
+          evil-motion-state-tag   "M"
+          evil-emacs-state-tag    "E"
+          evil-replace-state-tag  "R"
+          evil-operator-state-tag "O"))
+#+END_SRC
+
+*** Key bindings
+**** ~C-e~ and ~C-y~ scrolling in bigger increments
+
+#+BEGIN_SRC emacs-lisp
+  (defun --evil-scroll-line-down ()
+    (interactive)
+    (evil-scroll-line-down 5))
+
+  (defun --evil-scroll-line-up ()
+    (interactive)
+    (evil-scroll-line-up 5))
+
+  (defun --bind-keys-bigger-scroll-increments ()
+    (define-key evil-motion-state-map (kbd "C-e") '--evil-scroll-line-down)
+    (define-key evil-motion-state-map (kbd "C-y") '--evil-scroll-line-up))
+#+END_SRC
+
+**** Insert newlines above and below current line in *Normal* state
+
+#+BEGIN_SRC emacs-lisp
+  (defun --insert-newline-below ()
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (newline)))
+
+  (defun --insert-newline-above ()
+    (interactive)
+    (save-excursion
+      (beginning-of-line)
+      (newline)))
+
+  (defun --bind-keys-insert-newlines ()
+    (define-key evil-normal-state-map (kbd "<return>") '--insert-newline-below)
+    (define-key evil-normal-state-map (kbd "<S-return>") '--insert-newline-above))
+#+END_SRC
+
+**** Case twiddling
+
+From http://lists.gnu.org/archive/html/help-gnu-emacs/2008-10/msg00677.html
+
+#+BEGIN_SRC emacs-lisp
+  (defun --toggle-letter-case ()
+    "Toggle the letter case of current word or text selection. Toggles from 3
+      cases: upper case, lower case, title case, in that cyclic order."
+    (interactive)
+    (let (pos1 pos2 (deactivate-mark nil) (case-fold-search nil))
+      (if (and transient-mark-mode mark-active)
+          (setq pos1 (region-beginning)
+                pos2 (region-end))
+        (setq pos1 (car (bounds-of-thing-at-point 'word))
+              pos2 (cdr (bounds-of-thing-at-point 'word))))
+
+      (when (not (eq last-command this-command))
+        (save-excursion
+          (goto-char pos1)
+          (cond
+           ((looking-at "[[:lower:]][[:lower:]]") (put this-command 'state "all lower"))
+           ((looking-at "[[:upper:]][[:upper:]]") (put this-command 'state "all caps"))
+           ((looking-at "[[:upper:]][[:lower:]]") (put this-command 'state "init caps"))
+           (t (put this-command 'state "all lower")))))
+
+      (cond
+       ((string= "all lower" (get this-command 'state))
+        (upcase-initials-region pos1 pos2) (put this-command 'state "init caps"))
+       ((string= "init caps" (get this-command 'state))
+        (upcase-region pos1 pos2) (put this-command 'state "all caps"))
+       ((string= "all caps" (get this-command 'state))
+        (downcase-region pos1 pos2) (put this-command 'state "all lower")))))
+
+  (defun --bind-keys-toggle-letter-case ()
+    (define-key evil-visual-state-map "~" '--toggle-letter-case))
+#+END_SRC
+
+**** Readline bindings in *Insert* state
+
+Apart from ~C-h~, everything is default in non-Evil Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --insert-state-readline-keys ()
+    (define-key evil-insert-state-map (kbd "C-a") 'move-beginning-of-line) ; was evil-paste-last-insertion
+    (define-key evil-insert-state-map (kbd "C-e") 'move-end-of-line) ; was evil-copy-from-below
+    (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char) ; was help character
+    (define-key evil-insert-state-map (kbd "C-d") 'delete-forward-char) ; was evil-shift-left-line
+    (define-key evil-insert-state-map (kbd "C-k") 'kill-line) ; was evil-insert-digraph
+    (define-key evil-insert-state-map (kbd "C-y") 'yank) ; was evil-copy-from-above
+    )
+#+END_SRC
+
+*** Install
+
+Finally install and configure ~evil-mode~.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t
+    :init
+    (--minimal-evil-states)
+    (--bind-keys-bigger-scroll-increments)
+    (--bind-keys-insert-newlines)
+    (--bind-keys-toggle-letter-case)
+    (--insert-state-readline-keys)
+    :config
+    (evil-mode 1))
+#+END_SRC
+
+** evil-surround
+
+Flip ~s~ and ~S~ in *Visual* state. They're way too ingrained in muscle memory to ever change. Relevant: [[https://github.com/timcharper/evil-surround/pull/48][evil-surround]] and [[https://github.com/tpope/vim-surround/commit/6f0984a][vim-surround]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-surround
+    :ensure t
+    :init
+    (global-evil-surround-mode 1)
+    (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute)
+    (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region))
+#+END_SRC
+
+** evil-matchit
+*** Fix % not jumping to proper pair in visual state
+
+#+BEGIN_SRC emacs-lisp
+  (defun evilmi-customize-keybinding ()
+    (evil-define-key 'visual evil-matchit-mode-map "%" '--evilmi-fix-jump-items-in-visual-mode))
+
+  (defun --evilmi-fix-jump-items-in-visual-mode ()
+    (interactive)
+    (let ((visual-type (evil-visual-type)))
+      (evil-exit-visual-state)
+      (evil-set-marker ?\&)
+      (evilmi-jump-items)
+      (evil-visual-make-selection (evil-get-marker ?\&) (point) visual-type)))
+#+END_SRC
+
+*** Install
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-matchit
+    :ensure t
+    :init (global-evil-matchit-mode 1))
+#+END_SRC
+
+** evil-numbers
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-numbers
+    :ensure t
+    :init
+    (define-key evil-normal-state-map (kbd "+") 'evil-numbers/inc-at-pt) ; was evil-previous-line-first-non-blank
+    (define-key evil-normal-state-map (kbd "-") 'evil-numbers/dec-at-pt) ; was evil-next-line-first-non-blank
+    )
+#+END_SRC
+
+** Modes and initial states
+
+#+BEGIN_SRC emacs-lisp
+  (evil-set-initial-state 'package-menu-mode 'motion)
+  (evil-set-initial-state 'Custom-mode 'motion)
+#+END_SRC
+
+* GUI
+** Remove all the chrome
+
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+  (add-to-list 'default-frame-alist '(vertical-scroll-bars . nil) t)
+#+END_SRC
+
+** Fringes
+
+Remove the right fringe and its ~$~ symbol when the line is truncated. Change the left fringe's left-curly-arrow to an ellipsis-ish
+
+#+BEGIN_SRC emacs-lisp
+  (fringe-mode `(8 . 0))
+  (set-display-table-slot standard-display-table 0 ?\ )
+  (define-fringe-bitmap 'left-curly-arrow
+    [#b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b00000000
+     #b10010010])
+#+END_SRC
+
+** Line numbers
+
+Turn on ~linum-mode~ globally.
+
+#+BEGIN_SRC emacs-lisp
+  (global-linum-mode 1)
+  (setq linum-format " %3d")
+#+END_SRC
+
+De-emphasize the line numbers.
+
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'linum nil :height 72 :slant 'italic :weight 'semi-light)
+#+END_SRC
+
+** Themes
+*** Install themes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tango-2-theme
+    :ensure t
+    :defer t
+    :pin melpa)
+
+  (use-package ujelly-theme
+    :ensure t
+    :defer t)
+
+  (use-package leuven-theme
+    :ensure t
+    :defer t
+    :pin melpa)
+#+END_SRC
+
+*** Configure and activate theme
+
+Tweak the built-in adwaita light theme.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --light-theme ()
+    (load-theme 'adwaita t)
+    (custom-set-faces
+     '(default ((t (:background "#ffffff"))))
+     '(fringe  ((t (:background "#ffffff"  :foreground "#888a85"))))
+     '(highlight  ((t (:foreground nil :background "#eeeeee"))))
+     '(cursor  ((t (:foreground nil :background "#474747"))))
+     '(secondary-selection ((t (:background "#fffacd")))))
+    (defface --background
+      '((t (:background "#ffffff"))) "")
+    (set-face-attribute 'region nil :background "#5f87af" :foreground "#eeeeee"))
+#+END_SRC
+
+Tweak the the tango-2 dark theme.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --dark-theme ()
+    (interactive)
+    (load-theme 'tango-2 t)
+    (custom-set-faces
+     '(default ((t (:background "#000000"))))
+     '(fringe  ((t (:background "#000000")))))
+    (defface --background
+      '((t (:background "#000000"))) ""))
+#+END_SRC
+
+Use the light theme.
+
+#+BEGIN_SRC emacs-lisp
+  (--light-theme)
+#+END_SRC
+
+** Powerline modeline
+*** Helpers
+
+**** Map evil states to colors.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-get-evil-state-color (state is-active-window)
+    (let ((reds `("I" "E" "R"))
+          (greens `("V" "O"))
+          (blues `("N" "M")))
+      (cond
+       ((and is-active-window (member state blues)) '--powerline-face-blue)
+       ((member state reds) '--powerline-face-red)
+       ((member state greens) '--powerline-face-green)
+       (t '--powerline-face-inactive))))
+#+END_SRC
+
+**** Git branch name
+
+Keep track of the project's current git branch name by shelling out. Other ways (~vc-mode~) of getting the branch name only work when the file is already being tracked by git.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar --git-branch-name "")
+  (defun --get-git-branch-name (&optional frame)
+    (interactive)
+    (let ((branch "")
+          (shell-output (substring (shell-command-to-string "git rev-parse --abbrev-ref HEAD &") 0 -1)))
+      (when (not (string-match "fatal:" shell-output))
+        (setq branch shell-output))
+      (setq-local --git-branch-name branch)))
+
+  ;; TODO Add magit branch-related hooks
+  (add-hook 'focus-in-hook '--get-git-branch-name)
+  (add-hook 'after-make-frame-functions '--get-git-branch-name)
+#+END_SRC
+
+*** Components
+**** Buffer name
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-buffer-id (this-face next-face)
+    (list
+     (powerline-buffer-id this-face 'l)
+     (powerline-raw " " this-face)
+     (powerline-arrow-left this-face next-face)))
+#+END_SRC
+
+**** Git branch name
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-git-branch (this-face next-face)
+    (let* ((b --git-branch-name)
+           (string (if (string-equal b "") "" (concat " ± " b " "))))
+      (list
+       (powerline-raw string this-face)
+       (powerline-arrow-left this-face next-face))))
+#+END_SRC
+
+**** Evil state
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-evil-state (this-face next-face)
+    (list
+     (powerline-arrow-right '--powerline-face-normal this-face)
+     (powerline-raw (concat " " (format-mode-line 'evil-mode-line-tag) " ") this-face)
+     (powerline-arrow-right this-face next-face)))
+#+END_SRC
+
+**** Major mode
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-major-mode (this-face next-face)
+    (list
+     (powerline-major-mode this-face 'l)
+     (powerline-raw " " this-face)
+     (powerline-arrow-right this-face next-face)))
+#+END_SRC
+
+**** Cursor's line and column coordinates
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-cursor-position (this-face next-face)
+    (list
+     (powerline-raw " %l" this-face 'r)
+     (powerline-raw "•" this-face)
+     (powerline-raw " %c" this-face 'r)))
+#+END_SRC
+
+**** Scroll position (HUD)
+
+#+BEGIN_SRC emacs-lisp
+  (defun --powerline-scroll-position (this-face next-face)
+    (list
+     (powerline-hud this-face next-face 2)))
+#+END_SRC
+
+*** Faces
+
+Define custom powerline faces for our light theme.
+
+#+BEGIN_SRC emacs-lisp
+  (defface --powerline-face-normal
+    '((t (:inherit --background :foreground "#eeeeee"))) "")
+  (defface --powerline-face-lightest
+    '((t (:background "#eeeeee" :foreground "#444444"))) "")
+  (defface --powerline-face-light
+    '((t (:background "#cccccc" :foreground "#444444"))) "")
+  (defface --powerline-face-dark
+    '((t (:background "#888888" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-darkest
+    '((t (:background "#444444" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-inactive
+    '((t (:slant italic :background "#eeeeee" :foreground "#444444"))) "")
+  (defface --powerline-face-red
+    '((t (:background "#a52a2a" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-green
+    '((t (:background "#4e9a06" :inherit --powerline-face-normal))) "")
+  (defface --powerline-face-blue
+    '((t (:background "#0084c8" :inherit --powerline-face-normal))) "")
+#+END_SRC
+
+*** Initialize
+
+#+BEGIN_SRC emacs-lisp
+  (defun --configure-powerline ()
+    (let* ((active (eq powerline-selected-window (selected-window)))
+           (none '--powerline-face-normal)
+           (lightest (if active '--powerline-face-lightest '--powerline-face-inactive))
+           (light (if active '--powerline-face-light '--powerline-face-inactive))
+           (dark (if active '--powerline-face-dark '--powerline-face-inactive))
+           (darkest (if active '--powerline-face-darkest '--powerline-face-inactive))
+           (buffer-color (if (and (buffer-file-name)
+                                  (file-exists-p (buffer-file-name))
+                                  (buffer-modified-p))
+                             '--powerline-face-red darkest))
+           (state-color (--powerline-get-evil-state-color evil-mode-line-tag active))
+
+           (lhs (append
+                 (--powerline-buffer-id buffer-color dark)
+                 (--powerline-git-branch dark none)))
+           (rhs (append
+                 (--powerline-evil-state state-color dark)
+                 (--powerline-major-mode dark lightest)
+                 (--powerline-cursor-position lightest darkest)
+                 (--powerline-scroll-position darkest lightest))))
+      (concat
+       (powerline-render lhs)
+       ;; Divide by modeline shrink factor then add 2 for powerline-hud width.
+       (powerline-fill 'powerline-normal (+ 2 (* (powerline-width rhs) 0.72)))
+       (powerline-render rhs))))
+
+  (use-package powerline
+    :ensure t
+    :init (setq-default mode-line-format '("%e" (:eval (--configure-powerline)))))
+#+END_SRC
+
+** Shrink modeline
+
+Smaller ~mode-line-inactive~ face sometime doesn't stick when new frames are created so force it with a hook.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --ensure-small-modeline (&optional frame)
+    (set-face-attribute 'mode-line          nil :height 72 :box nil :weight 'semi-bold)
+    (set-face-attribute 'mode-line-inactive nil :height 72 :box nil :weight 'semi-bold))
+  (--ensure-small-modeline)
+  (add-hook 'after-make-frame-functions '--ensure-small-modeline)
+#+END_SRC
+
+** Uniquify buffer with parts of directory name
+
+#+BEGIN_SRC emacs-lisp
+  (require 'uniquify)
+  (setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
+** Set the frame title
+
+If buffer is visiting a file display its full path (_~/path/to/file_) , otherwise display just the buffer name (_*scratch*_).
+
+#+BEGIN_SRC emacs-lisp
+  (setq frame-title-format
+        '(" " (:eval
+               (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+#+END_SRC
+
+** Fonts
+
+Set font, font size, and lineheight.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'initial-frame-alist '(font . "Source Code Pro for Powerline-10") t)
+  (add-to-list 'default-frame-alist '(font . "Source Code Pro for Powerline-10") t)
+  (setq-default line-spacing 0.15)
+#+END_SRC
+
+** Cursor
+*** Stop blinking
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode 0)
+#+END_SRC
+
+*** Invert cursor color
+
+Set the cursor's color to the foreground color of thing at point. From https://www.reddit.com/r/emacs/comments/4c5g4i/help_how_do_i_change_the_cursor_to_have_the_same/
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eyedropper
+    :ensure t
+    :config
+    (setq --cursor-invert-active t)
+    (defun --invert-cursor-color ()
+      (interactive)
+      (if --cursor-invert-active
+          (set-cursor-color (eyedrop-foreground-at-point))))
+    (add-hook 'post-command-hook '--invert-cursor-color))
+#+END_SRC
+
+*** Highlight current line
+
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode t)
+#+END_SRC
+
+** Highlight matching pairs
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+  (setq show-paren-delay 0.0)
+#+END_SRC
+
+** Show uncompleted key chords in echo area right away
+
+#+BEGIN_SRC emacs-lisp
+  (setq echo-keystrokes 0.1)
+#+END_SRC
+
+** Deactivate bell
+
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore visible-bell nil)
+#+END_SRC
+
+** Startup and scratch messages
+
+Get rid of the "For information about GNU Emacs and the GNU system, type C-h C-a." echo area message by redefining ~display-startup-echo-area-message~, which is more reliable and portable than ~(setq inhibit-startup-echo-area-message "YOUR-USER-NAME")~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-message t)
+  (defun display-startup-echo-area-message ()
+    (message ""))
+  (setq initial-scratch-message nil)
+#+END_SRC
+
+* Minibuffer
+** Keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
+  (define-key minibuffer-local-map (kbd "C-w") 'backward-kill-word) ; was `kill-region'
+#+END_SRC
+
+** Ido
+*** Set up
+
+#+BEGIN_SRC emacs-lisp
+  (require 'ido)
+  (ido-mode t)
+  (ido-everywhere)
+  (setq ido-default-file-method 'selected-window)
+  (setq ido-auto-merge-work-directories-length -1)
+  (setq ido-decorations
+        (quote ("\n ▶ "
+                ""
+                "\n   "
+                "\n   ..."
+                "  ▶ "
+                ""
+                "  ✗ No match"
+                "  ✓ Matched"
+                "  ✗ Not readable"
+                "  ✗ Too big"
+                "  ↵ Confirm")))
+#+END_SRC
+
+*** Vertical ido
+
+From http://emacswiki.org/emacs/InteractivelyDoThings#toc20
+
+#+BEGIN_SRC emacs-lisp
+  (defun --ido-show-results-vertically ()
+    (set (make-local-variable 'truncate-lines) nil))
+  (add-hook 'ido-minibuffer-setup-hook '--ido-show-results-vertically)
+#+END_SRC
+
+*** Keybindings
+
+#+BEGIN_SRC emacs-lisp
+  (defun --ido-keybindings ()
+    (define-key ido-completion-map (kbd "C-n") 'ido-next-match) ; was next-line
+    (define-key ido-completion-map (kbd "C-p") 'ido-prev-match) ; was ido-toggle-prefix
+    )
+  (add-hook 'ido-minibuffer-setup-hook '--ido-keybindings )
+#+END_SRC
+
+*** Fuzzy matching with flx ido
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flx-ido
+    :ensure t
+    :init
+    (flx-ido-mode 1)
+    (setq ido-use-faces nil))
+#+END_SRC
+
+*** Ubiquitous ido
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ido-ubiquitous
+    :ensure t
+    :init (ido-ubiquitous-mode t))
+#+END_SRC
+
+** Better ~M-x~
+
+Smexify! Old ~M-x~ is rebound to ~C-c M-x~.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smex
+    :ensure t
+    :init
+    (smex-initialize)
+    (setq smex-key-advice-ignore-menu-bar t)
+
+    ;; Don't poop in the home directory
+    (setq smex-save-file (concat --tmp-directory "smex-items"))
+
+    ;; Smexify my M-x
+    (global-set-key (kbd "M-x") 'smex)
+    (define-key evil-motion-state-map (kbd ";") 'smex)
+    (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+    ;; This is the old M-x
+    (global-set-key (kbd "C-c M-x") 'execute-extended-command))
+#+END_SRC
+
+* Project management
+** Projectile
+*** Fallback to ido if not in a project
+
+#+BEGIN_SRC emacs-lisp
+  (defun --projectile-or-ido-find-file ()
+    "If in a projectile project do `projectile-find-file' otherwise fall back to
+  `ido-find-file'."
+    (interactive)
+    (if (projectile-project-p) (projectile-find-file)
+      (ido-find-file)))
+
+  (defun --projectile-or-ido-switch-buffer ()
+    "If in a projectile project do `projectile-switch-to-buffer' otherwise fall back to
+  `ido-switch-buffer'."
+    (interactive)
+    (if (projectile-project-p) (projectile-switch-to-buffer)
+      (ido-switch-buffer)))
+#+END_SRC
+
+*** Set up
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :init
+    (projectile-global-mode)
+    (add-to-list 'projectile-globally-ignored-directories "elpa")
+    (add-to-list 'projectile-globally-ignored-directories "auto-save-list")
+    (add-to-list 'projectile-globally-ignored-directories "venv")
+    (add-to-list 'projectile-globally-ignored-directories "node_modules")
+    (setq projectile-switch-project-action 'projectile-dired)
+    (setq projectile-known-projects-file (concat user-emacs-directory "projectile-bookmarks.eld"))
+
+    (evil-leader/set-key "ps" 'projectile-switch-project)
+    (evil-leader/set-key "pf" 'projectile-find-file)
+    (evil-leader/set-key "pb" 'projectile-switch-to-buffer)
+    (evil-leader/set-key "pg" 'projectile-ag)
+    (evil-leader/set-key "pd" 'projectile-dired)
+
+    (evil-leader/set-key "ff" '--projectile-or-ido-find-file)
+    (evil-leader/set-key "bb" '--projectile-or-ido-switch-buffer))
+#+END_SRC
+
+*** ✪ TODO Assign short names to projectile projects
+Maybe using .dir-locals.el per project? This should be enough to fully replace workgroups2. https://github.com/bbatsov/projectile#storing-project-settings
+
+** Workgroups
+
+#+BEGIN_SRC emacs-lisp
+  (use-package workgroups2
+    :ensure t
+    :disabled t
+    :init
+    (setq wg-use-default-session-file nil)
+    (setq wg-session-file (concat user-emacs-directory "workgroups"))
+    (setq wg-load-last-workgroup nil)
+    (setq wg-open-this-wg "blank")
+    (setq wg-mess-with-buffer-list t)
+    (setq wg-emacs-exit-save-behavior nil)
+    (workgroups-mode 1)
+
+    (evil-leader/set-key "ws" 'wg-switch-to-workgroup)
+    (evil-leader/set-key "wc" 'wg-create-workgroup)
+    (evil-leader/set-key "wb" 'wg-switch-to-buffer)
+    (evil-leader/set-key "wR" 'wg-rename-workgroup)
+    (evil-leader/set-key "w C-s" 'wg-save-session)
+    (evil-leader/set-key "wo" 'wg-open-session))
+#+END_SRC
+
+** Leaving the tiling to the tiling window manager
+
+Each buffer gets its own frame. Make sure each frame opens with the same buffer and the same workgroup or project.
+
+#+BEGIN_SRC emacs-lisp
+  (defun --make-new-workgroup-frame ()
+    "Create new frame, set workgroup to the parent frame's active workgroup, then
+  open `--projectile-or-ido-find-file'."
+    (interactive)
+    (let (new-frame (make-frame)
+                    (current-workgroup (wg-current-workgroup))
+                    (current-buffer (current-buffer)))
+      (switch-to-buffer-other-frame new-frame)
+      (wg-set-current-workgroup current-workgroup)
+      (switch-to-buffer current-buffer)
+      (--projectile-or-ido-find-file)))
+
+  (defun --make-new-project-frame ()
+    (interactive)
+    (let (new-frame (make-frame)
+                    (current-buffer (current-buffer)))
+      (switch-to-buffer-other-frame new-frame)
+      (switch-to-buffer current-buffer)
+      ;; fix powerline active window
+      (sleep-for 0.000001)))
+
+  (global-set-key (kbd "C-S-n") '--make-new-project-frame)
+#+END_SRC
+
+* Text encoding
+
+Why do we need all of this again?
+
+#+BEGIN_SRC emacs-lisp
+  (setq locale-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+#+END_SRC
+
+* Whitespace handling
+** Tabs vs Spaces
+
+Spaces biatch!
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+  (setq tab-stop-list (number-sequence 4 120 4))
+#+END_SRC
+
+** whitespace-mode
+
+Show spaces and tabs when ~whitespace-mode~ is toggled.
+
+#+BEGIN_SRC emacs-lisp
+  (setq whitespace-style '(face spaces tabs space-mark tab-mark))
+#+END_SRC
+
+** Delete trailing whitespace on write
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
+
+** Add newline at EOF
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default require-final-newline t)
+#+END_SRC
+
+* Word wrap
+** Don't wrap by default
+
+Toggle with ~M-x~ ~toggle-truncate-lines~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default truncate-lines t)
+#+END_SRC
+
+** Wrap at 80 characters
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
+** Wrap on word boundaries
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default word-wrap t)
+#+END_SRC
+
+** Visual fill column
+
+#+BEGIN_SRC emacs-lisp
+  (use-package visual-fill-column
+    :ensure t
+    :config
+    (setq-default visual-fill-column-width 120)
+    (setq-default fringes-outside-margins nil))
+#+END_SRC
+
+** Toggle visual word wrap with ~<leader>~ ~bw~
+
+#+BEGIN_SRC emacs-lisp
+  (defun --wrap ()
+    (interactive)
+    (if (null visual-line-mode)
+        (progn
+          (visual-line-mode)
+          (visual-fill-column-mode))
+      (visual-line-mode 0)
+      (visual-fill-column-mode 0)))
+  (evil-leader/set-key "bw" '--wrap)
+#+END_SRC
+
+* Dired
+
+#+BEGIN_SRC emacs-lisp
+  (require 'dired)
+#+END_SRC
+
+* Inbox
+** "y" and "n" instead of "yes" and "no"
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+** Disable ~view-hello-file~ and ~help-for-help~
+#+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-h h")) ; was `view-hello-file'
+
+  ;; This keybinding is now brining up some other help file
+  (global-unset-key (kbd "C-h C-h")) ; was `help-for-help'
+#+END_SRC
+
+** Disable line numbers in org-mode buffers
+~linum-mode~ on bigger org-mode files (tested on 5k lines) slows Emacs down so just turn it off.
+#+BEGIN_SRC emacs-lisp
+  (defun --disable-linum-mode ()
+    (linum-mode 0))
+  (add-hook 'org-mode-hook '--disable-linum-mode)
+#+END_SRC
+
+** Underline links in org
+#+BEGIN_SRC emacs-lisp
+  (custom-set-faces
+   '(org-link ((t (:inherit link :underline t)))))
+#+END_SRC
+
+** Functions
+#+BEGIN_SRC emacs-lisp
+  (defun d-today ()
+    (format-time-string "%Y-%m-%d %a"))
+
+  ;; http://www.reddit.com/r/emacs/comments/2u5uzq/i_wrote_a_somewhat_useful_elisp_macro/co5lfvr
+  (defun d-evil-define-multiple (keymaps bindings)
+    "Define evil keymaps for multiple modes."
+    (dolist (keymap keymaps)
+      (dolist (x bindings)
+        (cl-destructuring-bind (mode key cmd)
+            x
+          (eval `(evil-define-key ,mode ,keymap ,key ',cmd))))))
+
+  ;; Case twiddling
+  ;; http://lists.gnu.org/archive/html/help-gnu-emacs/2008-10/msg00677.html
+  (defun toggle-letter-case ()
+    "Toggle the letter case of current word or text selection. Toggles from 3
+      cases: upper case, lower case, title case, in that cyclic order."
+    (interactive)
+    (let (pos1 pos2 (deactivate-mark nil) (case-fold-search nil))
+      (if (and transient-mark-mode mark-active)
+          (setq pos1 (region-beginning)
+                pos2 (region-end))
+        (setq pos1 (car (bounds-of-thing-at-point 'word))
+              pos2 (cdr (bounds-of-thing-at-point 'word))))
+
+      (when (not (eq last-command this-command))
+        (save-excursion
+          (goto-char pos1)
+          (cond
+           ((looking-at "[[:lower:]][[:lower:]]") (put this-command 'state "all lower"))
+           ((looking-at "[[:upper:]][[:upper:]]") (put this-command 'state "all caps"))
+           ((looking-at "[[:upper:]][[:lower:]]") (put this-command 'state "init caps"))
+           (t (put this-command 'state "all lower")))))
+
+      (cond
+       ((string= "all lower" (get this-command 'state))
+        (upcase-initials-region pos1 pos2) (put this-command 'state "init caps"))
+       ((string= "init caps" (get this-command 'state))
+        (upcase-region pos1 pos2) (put this-command 'state "all caps"))
+       ((string= "all caps" (get this-command 'state))
+        (downcase-region pos1 pos2) (put this-command 'state "all lower")))))
+
+  ;; Use ido for recentf
+  ;; http://www.masteringemacs.org/articles/2011/01/27/find-files-faster-recent-files-package/#comment-397
+  (defun d-ido-recentf-open ()
+    "Use ido to select a recently opened file from the `recentf-list'"
+    (interactive)
+    (let ((home (expand-file-name (getenv "HOME"))))
+      (find-file
+       (ido-completing-read "Recent files: "
+                            (mapcar (lambda (path)
+                                      (replace-regexp-in-string home "~" path))
+                                    recentf-list)
+                            nil t))))
+
+  (defun d-kill-this-buffer ()
+    "Kill current buffer without confirmation."
+    (interactive)
+    (kill-buffer (current-buffer)))
+
+  (defun d-projectile-or-ido-find-file ()
+    "If in a projectile project do `projectile-find-file' otherwise fall back to
+  `ido-find-file'."
+    (interactive)
+    (if (projectile-project-p) (projectile-find-file)
+      (ido-find-file)))
+
+  (defun d-projectile-or-ido-switch-buffer ()
+    "If in a projectile project do `projectile-switch-to-buffer' otherwise fall back to
+  `ido-switch-buffer'."
+    (interactive)
+    (if (projectile-project-p) (projectile-switch-to-buffer)
+      (ido-switch-buffer)))
+
+  ;; From:
+  ;; http://tuxicity.se/emacs/elisp/2010/03/26/rename-file-and-buffer-in-emacs.html
+  ;; TODO: Incorporate this variation[1] which allows renaming of buffers that aren't
+  ;; visiting a file.
+  ;; [1]: http://www.stringify.com/2006/apr/24/rename/
+  (defun rename-file-and-buffer ()
+    "Renames current buffer and file it is visiting."
+    (interactive)
+    (let ((name (buffer-name))
+          (filename (buffer-file-name)))
+      (if (not (and filename (file-exists-p filename)))
+          (error "Buffer '%s' is not visiting a file!" name)
+        (let ((new-name (read-file-name "New name: " filename)))
+          (cond ((get-buffer new-name)
+                 (error "A buffer named '%s' already exists!" new-name))
+                (t
+                 (rename-file filename new-name 1)
+                 (rename-buffer new-name)
+                 (set-visited-file-name new-name)
+                 (set-buffer-modified-p nil)
+                 (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+
+  ;; Adapted from:
+  ;; http://rejeep.github.io/emacs/elisp/2010/11/16/delete-file-and-buffer-in-emacs.html
+  ;; Changes: Make sure the file gets moved to trash instead of deleting even
+  ;; though we set `delete-by-moving-to-trash' to t already.
+  (defun delete-file-and-buffer ()
+    "Removes file connected to current buffer and kills buffer."
+    (interactive)
+    (let ((filename (buffer-file-name))
+          (buffer (current-buffer))
+          (name (buffer-name)))
+      (if (not (and filename (file-exists-p filename)))
+          (error "Buffer '%s' is not visiting a file!" name)
+        (when (yes-or-no-p "Are you sure you want to remove this file? ")
+          (delete-file filename t)
+          (kill-buffer buffer)
+          (message "File '%s' successfully removed" filename)))))
+#+END_SRC
+** Move files to trash when deleting
+
+#+BEGIN_SRC emacs-lisp
+  (setq delete-by-moving-to-trash t)
+#+END_SRC
+
+** Theme switcher
+
+#+BEGIN_SRC emacs-lisp
+  ;; http://www.reddit.com/r/emacs/comments/30b67j/how_can_you_reset_emacs_to_the_default_theme/cprkyl0
+  (defun switch-theme (theme)
+    ;; This interactive call is taken from `load-theme'
+    (interactive
+     (list
+      (intern (completing-read "Load custom theme: "
+                               (mapcar 'symbol-name
+                                       (custom-available-themes))))))
+    (mapcar #'disable-theme custom-enabled-themes)
+    (load-theme theme t))
+
+#+END_SRC
