@@ -53,3 +53,11 @@
 ;; they are implemented.
 
 (map! "C-s" #'save-buffer)
+
+(defun --duplicate-frame ()
+  (interactive)
+  (let (new-frame (make-frame)
+                  (current-buffer (current-buffer)))
+    (switch-to-buffer-other-frame new-frame)
+    (switch-to-buffer current-buffer)))
+(map! "C-S-n" `--duplicate-frame)
