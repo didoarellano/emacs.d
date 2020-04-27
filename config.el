@@ -71,3 +71,12 @@ end of the line, then comment or uncomment the current line."
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))
     (comment-dwim arg)))
 (map! "M-;" `--comment-dwim-line) ; was `comment-dwim'
+
+(defun --insert-semicolon-at-eol ()
+  "Append a semicolon at end-of-line and maintain position of point"
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (insert ";")))
+(map! :map (js2-mode-map css-mode-map php-mode-map)
+      :ni "C-;" '--insert-semicolon-at-eol)
