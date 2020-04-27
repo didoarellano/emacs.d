@@ -80,3 +80,10 @@ end of the line, then comment or uncomment the current line."
     (insert ";")))
 (map! :map (js2-mode-map css-mode-map php-mode-map)
       :ni "C-;" '--insert-semicolon-at-eol)
+
+(defun --open-terminal-here ()
+  (interactive)
+  (call-process-shell-command
+   (concat "kitty --directory " (shell-quote-argument
+                                 default-directory))))
+(map! "<f12>" `--open-terminal-here)
