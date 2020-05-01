@@ -85,5 +85,5 @@ end of the line, then comment or uncomment the current line."
   (interactive)
   (call-process-shell-command
    (concat "kitty --directory " (shell-quote-argument
-                                 default-directory))))
+                                 default-directory)) nil 0))
 (map! "<f12>" `--open-terminal-here)
