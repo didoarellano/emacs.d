@@ -118,3 +118,9 @@ end of the line, then comment or uncomment the current line."
      ((string= "all caps" (get this-command 'state))
       (downcase-region pos1 pos2) (put this-command 'state "all lower")))))
 (map! :v "~" `--cycle-letter-case)
+
+(map! "C-?" 'help-command
+      :i "C-h" 'backward-delete-char    ; was help-command
+      :i "C-d" 'delete-forward-char     ; was evil-shift-left-line
+      :i "C-k" 'kill-line               ; was evil-insert-digraph
+      )
