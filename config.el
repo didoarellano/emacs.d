@@ -141,3 +141,9 @@ end of the line, then comment or uncomment the current line."
 ;; The above works but this answer might be more future-proof and can work for
 ;; other messages we want to suppress.
 ;; https://superuser.com/a/1077571/182507
+
+(setq frame-title-format
+      '(" " (:eval (if (buffer-file-name)
+                       (abbreviate-file-name (buffer-file-name))
+                     "%b")))
+     icon-title-format frame-title-format)
