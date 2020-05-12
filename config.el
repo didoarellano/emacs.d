@@ -124,3 +124,6 @@ end of the line, then comment or uncomment the current line."
       :i "C-d" 'delete-forward-char     ; was evil-shift-left-line
       :i "C-k" 'kill-line               ; was evil-insert-digraph
       )
+
+(after! evil
+  (setq evil-echo-state nil))
