@@ -129,6 +129,8 @@ end of the line, then comment or uncomment the current line."
 (after! evil
   (setq evil-echo-state nil))
 
+(map! "C-x C-h" 'mark-whole-buffer)     ; was help buffer for C-x
+
 ;; Suppress "Beginning of buffer" and "End of buffer" messages
 ;; https://superuser.com/a/1025827/182507
 (defadvice previous-line (around silencer activate)
