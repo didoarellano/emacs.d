@@ -150,8 +150,9 @@ end of the line, then comment or uncomment the current line."
                        (abbreviate-file-name (buffer-file-name))
                      "%b")))
      icon-title-format frame-title-format)
-(set-face-attribute 'line-number nil :height 72 :slant 'italic :weight 'semi-light)
-(set-face-attribute 'line-number-current-line nil :height 72 :slant 'italic :weight 'semi-bold)
 
 (set-face-attribute 'mode-line nil :height 72 :box nil :weight 'semi-bold)
 (set-face-attribute 'mode-line-inactive nil :height 72 :box nil :weight 'semi-bold)
+(after! display-line-numbers
+  (set-face-attribute 'line-number nil :height 72 :slant 'italic :weight 'semi-light)
+  (set-face-attribute 'line-number-current-line nil :height 72 :slant 'italic :weight 'semi-bold))
