@@ -55,6 +55,7 @@
 ;; they are implemented.
 
 (map! "C-s" #'save-buffer)
+(map! :map evil-window-map "o" 'delete-other-windows)    ; was doom/window-enlargen
 
 (defun --duplicate-frame ()
   (interactive)
