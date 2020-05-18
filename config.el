@@ -158,3 +158,7 @@ end of the line, then comment or uncomment the current line."
 (after! display-line-numbers
   (set-face-attribute 'line-number nil :height 72 :slant 'italic :weight 'semi-light)
   (set-face-attribute 'line-number-current-line nil :height 72 :slant 'italic :weight 'semi-bold))
+
+(use-package! visual-fill-column
+  :config
+  (setq-default visual-fill-column-width 120))
