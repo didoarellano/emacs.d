@@ -175,3 +175,13 @@ end of the line, then comment or uncomment the current line."
 (map! :leader
       (:prefix "b"
         :desc "Toggle visual text wrap" "w" #'--toggle-visual-wrap))
+
+(defun --toggle-modeline ()
+  (interactive)
+  (if doom-modeline-mode
+      (doom-modeline-mode 0)
+    (doom-modeline-mode 1)
+    ;; Some segments, sometimes the whole modeline, don't render so we force a
+    ;; redisplay of the current frame
+    (redraw-frame)))
+(map! "<f9>" '--toggle-modeline)
