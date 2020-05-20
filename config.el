@@ -185,3 +185,12 @@ end of the line, then comment or uncomment the current line."
     ;; redisplay of the current frame
     (redraw-frame)))
 (map! "<f9>" '--toggle-modeline)
+
+(window-divider-mode -1)
+(defun --toggle-window-divider ()
+  "Hide window divider if there is only one window in the frame for a 'seamless'
+minibuffer. Show the divider if something creates a new window."
+  (if (< 1 (length (window-list)))
+      (window-divider-mode 1)
+    (window-divider-mode -1)))
+(add-hook 'window-configuration-change-hook '--toggle-window-divider)
