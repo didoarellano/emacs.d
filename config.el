@@ -194,3 +194,26 @@ minibuffer. Show the divider if something creates a new window."
       (window-divider-mode 1)
     (window-divider-mode -1)))
 (add-hook 'window-configuration-change-hook '--toggle-window-divider)
+
+;; Immortal *scratch* buffer
+;; Credit to whoever wrote this. I've forgotten where I found this.
+;; "ctto" *barf*
+(defun --kill-scratch-buffer ()
+  ;; The next line is just in case someone calls this manually
+  (set-buffer (get-buffer-create "*scratch*"))
+  ;; Kill the current (*scratch*) buffer
+  (remove-hook 'kill-buffer-query-functions '--kill-scratch-buffer)
+  (kill-buffer (current-buffer))
+  ;; make a brand new *scratch* buffer
+  (set-buffer (get-buffer-create "*scratch*"))
+  (lisp-interaction-mode)
+  (make-local-variable 'kill-buffer-query-functions)
+  (add-hook 'kill-buffer-query-functions '--kill-scratch-buffer)
+  ;; Since we killed it, don't let caller do that
+  nil)
+
+(save-excursion
+  (set-buffer (get-buffer-create "*scratch*"))
+  (lisp-interaction-mode)
+  (make-local-variable 'kill-buffer-query-functions)
+  (add-hook 'kill-buffer-query-functions '--kill-scratch-buffer))
