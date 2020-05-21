@@ -224,3 +224,7 @@ minibuffer. Show the divider if something creates a new window."
   (setq js-indent-level 2))
 (add-hook! css-mode
   (setq css-indent-offset 2))
+(add-hook! web-mode
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-css-indent-offset 2))
