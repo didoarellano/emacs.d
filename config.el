@@ -217,3 +217,10 @@ minibuffer. Show the divider if something creates a new window."
   (lisp-interaction-mode)
   (make-local-variable 'kill-buffer-query-functions)
   (add-hook 'kill-buffer-query-functions '--kill-scratch-buffer))
+
+(add-hook! js2-mode
+  (setq js2-basic-offset 2))
+(add-hook! js-mode
+  (setq js-indent-level 2))
+(add-hook! css-mode
+  (setq css-indent-offset 2))
