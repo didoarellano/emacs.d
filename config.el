@@ -186,6 +186,10 @@ end of the line, then comment or uncomment the current line."
     (redraw-frame)))
 (map! "<f9>" '--toggle-modeline)
 
+(unmap! doom-leader-map "u")
+(map! (:leader
+        (:desc "Toggle UI elements" :prefix "u"
+          :desc "Toggle Modeline" :nv "m" '--toggle-modeline)))
 (window-divider-mode -1)
 (defun --toggle-window-divider ()
   "Hide window divider if there is only one window in the frame for a 'seamless'
