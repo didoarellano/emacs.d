@@ -186,10 +186,18 @@ end of the line, then comment or uncomment the current line."
     (redraw-frame)))
 (map! "<f9>" '--toggle-modeline)
 
+(defun --toggle-line-numbers ()
+  (interactive)
+  (if display-line-numbers-mode
+      (display-line-numbers-mode 0)
+    (display-line-numbers-mode 1)))
+
 (unmap! doom-leader-map "u")
 (map! (:leader
         (:desc "Toggle UI elements" :prefix "u"
-          :desc "Toggle Modeline" :nv "m" '--toggle-modeline)))
+          :desc "Toggle Modeline" :nv "m" '--toggle-modeline
+          :desc "Toggle Line Numbers" :nv "l" '--toggle-line-numbers)))
+
 (window-divider-mode -1)
 (defun --toggle-window-divider ()
   "Hide window divider if there is only one window in the frame for a 'seamless'
