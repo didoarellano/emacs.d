@@ -240,3 +240,8 @@ minibuffer. Show the divider if something creates a new window."
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2))
+
+(use-package! which-key-posframe
+  :after which-key
+  :config
+  (which-key-posframe-mode))

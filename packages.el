@@ -48,3 +48,4 @@
 
 (package! modus-operandi-theme)
 (package! visual-fill-column)
+(package! which-key-posframe)
