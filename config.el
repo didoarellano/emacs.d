@@ -126,6 +126,7 @@ end of the line, then comment or uncomment the current line."
       :i "C-h" 'backward-delete-char    ; was help-command
       :i "C-d" 'delete-forward-char     ; was evil-shift-left-line
       :i "C-k" 'kill-line               ; was evil-insert-digraph
+      :i "C-y" 'yank                    ; was evil-copy-from-above
       )
 
 (after! evil
