@@ -154,12 +154,26 @@ end of the line, then comment or uncomment the current line."
                      "%b")))
      icon-title-format frame-title-format)
 
-(set-face-attribute 'mode-line nil :height 72 :box nil :weight 'semi-bold)
-(set-face-attribute 'mode-line-inactive nil :height 72 :box nil :weight 'semi-bold)
-(after! display-line-numbers
+(after! display-line-numbers (--shrink-line-numbers))
+
+(defun --shrink-line-numbers ()
+  (interactive)
   (set-face-attribute 'line-number nil :height 72 :slant 'italic :weight 'ultra-light :background "#ffffff")
   (set-face-attribute 'line-number-current-line nil :height 72 :slant 'italic :weight 'bold :background "#ffffff"))
 
+(defun --shrink-modeline ()
+  (interactive)
+  (set-face-attribute 'mode-line nil :height 72 :box nil :weight 'semi-bold)
+  (set-face-attribute 'mode-line-inactive nil :height 72 :box nil :weight 'semi-bold))
+
+(defun --initial-frame-setup ()
+  (interactive)
+  (unless (boundp '--initial-frame-initialized)
+    (progn
+      (--shrink-line-numbers)
+      (--shrink-modeline)
+      (doom-modeline-mode 0)
+      (setq --initial-frame-initialized t))))
 (use-package! visual-fill-column
   :config
   (setq-default visual-fill-column-width 120))
