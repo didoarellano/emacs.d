@@ -250,6 +250,15 @@ minibuffer. Show the divider if something creates a new window."
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2))
 
+
+(use-package! ivy-posframe
+  :config
+  (setq ivy-posframe-border-width 2)
+  (set-face-attribute 'ivy-posframe nil :background "#ffffff")
+  (setq ivy-posframe-parameters
+        '((left-fringe . 4)
+          (right-fringe . 4))))
+
 (use-package! which-key-posframe
   :after which-key
   :config
