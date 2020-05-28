@@ -193,34 +193,28 @@ end of the line, then comment or uncomment the current line."
 
 (defun --toggle-modeline ()
   (interactive)
-  (if doom-modeline-mode
-      (doom-modeline-mode 0)
-    (doom-modeline-mode 1)
-    ;; Some segments, sometimes the whole modeline, don't render so we force a
-    ;; redisplay of the current frame
-    (redraw-frame)))
+  (doom-modeline-mode (if doom-modeline-mode 0 1))
+  ;; Some segments, sometimes the whole modeline, don't render so we force a
+  ;; redisplay of the current frame
+  (when doom-modeline-mode (redraw-frame)))
 (map! "<f9>" '--toggle-modeline)
 
 (defun --toggle-line-numbers ()
   (interactive)
-  (if display-line-numbers-mode
-      (display-line-numbers-mode 0)
-    (display-line-numbers-mode 1)))
+  (display-line-numbers-mode (if display-line-numbers-mode 0 1)))
+
+(defun --toggle-window-divider ()
+  "Hide window divider if there is only one window in the frame for a 'seamless'
+minibuffer. Show the divider if something creates a new window."
+  (window-divider-mode (if (< 1 (length (window-list))) 1 -1)))
+(add-hook 'window-configuration-change-hook '--toggle-window-divider)
+(window-divider-mode -1)
 
 (unmap! doom-leader-map "u")
 (map! (:leader
         (:desc "Toggle UI elements" :prefix "u"
           :desc "Toggle Modeline" :nv "m" '--toggle-modeline
           :desc "Toggle Line Numbers" :nv "l" '--toggle-line-numbers)))
-
-(window-divider-mode -1)
-(defun --toggle-window-divider ()
-  "Hide window divider if there is only one window in the frame for a 'seamless'
-minibuffer. Show the divider if something creates a new window."
-  (if (< 1 (length (window-list)))
-      (window-divider-mode 1)
-    (window-divider-mode -1)))
-(add-hook 'window-configuration-change-hook '--toggle-window-divider)
 
 ;; Immortal *scratch* buffer
 ;; Credit to whoever wrote this. I've forgotten where I found this.
