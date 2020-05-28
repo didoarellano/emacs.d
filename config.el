@@ -262,4 +262,9 @@ minibuffer. Show the divider if something creates a new window."
 (use-package! which-key-posframe
   :after which-key
   :config
+  (setq which-key-posframe-border-width 2)
+  (set-face-attribute 'which-key-posframe-border nil :background (face-attribute 'ivy-posframe-border :background))
+  (setq which-key-posframe-parameters
+        '((left-fringe . 4)
+          (right-fringe . 4)))
   (which-key-posframe-mode))
