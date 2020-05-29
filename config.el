@@ -191,6 +191,71 @@ end of the line, then comment or uncomment the current line."
       (:prefix "b"
         :desc "Toggle visual text wrap" "w" #'--toggle-visual-wrap))
 
+
+(defun buffer-label--frame-id (frame)
+  (cdr (assq 'outer-window-id (frame-parameters frame))))
+
+(cl-defun buffer-label--name-string (&optional (buffer (current-buffer)))
+  ;; posframe is blank if there's a trailing space (which is intentional) so we
+  ;; append a zero-width space
+  (concat " " (buffer-name buffer) " \ufeff"))
+
+(cl-defun buffer-label--save-previous-buffer
+    (&optional (frame (selected-frame)) &optional (buffer (current-buffer)))
+  (set-frame-parameter frame 'previous-buffer buffer))
+
+(defun buffer-label--create-posframe (frame)
+  (let* ((id (buffer-label--frame-id frame))
+         (posframe-name (concat " *buffer-label--" id)))
+    ;; Force select-frame to avoid timing issues where 'selected-frame when
+    ;; posframe-show executes is the previous frame. Do we need to
+    ;; 'save-excursion or something? Or is it safe to assume we always want new
+    ;; frames to have input focus?
+    (select-frame frame)
+    (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
+    (set-frame-parameter nil 'buffer-label--posframe
+                         (posframe-show
+                          posframe-name
+                          :parent-frame frame
+                          :string (buffer-label--name-string)
+                          :background-color "#ffffff"
+                          :foreground-color "#444444"
+                          :font (font-spec :size 11)
+                          :position (cons -1 -1))
+                         )))
+
+(defun buffer-label--update-name ()
+  ;; TODO: Update to Emacs 27.1 and use `window-buffer-change-functions',
+  ;; `window-old-buffer', etc.
+  ;; https://emba.gnu.org/emacs/emacs/blob/c11c9903565c3fcab98ce715c5520ae1e349861f/etc/NEWS#L1731
+  (let* ((posframe-buffer (frame-parameter nil 'buffer-label--posframe-buffer))
+         (--previous-buffer (frame-parameter nil 'previous-buffer))
+         (--current-buffer (current-buffer))
+         (buffer-name-string (buffer-label--name-string --current-buffer)))
+    (if (and (not (window-minibuffer-p))
+             (not (cdr (assq 'parent-frame (frame-parameters (selected-frame)))))
+             (not (eq --current-buffer --previous-buffer)))
+        (progn
+          (buffer-label--save-previous-buffer nil --current-buffer)
+          (save-excursion
+            (with-current-buffer posframe-buffer
+              (posframe--insert-string buffer-name-string nil)
+              (posframe-refresh posframe-buffer)
+              (run-at-time 0.3 nil 'buffer-label--reposition)))))))
+
+(cl-defun buffer-label--reposition (&optional (frame (selected-frame)))
+  (let ((posframe (frame-parameter frame 'buffer-label--posframe)))
+    (posframe--set-frame-position
+     posframe
+     (cons -1 -1)
+     (frame-width frame)
+     (frame-height frame))))
+
+(add-hook 'after-make-frame-functions 'buffer-label--save-previous-buffer)
+(add-hook 'after-make-frame-functions 'buffer-label--create-posframe)
+(add-hook 'window-configuration-change-hook  'buffer-label--update-name)
+(add-hook 'window-size-change-functions 'buffer-label--reposition)
+
 (defun --toggle-modeline ()
   (interactive)
   (doom-modeline-mode (if doom-modeline-mode 0 1))
