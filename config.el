@@ -333,3 +333,7 @@ minibuffer. Show the divider if something creates a new window."
         '((left-fringe . 4)
           (right-fringe . 4)))
   (which-key-posframe-mode))
+(use-package! modus-operandi-theme
+  :init
+  (setq modus-operandi-theme-slanted-constructs t)
+  (setq modus-operandi-theme-bold-constructs t))
