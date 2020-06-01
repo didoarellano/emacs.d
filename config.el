@@ -336,4 +336,14 @@ minibuffer. Show the divider if something creates a new window."
 (use-package! modus-operandi-theme
   :init
   (setq modus-operandi-theme-slanted-constructs t)
-  (setq modus-operandi-theme-bold-constructs t))
+  (setq modus-operandi-theme-bold-constructs t)
+
+  ;; Set fringe foregrounds to the same color as their background so we get
+  ;; solid color indicators without messing with fringe bitmaps.
+  (after! (:any git-gutter-fringe flycheck)
+    (set-face-foreground 'modus-theme-fringe-red (face-attribute 'modus-theme-fringe-red :background))
+    (set-face-foreground 'modus-theme-fringe-green (face-attribute 'modus-theme-fringe-green :background))
+    (set-face-foreground 'modus-theme-fringe-yellow (face-attribute 'modus-theme-fringe-yellow :background))
+    (set-face-foreground 'modus-theme-fringe-blue (face-attribute 'modus-theme-fringe-blue :background))
+    (set-face-foreground 'modus-theme-fringe-magenta (face-attribute 'modus-theme-fringe-magenta :background))
+    (set-face-foreground 'modus-theme-fringe-cyan (face-attribute 'modus-theme-fringe-cyan :background))))
