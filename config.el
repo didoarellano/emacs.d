@@ -349,3 +349,6 @@ minibuffer. Show the divider if something creates a new window."
     (set-face-foreground 'modus-theme-fringe-blue (face-attribute 'modus-theme-fringe-blue :background))
     (set-face-foreground 'modus-theme-fringe-magenta (face-attribute 'modus-theme-fringe-magenta :background))
     (set-face-foreground 'modus-theme-fringe-cyan (face-attribute 'modus-theme-fringe-cyan :background))))
+
+(after! pug-mode
+  (setq pug-tab-width 2))
