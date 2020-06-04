@@ -275,6 +275,8 @@ minibuffer. Show the divider if something creates a new window."
 (add-hook 'window-configuration-change-hook '--toggle-window-divider)
 (window-divider-mode -1)
 
+(add-hook 'magit-mode-hook 'hide-mode-line-mode)
+
 (unmap! doom-leader-map "u")
 (map! (:leader
         (:desc "Toggle UI elements" :prefix "u"
