@@ -212,17 +212,19 @@ end of the line, then comment or uncomment the current line."
     ;; 'save-excursion or something? Or is it safe to assume we always want new
     ;; frames to have input focus?
     (select-frame frame)
-    (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
-    (set-frame-parameter nil 'buffer-label--posframe
-                         (posframe-show
-                          posframe-name
-                          :parent-frame frame
-                          :string (buffer-label--name-string)
-                          :background-color "#ffffff"
-                          :foreground-color "#444444"
-                          :font (font-spec :size 11)
-                          :position (cons -1 -1))
-                         )))
+    (let ((posframe (posframe-show
+                     posframe-name
+                     :parent-frame frame
+                     :string (buffer-label--name-string)
+                     :left-fringe 4
+                     :right-fringe 0
+                     :background-color "#ffffff"
+                     :foreground-color "#444444"
+                     :font (font-spec :size 11)
+                     :position (cons -1 -1))))
+      (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
+      (set-frame-parameter nil 'buffer-label--posframe posframe)
+      (set-face-attribute 'fringe posframe :background "#444444"))))
 
 (defun buffer-label--update-name ()
   ;; TODO: Update to Emacs 27.1 and use `window-buffer-change-functions',
