@@ -196,9 +196,7 @@ end of the line, then comment or uncomment the current line."
   (cdr (assq 'outer-window-id (frame-parameters frame))))
 
 (cl-defun buffer-label--name-string (&optional (buffer (current-buffer)))
-  ;; posframe is blank if there's a trailing space (which is intentional) so we
-  ;; append a zero-width space
-  (concat " " (buffer-name buffer) " \ufeff"))
+  (concat " " (buffer-name buffer)))
 
 (cl-defun buffer-label--save-previous-buffer
     (&optional (frame (selected-frame)) &optional (buffer (current-buffer)))
