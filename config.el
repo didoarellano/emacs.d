@@ -222,7 +222,8 @@ end of the line, then comment or uncomment the current line."
                      :position (cons -1 -1))))
       (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
       (set-frame-parameter nil 'buffer-label--posframe posframe)
-      (set-face-attribute 'fringe posframe :background "#444444"))))
+      (set-face-attribute 'fringe posframe :background "#444444")
+      (set-frame-parameter posframe 'right-fringe 0))))
 
 (defun buffer-label--update-name ()
   ;; TODO: Update to Emacs 27.1 and use `window-buffer-change-functions',
