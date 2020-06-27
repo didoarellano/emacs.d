@@ -75,14 +75,16 @@ end of the line, then comment or uncomment the current line."
     (comment-dwim arg)))
 (map! "M-;" `--comment-dwim-line) ; was `comment-dwim'
 
-(defun --insert-semicolon-at-eol ()
-  "Append a semicolon at end-of-line and maintain position of point"
+(defun --insert-char-at-eol (char)
+  "Append char at end-of-line and maintain position of point"
   (interactive)
   (save-excursion
     (end-of-line)
-    (insert ";")))
-(map! :map (js2-mode-map css-mode-map php-mode-map)
-      :ni "C-;" '--insert-semicolon-at-eol)
+    (insert char)))
+(map! :map (js2-mode-map js-mode-map css-mode-map php-mode-map)
+      :ni "C-;" (lambda () (interactive) (--insert-char-at-eol ";"))
+      :map (js2-mode-map js-mode-map python-mode-map php-mode-map)
+      :ni "C-," (lambda () (interactive) (--insert-char-at-eol ",")))
 
 (defun --open-terminal-here ()
   (interactive)
