@@ -366,3 +366,14 @@ minibuffer. Show the divider if something creates a new window."
   (setq lsp-signature-auto-activate nil))
 
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
+(after! flycheck
+  (set-face-underline
+   'flycheck-error
+   `(:style line :color ,(face-attribute 'modus-theme-fringe-red :background)))
+  (set-face-underline
+   'flycheck-warning
+   `(:style line :color ,(face-attribute 'modus-theme-fringe-yellow :background)))
+  (set-face-underline
+   'flycheck-info
+   `(:style line :color ,(face-attribute 'modus-theme-fringe-cyan :background))))
