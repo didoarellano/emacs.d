@@ -377,3 +377,5 @@ minibuffer. Show the divider if something creates a new window."
   (set-face-underline
    'flycheck-info
    `(:style line :color ,(face-attribute 'modus-theme-fringe-cyan :background))))
+
+(remove-hook 'rjsx-mode-hook 'emmet-mode)
