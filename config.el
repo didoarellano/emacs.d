@@ -364,3 +364,5 @@ minibuffer. Show the divider if something creates a new window."
   (setq lsp-eldoc-hook nil)
   (setq lsp-signature-mode nil)
   (setq lsp-signature-auto-activate nil))
+
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
