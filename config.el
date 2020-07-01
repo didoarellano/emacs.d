@@ -355,3 +355,12 @@ minibuffer. Show the divider if something creates a new window."
 
 (after! pug-mode
   (setq pug-tab-width 2))
+
+(use-package! lsp-mode
+  :config
+  ;; One, or a combination, of these things stops the crazy `lv'
+  ;; minibuffer/window pollution
+  (setq lsp-eldoc-enable-hover nil)
+  (setq lsp-eldoc-hook nil)
+  (setq lsp-signature-mode nil)
+  (setq lsp-signature-auto-activate nil))
