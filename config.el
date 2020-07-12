@@ -221,7 +221,7 @@ end of the line, then comment or uncomment the current line."
                      :right-fringe 0
                      :background-color "#ffffff"
                      :foreground-color "#444444"
-                     :font (font-spec :size 11)
+                     :font (font-spec :size 11 :weight 'semi-bold)
                      :position (cons -1 -1))))
       (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
       (set-frame-parameter nil 'buffer-label--posframe posframe)
