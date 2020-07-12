@@ -175,7 +175,9 @@ end of the line, then comment or uncomment the current line."
       (--shrink-line-numbers)
       (--shrink-modeline)
       (doom-modeline-mode 0)
+      (buffer-label--ensure-proper-fringes)
       (setq --initial-frame-initialized t))))
+
 (use-package! visual-fill-column
   :config
   (setq-default visual-fill-column-width 120))
@@ -227,6 +229,14 @@ end of the line, then comment or uncomment the current line."
       (set-frame-parameter nil 'buffer-label--posframe posframe)
       (set-face-attribute 'fringe posframe :background "#444444")
       (set-frame-parameter posframe 'right-fringe 0))))
+
+(defun buffer-label--ensure-proper-fringes ()
+  (interactive)
+  (let ((posframe (frame-parameter (selected-frame) 'buffer-label--posframe)))
+    (set-frame-parameter posframe 'left-fringe 4)
+    (set-frame-parameter posframe 'right-fringe 0)
+    (set-face-attribute 'fringe posframe :background "#444444")
+    (redraw-frame posframe)))
 
 (defun buffer-label--update-name ()
   ;; TODO: Update to Emacs 27.1 and use `window-buffer-change-functions',
