@@ -204,7 +204,8 @@ end of the line, then comment or uncomment the current line."
     (&optional (frame (selected-frame)) &optional (buffer (current-buffer)))
   (set-frame-parameter frame 'previous-buffer buffer))
 
-(defun buffer-label--create-posframe (frame)
+(cl-defun buffer-label--create-posframe (&optional (frame (selected-frame)))
+  (interactive)
   (let* ((id (buffer-label--frame-id frame))
          (posframe-name (concat " *buffer-label--" id)))
     ;; Force select-frame to avoid timing issues where 'selected-frame when
