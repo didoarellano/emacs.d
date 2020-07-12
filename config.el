@@ -265,10 +265,22 @@ end of the line, then comment or uncomment the current line."
      (frame-width frame)
      (frame-height frame))))
 
+(defun buffer-label--modified-indicator (&rest _)
+  (when (and (buffer-file-name) (file-exists-p (buffer-file-name)))
+    (let* ((posframe (frame-parameter (selected-frame) 'buffer-label--posframe))
+           (color (if (buffer-modified-p) (face-attribute 'modus-theme-fringe-red :background) "#444444")))
+      (set-face-attribute 'fringe posframe :background color)
+      (redraw-frame posframe))))
+
 (add-hook 'after-make-frame-functions 'buffer-label--save-previous-buffer)
 (add-hook 'after-make-frame-functions 'buffer-label--create-posframe)
 (add-hook 'window-configuration-change-hook  'buffer-label--update-name)
 (add-hook 'window-size-change-functions 'buffer-label--reposition)
+(add-hook 'after-change-functions 'buffer-label--modified-indicator)
+(add-hook 'after-save-hook 'buffer-label--modified-indicator)
+(advice-add #'undo :after #'buffer-label--modified-indicator)
+(advice-add #'undo-tree-undo-1 :after #'buffer-label--modified-indicator)
+(advice-add #'undo-tree-redo-1 :after #'buffer-label--modified-indicator)
 
 (defun --toggle-modeline ()
   (interactive)
