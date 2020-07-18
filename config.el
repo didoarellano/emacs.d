@@ -402,3 +402,5 @@ minibuffer. Show the divider if something creates a new window."
    `(:style line :color ,(face-attribute 'modus-theme-fringe-cyan :background))))
 
 (remove-hook 'rjsx-mode-hook 'emmet-mode)
+
+(add-to-list 'auto-mode-alist '("\\.[Dd]ockerfile\\'" . dockerfile-mode))
