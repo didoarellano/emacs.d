@@ -408,3 +408,5 @@ minibuffer. Show the divider if something creates a new window."
   (revert-buffer))
 (advice-add 'dired-do-rename :after '--revert-buffer-after-dired-rename)
 (add-to-list 'auto-mode-alist '("\\.[Dd]ockerfile\\'" . dockerfile-mode))
+
+(add-to-list 'auto-mode-alist '("\\.liquid\\'" . web-mode))
