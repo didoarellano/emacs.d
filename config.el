@@ -242,28 +242,8 @@ minibuffer. Show the divider if something creates a new window."
           :desc "Toggle Buffer Label" :nv "b" 'buffer-label--toggle
           :desc "Toggle Line Numbers" :nv "l" '--toggle-line-numbers)))
 
-;; Immortal *scratch* buffer
-;; Credit to whoever wrote this. I've forgotten where I found this.
-;; "ctto" *barf*
-(defun --kill-scratch-buffer ()
-  ;; The next line is just in case someone calls this manually
-  (set-buffer (get-buffer-create "*scratch*"))
-  ;; Kill the current (*scratch*) buffer
-  (remove-hook 'kill-buffer-query-functions '--kill-scratch-buffer)
-  (kill-buffer (current-buffer))
-  ;; make a brand new *scratch* buffer
-  (set-buffer (get-buffer-create "*scratch*"))
-  (lisp-interaction-mode)
-  (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions '--kill-scratch-buffer)
-  ;; Since we killed it, don't let caller do that
-  nil)
-
-(save-excursion
-  (set-buffer (get-buffer-create "*scratch*"))
-  (lisp-interaction-mode)
-  (make-local-variable 'kill-buffer-query-functions)
-  (add-hook 'kill-buffer-query-functions '--kill-scratch-buffer))
+(use-package
+  :load-path "~/src/emacs.d/packages/immortal-scratch")
 
 (add-hook! js2-mode
   (setq js2-basic-offset 2))
