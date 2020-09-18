@@ -176,6 +176,7 @@ end of the line, then comment or uncomment the current line."
       (--shrink-modeline)
       (doom-modeline-mode 0)
       (buffer-label--ensure-proper-fringes)
+      (--window-divider-colors)
       (setq --initial-frame-initialized t))))
 
 (use-package! visual-fill-column
@@ -309,6 +310,12 @@ minibuffer. Show the divider if something creates a new window."
     (window-divider-mode toggle)))
 (add-hook 'window-configuration-change-hook '--toggle-window-divider)
 (window-divider-mode -1)
+(setq window-divider-default-bottom-width 4)
+(setq window-divider-default-right-width 4)
+(defun --window-divider-colors()
+  (set-face-foreground 'window-divider "#e0e0e0")
+  (set-face-foreground 'window-divider-first-pixel "#ffffff")
+  (set-face-foreground 'window-divider-last-pixel "#ffffff"))
 
 (add-hook 'magit-mode-hook 'hide-mode-line-mode)
 
