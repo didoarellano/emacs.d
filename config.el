@@ -239,6 +239,7 @@ minibuffer. Show the divider if something creates a new window."
 (map! (:leader
         (:desc "Toggle UI elements" :prefix "u"
           :desc "Toggle Modeline" :nv "m" '--toggle-modeline
+          :desc "Toggle Buffer Label" :nv "b" 'buffer-label--toggle
           :desc "Toggle Line Numbers" :nv "l" '--toggle-line-numbers)))
 
 ;; Immortal *scratch* buffer

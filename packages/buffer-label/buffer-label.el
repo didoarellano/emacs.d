@@ -1,5 +1,7 @@
 ;;; ~/src/emacs.d/config/buffer-label.el -*- lexical-binding: t; -*-
 
+(defvar buffer-label--visible-p nil)
+
 (defun buffer-label--frame-id (frame)
   (cdr (assq 'outer-window-id (frame-parameters frame))))
 
@@ -32,7 +34,8 @@
       (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
       (set-frame-parameter nil 'buffer-label--posframe posframe)
       (set-face-attribute 'fringe posframe :background "#444444")
-      (set-frame-parameter posframe 'right-fringe 0))))
+      (set-frame-parameter posframe 'right-fringe 0)
+      (setq buffer-label--visible-p t))))
 
 (defun buffer-label--ensure-proper-fringes ()
   (interactive)
@@ -85,5 +88,14 @@
 (advice-add #'undo :after #'buffer-label--modified-indicator)
 (advice-add #'undo-tree-undo-1 :after #'buffer-label--modified-indicator)
 (advice-add #'undo-tree-redo-1 :after #'buffer-label--modified-indicator)
+
+(defun buffer-label--toggle ()
+  (interactive)
+  (if (not buffer-label--visible-p)
+      (buffer-label--create-posframe)
+    (let ((posframe (frame-parameter (selected-frame) 'buffer-label--posframe-buffer)))
+      (message "%s" posframe)
+      (posframe-delete posframe)
+      (setq buffer-label--visible-p nil))))
 
 (provide 'buffer-label)
