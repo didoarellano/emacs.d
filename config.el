@@ -95,8 +95,8 @@ end of the line, then comment or uncomment the current line."
 
 (use-package cycle-case
   :load-path "~/src/emacs.d/packages/cycle-case"
-  :bind (:map evil-visual-state-map
-          ("~" . cycle-case)))
+  :config
+  (map! :v "~" `cycle-case))
 
 (map! "C-?" 'help-command
       :i "C-h" 'backward-delete-char    ; was help-command
