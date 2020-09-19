@@ -78,16 +78,13 @@ end of the line, then comment or uncomment the current line."
     (comment-dwim arg)))
 (map! "M-;" `--comment-dwim-line) ; was `comment-dwim'
 
-(defun --insert-char-at-eol (char)
-  "Append char at end-of-line and maintain position of point"
-  (interactive)
-  (save-excursion
-    (end-of-line)
-    (insert char)))
-(map! :map (js2-mode-map js-mode-map css-mode-map php-mode-map)
-      :ni "C-;" (lambda () (interactive) (--insert-char-at-eol ";"))
-      :map (js2-mode-map js-mode-map python-mode-map php-mode-map)
-      :ni "C-," (lambda () (interactive) (--insert-char-at-eol ",")))
+(use-package insert-char-at-eol
+  :load-path "~/src/emacs.d/packages/insert-char-at-eol"
+  :config
+  (map! :map (js2-mode-map js-mode-map css-mode-map php-mode-map)
+        :ni "C-;" (lambda () (interactive) (insert-char-at-eol ";"))
+        :map (js2-mode-map js-mode-map python-mode-map php-mode-map)
+        :ni "C-," (lambda () (interactive) (insert-char-at-eol ","))))
 
 (defun --open-terminal-here ()
   (interactive)
