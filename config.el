@@ -84,6 +84,7 @@
 (use-package open-terminal-here
   :load-path "~/src/emacs.d/packages/open-terminal-here"
   :config
+  (setq open-terminal-here--command "kitty --directory")
   (map! "<f12>" `open-terminal-here))
 
 (use-package cycle-case
