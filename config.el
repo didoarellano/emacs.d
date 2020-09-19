@@ -68,15 +68,10 @@
     (switch-to-buffer current-buffer)))
 (map! "C-S-n" `--duplicate-frame)
 
-(defun --comment-dwim-line (&optional arg)
-  "If no region is selected, current line is not blank, and we are not at the
-end of the line, then comment or uncomment the current line."
-  (interactive "*P")
-  (comment-normalize-vars)
-  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg)))
-(map! "M-;" `--comment-dwim-line) ; was `comment-dwim'
+(use-package comment-dwim-line
+  :load-path "~/src/emacs.d/packages/comment-dwim-line"
+  :config
+  (map! "M-;" `comment-dwim-line))
 
 (use-package insert-char-at-eol
   :load-path "~/src/emacs.d/packages/insert-char-at-eol"
