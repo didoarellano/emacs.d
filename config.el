@@ -81,12 +81,10 @@
         :map (js2-mode-map js-mode-map python-mode-map php-mode-map)
         :ni "C-," (lambda () (interactive) (insert-char-at-eol ","))))
 
-(defun --open-terminal-here ()
-  (interactive)
-  (call-process-shell-command
-   (concat "kitty --directory " (shell-quote-argument
-                                 default-directory)) nil 0))
-(map! "<f12>" `--open-terminal-here)
+(use-package open-terminal-here
+  :load-path "~/src/emacs.d/packages/open-terminal-here"
+  :config
+  (map! "<f12>" `open-terminal-here))
 
 (use-package cycle-case
   :load-path "~/src/emacs.d/packages/cycle-case"
