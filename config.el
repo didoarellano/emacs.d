@@ -173,21 +173,9 @@
   (interactive)
   (display-line-numbers-mode (if display-line-numbers-mode 0 1)))
 
-(defun --toggle-window-divider ()
-  "Hide window divider if there is only one window in the frame for a 'seamless'
-minibuffer. Show the divider if something creates a new window."
-  (let ((frames (frame-list))
-        (toggle -1))
-    (catch 'break
-      (while frames
-        (let ((frame (car frames)))
-          (message "%s" (length (window-list frame)))
-          (if (< 1 (length (window-list frame)))
-              (throw 'break (setq toggle 1)))
-          (setq frames (cdr frames)))))
-    (window-divider-mode toggle)))
-(add-hook 'window-configuration-change-hook '--toggle-window-divider)
-(window-divider-mode -1)
+(use-package smart-window-divider
+  :load-path "~/src/emacs.d/packages/smart-window-divider")
+
 (setq window-divider-default-bottom-width 4)
 (setq window-divider-default-right-width 4)
 (defun --window-divider-colors()
