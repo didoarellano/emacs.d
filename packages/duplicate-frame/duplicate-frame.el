@@ -2,8 +2,8 @@
 
 (defun duplicate-frame ()
   (interactive)
-  (let (new-frame (make-frame)
-                  (current-buffer (current-buffer)))
+  (let ((new-frame (make-frame))
+        (current-buffer (current-buffer)))
     (switch-to-buffer-other-frame new-frame)
     (switch-to-buffer current-buffer)))
 
