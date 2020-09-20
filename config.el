@@ -60,13 +60,10 @@
 (map! "C-s" #'save-buffer)
 (map! :map evil-window-map "o" 'delete-other-windows)    ; was doom/window-enlargen
 
-(defun --duplicate-frame ()
-  (interactive)
-  (let (new-frame (make-frame)
-                  (current-buffer (current-buffer)))
-    (switch-to-buffer-other-frame new-frame)
-    (switch-to-buffer current-buffer)))
-(map! "C-S-n" `--duplicate-frame)
+(use-package duplicate-frame
+  :load-path "~/src/emacs.d/packages/duplicate-frame"
+  :config
+  (map! "C-S-n" `duplicate-frame))
 
 (use-package comment-dwim-line
   :load-path "~/src/emacs.d/packages/comment-dwim-line"
