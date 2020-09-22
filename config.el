@@ -148,18 +148,12 @@
   :config
   (setq-default visual-fill-column-width 120))
 
-(defun --toggle-visual-wrap ()
-  (interactive)
-  (if (null visual-line-mode)
-      (progn
-        (visual-line-mode)
-        (visual-fill-column-mode))
-    (visual-line-mode 0)
-    (visual-fill-column-mode 0)))
-
-(map! :leader
-      (:prefix "b"
-        :desc "Toggle visual text wrap" "w" #'--toggle-visual-wrap))
+(use-package toggle-visual-wrap
+  :load-path "~/src/emacs.d/packages/toggle-visual-wrap"
+  :config
+  (map! :leader
+        (:prefix "b"
+          :desc "Toggle visual text wrap" "w" #'--toggle-visual-wrap)))
 
 (defun --toggle-modeline ()
   (interactive)
