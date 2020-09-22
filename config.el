@@ -273,3 +273,9 @@
 (add-to-list 'auto-mode-alist '("\\.[Dd]ockerfile\\'" . dockerfile-mode))
 
 (add-to-list 'auto-mode-alist '("\\.liquid\\'" . web-mode))
+
+(map! :leader
+      ;; Use "<leader> ps" for `+ivy/project-search'; move
+      ;; `projectile-save-project-buffers' to "<leader> pS"
+      :desc "Save all project buffers" "pS" #'projectile-save-project-buffers
+      :desc "Search project with ripgrep" "ps" #'+ivy/project-search)
