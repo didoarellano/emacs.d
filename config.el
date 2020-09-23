@@ -260,10 +260,12 @@
 
 (remove-hook 'rjsx-mode-hook 'emmet-mode)
 
-(defun --revert-buffer-after-dired-rename (&rest _)
-  "Revert dired buffer after renaming/moving files to clear orphaned icons"
-  (revert-buffer))
-(advice-add 'dired-do-rename :after '--revert-buffer-after-dired-rename)
+(defun --after-dired-rename (&rest _)
+  ;; Revert dired buffer after renaming/moving files to clear orphaned icons
+  (revert-buffer)
+  ;; Force projectile to purge old file and find new file
+  (call-interactively 'projectile-invalidate-cache))
+(advice-add 'dired-do-rename :after '--after-dired-rename)
 (add-to-list 'auto-mode-alist '("\\.[Dd]ockerfile\\'" . dockerfile-mode))
 
 (add-to-list 'auto-mode-alist '("\\.liquid\\'" . web-mode))
