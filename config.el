@@ -184,6 +184,7 @@
         (:desc "Toggle UI elements" :prefix "u"
           :desc "Toggle Modeline" :nv "m" '--toggle-modeline
           :desc "Toggle Buffer Label" :nv "b" 'buffer-label--toggle
+          :desc "Fix Buffer Label Fringe" :nv "B" 'buffer-label--ensure-proper-fringes
           :desc "Toggle Line Numbers" :nv "l" '--toggle-line-numbers)))
 
 (use-package
