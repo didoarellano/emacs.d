@@ -121,24 +121,14 @@
                      "%b")))
      icon-title-format frame-title-format)
 
-(after! display-line-numbers (--shrink-line-numbers))
-
-(defun --shrink-line-numbers ()
-  (interactive)
-  (set-face-attribute 'line-number nil :height 72 :slant 'italic :weight 'ultra-light :background "#ffffff")
-  (set-face-attribute 'line-number-current-line nil :height 72 :slant 'italic :weight 'bold :background "#ffffff"))
-
-(defun --shrink-modeline ()
-  (interactive)
-  (set-face-attribute 'mode-line nil :height 72 :box nil :weight 'semi-bold)
-  (set-face-attribute 'mode-line-inactive nil :height 72 :box nil :weight 'semi-bold))
+(use-package shrink-ui
+  :load-path "~/src/emacs.d/packages/shrink-ui")
 
 (defun --initial-frame-setup ()
   (interactive)
   (unless (boundp '--initial-frame-initialized)
     (progn
-      (--shrink-line-numbers)
-      (--shrink-modeline)
+      (shrink-ui--shrink-all)
       (doom-modeline-mode 0)
       (buffer-label--ensure-proper-fringes)
       (--window-divider-colors)
