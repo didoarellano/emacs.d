@@ -66,11 +66,12 @@
 
 (cl-defun buffer-label--reposition (&optional (frame (selected-frame)))
   (let ((posframe (frame-parameter frame 'buffer-label--posframe)))
-    (posframe--set-frame-position
-     posframe
-     (cons -1 -1)
-     (frame-width frame)
-     (frame-height frame))))
+    (when (frame-live-p posframe)
+      (posframe--set-frame-position
+       posframe
+       (cons -1 -1)
+       (frame-width frame)
+       (frame-height frame)))))
 
 (defun buffer-label--modified-indicator (&rest _)
   (when (and (buffer-file-name) (file-exists-p (buffer-file-name)))
