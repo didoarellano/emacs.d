@@ -132,7 +132,7 @@
   :config
   (map! :leader
         (:prefix "b"
-          :desc "Toggle visual text wrap" "w" #'--toggle-visual-wrap)))
+          :desc "Toggle visual text wrap" "w" #'toggle-visual-wrap)))
 
 (defun --toggle-modeline ()
   (interactive)
