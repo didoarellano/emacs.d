@@ -6,7 +6,9 @@
   (cdr (assq 'outer-window-id (frame-parameters frame))))
 
 (cl-defun buffer-label--name-string (&optional (buffer (current-buffer)))
-  (concat " " (buffer-name buffer)))
+  ;; Use an EN QUAD (U+2000) because a regular space breaks something and the
+  ;; buffer name doesn't appear.
+  (concat " " (buffer-name buffer)))
 
 (cl-defun buffer-label--save-previous-buffer
     (&optional (frame (selected-frame)) &optional (buffer (current-buffer)))
