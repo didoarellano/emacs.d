@@ -158,7 +158,7 @@
 
 (add-hook 'magit-mode-hook 'hide-mode-line-mode)
 
-(unmap! doom-leader-map "u")
+(undefine-key! doom-leader-map "u")
 (map! (:leader
         (:desc "Toggle UI elements" :prefix "u"
           :desc "Toggle Modeline" :nv "m" '--toggle-modeline
