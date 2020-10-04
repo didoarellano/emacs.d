@@ -271,3 +271,17 @@
       ;; `projectile-save-project-buffers' to "<leader> pS"
       :desc "Save all project buffers" "pS" #'projectile-save-project-buffers
       :desc "Search project with ripgrep" "ps" #'+ivy/project-search)
+
+(use-package mini-frame
+  :hook (--initial-frame . mini-frame-mode)
+  :init
+  (setq mini-frame-resize-max-height 12)
+  (setq mini-frame-show-parameters
+        '((top . 0)
+          (width . 0.6)
+          (left . 0)
+          (internal-border-width . 4)
+          (drag-internal-border . nil)
+          (background-color . "#fefefe")))
+  :config
+  (set-face-background 'internal-border "#eeeeee" mini-frame-frame))
