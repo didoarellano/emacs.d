@@ -190,24 +190,6 @@
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-css-indent-offset 2))
 
-
-(use-package! ivy-posframe
-  :config
-  (setq ivy-posframe-border-width 2)
-  (set-face-attribute 'ivy-posframe nil :background "#ffffff")
-  (setq ivy-posframe-parameters
-        '((left-fringe . 4)
-          (right-fringe . 4))))
-
-(use-package! which-key-posframe
-  :after which-key
-  :config
-  (setq which-key-posframe-border-width 2)
-  (set-face-attribute 'which-key-posframe-border nil :background (face-attribute 'ivy-posframe-border :background))
-  (setq which-key-posframe-parameters
-        '((left-fringe . 4)
-          (right-fringe . 4)))
-  (which-key-posframe-mode))
 (use-package! modus-operandi-theme
   :init
   (setq modus-operandi-theme-slanted-constructs t)
