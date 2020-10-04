@@ -1,4 +1,10 @@
 ;;; ~/src/emacs.d/config/buffer-label.el -*- lexical-binding: t; -*-
+;;
+;; Author: Dido Arellano <didoarellano@gmail.com>
+;; Version: 1.0
+;; Package-Requires: ((posframe "0.8.0"))
+
+(require 'posframe)
 
 (defvar buffer-label--visible-p nil)
 
