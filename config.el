@@ -3,6 +3,16 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+(defvar --initial-frame-hook nil)
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (defun --initial-frame-hook--run-hook (frame)
+                (with-selected-frame frame
+                  (run-hooks '--initial-frame-hook))
+                (remove-hook 'after-make-frame-functions #'--initial-frame-hook--run-hook)))
+  (add-hook 'emacs-startup-hook
+            (defun --initial-frame-hook--run-hook ()
+              (run-hooks '--initial-frame-hook))))
 
 (use-package buffer-label
   :load-path "~/src/emacs.d/packages/buffer-label")
