@@ -239,11 +239,11 @@
   (call-interactively 'projectile-invalidate-cache))
 (advice-add 'dired-do-rename :after '--after-dired-rename)
 
-(defun --after-direct-create-directory (&rest _)
+(defun --after-dired-create-directory (&rest _)
   ;; Revert dired buffer after creating a new directory to force sort and icon
   ;; to appear
   (revert-buffer))
-(advice-add 'dired-create-directory :after '--after-direct-create-directory)
+(advice-add 'dired-create-directory :after '--after-dired-create-directory)
 (add-to-list 'auto-mode-alist '("\\.[Dd]ockerfile\\'" . dockerfile-mode))
 
 (add-to-list 'auto-mode-alist '("\\.liquid\\'" . web-mode))
