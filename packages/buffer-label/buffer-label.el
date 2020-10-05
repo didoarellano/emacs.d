@@ -70,6 +70,7 @@
             (with-current-buffer posframe-buffer
               (posframe--insert-string buffer-name-string nil)
               (posframe-refresh posframe-buffer)
+              (buffer-label--ensure-proper-fringes)
               (run-at-time 0.3 nil 'buffer-label--reposition)))))))
 
 (cl-defun buffer-label--reposition (&optional (frame (selected-frame)))
