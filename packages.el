@@ -49,3 +49,4 @@
 (package! modus-operandi-theme)
 (package! visual-fill-column)
 (package! mini-frame)
+(package! posframe)
