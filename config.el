@@ -122,13 +122,13 @@
      icon-title-format frame-title-format)
 
 (use-package shrink-ui
-  :load-path "~/src/emacs.d/packages/shrink-ui")
+  :load-path "~/src/emacs.d/packages/shrink-ui"
+  :init (add-hook '--initial-frame-hook 'shrink-ui--shrink-all))
 
 (defun --initial-frame-setup ()
   (interactive)
   (unless (boundp '--initial-frame-initialized)
     (progn
-      (shrink-ui--shrink-all)
       (doom-modeline-mode 0)
       (--window-divider-colors)
       (setq --initial-frame-initialized t))))
