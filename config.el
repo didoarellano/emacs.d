@@ -15,7 +15,8 @@
               (run-hooks '--initial-frame-hook))))
 
 (use-package buffer-label
-  :load-path "~/src/emacs.d/packages/buffer-label")
+  :load-path "~/src/emacs.d/packages/buffer-label"
+  :init (add-hook '--initial-frame-hook 'buffer-label--initialize))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -129,7 +130,6 @@
     (progn
       (shrink-ui--shrink-all)
       (doom-modeline-mode 0)
-      (buffer-label--ensure-proper-fringes)
       (--window-divider-colors)
       (setq --initial-frame-initialized t))))
 
