@@ -29,21 +29,22 @@
     ;; 'save-excursion or something? Or is it safe to assume we always want new
     ;; frames to have input focus?
     (select-frame frame)
-    (let ((posframe (posframe-show
-                     posframe-name
-                     :parent-frame frame
-                     :string (buffer-label--name-string)
-                     :left-fringe 4
-                     :right-fringe 0
-                     :background-color "#ffffff"
-                     :foreground-color "#444444"
-                     :font (font-spec :size 11 :weight 'semi-bold)
-                     :position (cons -1 -1))))
-      (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
-      (set-frame-parameter nil 'buffer-label--posframe posframe)
-      (set-face-attribute 'fringe posframe :background "#444444")
-      (set-frame-parameter posframe 'right-fringe 0)
-      (setq buffer-label--visible-p t))))
+    (unless (minibufferp (current-buffer))
+      (let ((posframe (posframe-show
+                       posframe-name
+                       :parent-frame frame
+                       :string (buffer-label--name-string)
+                       :left-fringe 4
+                       :right-fringe 0
+                       :background-color "#ffffff"
+                       :foreground-color "#444444"
+                       :font (font-spec :size 11 :weight 'semi-bold)
+                       :position (cons -1 -1))))
+        (set-frame-parameter nil 'buffer-label--posframe-buffer posframe-name)
+        (set-frame-parameter nil 'buffer-label--posframe posframe)
+        (set-face-attribute 'fringe posframe :background "#444444")
+        (set-frame-parameter posframe 'right-fringe 0)
+        (setq buffer-label--visible-p t)))))
 
 (defun buffer-label--ensure-proper-fringes ()
   (interactive)
