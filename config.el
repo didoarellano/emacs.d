@@ -254,6 +254,10 @@
       :desc "Save all project buffers" "pS" #'projectile-save-project-buffers
       :desc "Search project with ripgrep" "ps" #'+ivy/project-search)
 
+
+(setq initial-frame-alist (append '((minibuffer . nil)) initial-frame-alist))
+(setq default-frame-alist (append '((minibuffer . nil)) default-frame-alist))
+
 (use-package mini-frame
   :hook (--initial-frame . mini-frame-mode)
   :init
